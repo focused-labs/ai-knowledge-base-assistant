@@ -3,7 +3,7 @@ import csv
 from assistant import Assistant
 
 
-def run_accuracy_test():
+def run_memory_test():
     assistant = Assistant("human")
 
     with open('memory_test_questions.txt', 'r') as file:
