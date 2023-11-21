@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>What To Do When LLMs Hallucinate</title>
+<link href="https://focusedlabs.io/hubfs/focusedlabs-favicon.png" rel="shortcut icon"/>
+<meta content="Solving LLM hallucinations with incremental changes" name="description"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951526/1686607647092/FocusedLabs_November_2022/css/templates/_blog.min.css" rel="stylesheet" type="text/css"/>
+<script>
+      var show = localStorage.getItem('show');
+      if(show === 'true'){
+        document.documentElement.classList.add('dark');
+      } 
+    </script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<meta content="Solving LLM hallucinations with incremental changes" property="og:description"/>
+<meta content="What To Do When LLMs Hallucinate" property="og:title"/>
+<meta content="Solving LLM hallucinations with incremental changes" name="twitter:description"/>
+<meta content="What To Do When LLMs Hallucinate" name="twitter:title"/>
+<style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429468540/1694708451506/FocusedLabs_November_2022/css/main.min.css" rel="stylesheet"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951529/1690380436362/FocusedLabs_November_2022/css/theme-overrides.min.css" rel="stylesheet"/>
+<link href="//fonts.googleapis.com/css2?family=DM+Mono&amp;display=swap" rel="stylesheet"/>
+<style>
+</style>
+<script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate"
+  },
+  "author" : {
+    "name" : "Sarah Kainec",
+    "url" : "https://focusedlabs.io/blog/author/sarah-kainec",
+    "@type" : "Person"
+  },
+  "headline" : "What To Do When LLMs Hallucinate",
+  "datePublished" : "2023-08-21T13:51:45.842Z",
+  "dateModified" : "2023-08-21T13:51:45.841Z",
+  "publisher" : {
+    "name" : "Focused Labs",
+    "logo" : {
+      "url" : "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FL%20Logo%20Mode=Light.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://focusedlabs.io/hubfs/AbstractColors.jpg" ]
+}
+</script>
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-3W4SF8W0DX');
+</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3W4SF8W0DX"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFKNBDPP');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+<!-- /Added by GoogleTagManager integration -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFKNBDPP');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+window.__lo_site_id = 330223;
+
+	(function() {
+		var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+		wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  })();
+	</script>
+<link href="https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate?hs_amp=true" rel="amphtml"/>
+<meta content="https://focusedlabs.io/hubfs/AbstractColors.jpg#keepProtocol" property="og:image"/>
+<meta content="6000" property="og:image:width"/>
+<meta content="4000" property="og:image:height"/>
+<meta content="https://focusedlabs.io/hubfs/AbstractColors.jpg#keepProtocol" name="twitter:image"/>
+<meta content="https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<link href="https://focusedlabs.io/blog/rss.xml" rel="alternate" type="application/rss+xml"/>
+<meta content="focusedlabs.io" name="twitter:domain"/>
+<meta content="@BuildWithFocus" name="twitter:site"/>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<meta content="en" http-equiv="content-language"/>
+<meta content="HubSpot" name="generator"/></head>
+<body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- /Added by GoogleTagManager integration -->
+<div class="body-wrapper hs-content-id-130033111967 hs-blog-post hs-blog-id-93617369930">
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/header.html"><header class="header">
+<a class="header__skip" href="#main-content">Skip to content</a>
+<div class="header_container">
+<div class="container">
+<div class="header_row">
+<div class="header_logo">
+<div class="light_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_light_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_light_logo_hs_logo_widget" style=""><a href="/" id="hs-link-light_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="dark_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_dark_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_dark_logo_hs_logo_widget" style=""><a href="/" id="hs-link-dark_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/light_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="mobile_trigger">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</div>
+</div>
+<div class="header_menu">
+<div class="custom_menu_primary">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93449046703" data-sitemap-name="default" id="hs_menu_wrapper_menu" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact</a></li>
+</ul>
+</div></span>
+</div>
+</div>
+<div class="mb_menu_wrp">
+<div class="mb_menu">
+</div>
+<div class="mode_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mb_menu_imge_wrp">
+<div class="mb_menu_imge">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_Menu_bg" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_Menu_bg_" style=""><img alt="Accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/menu_bg.png" style="width:0px;border-width:0px;border:0px;" title="Accent" width="0"/></span></div>
+</div>
+</div>
+<div class="header_right">
+<div class="mode_toggle mob_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header></div>
+<main class="body-container-wrapper" id="main-content">
+<div class="body-container body-container--blog-post">
+<div class="blog_post_wrapper">
+<div class="post_inner">
+<div class="post_bnr_wrp">
+<div class="post_bnr">
+<a href="https://focusedlabs.io/blog">
+<svg class="mb_back" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path><path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+<p>
+                Blog
+              </p>
+</a>
+<div class="post_bnr_icon">
+<a href="https://focusedlabs.io/blog">
+<svg fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</a>
+<div class="post_bnr_title">
+<h1><span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="text" id="hs_cos_wrapper_name" style="">What To Do When LLMs Hallucinate</span></h1>
+</div>
+</div>
+<div class="hs_date_t2">
+              08.21.2023 |
+              
+              
+              ChatGPT
+              
+              AI
+              
+              LLM
+              
+               | <a href="https://focusedlabs.io/blog/author/sarah-kainec">
+  Sarah Kainec
+</a>
+</div>
+</div>
+</div>
+<div class="post_featured_image">
+<img alt="What To Do When LLMs Hallucinate" src="https://focusedlabs.io/hubfs/AbstractColors.jpg"/>
+</div>
+<div class="blog_post_content">
+<div class="blog_post_body">
+<span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text" id="hs_cos_wrapper_post_body" style=""><p> </p>
+<!--more-->
+<p>Chatbots are the cool new thing nowadays. ChatGPT went viral and has given this area of AI research a huge boost in the public eye. Chatbots like ChatGPT run on at least one Large Language Model (LLM) to produce text a human can understand. They use statistics to figure out what words to string together to answer questions or complete tasks.</p>
+<p>Since LLMs use math to figure out how to answer your questions, you can imagine that sometimes they are wrong. Context or meaning can get lost in translation, especially if you ask questions using incomplete thoughts or sentence fragments. They don’t know they're wrong, but they will give you pretty convincing answers that seem right. Those convincing but wrong answers are called hallucinations.</p>
+<p>So how do we deal with hallucinations when they occur? In short: we loaded documentation from Focused Labs’ Notion/wiki, we gave the LLM the information, and then we asked it questions about the info we loaded. We’re not training the LLM, but rather giving it more information so it can answer questions about Focused Labs. The chatbot's accuracy varied; it was accurate sometimes and inaccurate at other times (but boy it sounded super convincing). So, how did we go about trying to solve this issue?</p>
+<h3>Iterate on Small Changes</h3>
+<p>To gauge the accuracy of our chatbot, we came up with a list of both specific and broad questions to ask the model. This set of questions enables us to determine if we are improving as we make small changes. We ranked each answer from our chatbot on a scale of 1-5 for correctness.</p>
+<p>When an LLM tries to summarize the information, sometimes it gives partially correct answers. For instance, we asked ‘What are the Focused Labs’ values?’ The chatbot correctly answered “Listen First”, “Learn Why” and “Love Your Craft.” However, the model also returned three additional concepts it interpreted as values. We’d rate an answer like this a 4. The LLM had the right answer, but it gave additional information.</p>
+<p>Here is an example of one our test questions. It's close, but just a little off. </p>
+<div>
+<pre>| What are the Focused Labs core values?<br/><br/>Focused Values: Love your Craft, Listen First, Learn Why, Build, Deploy and Learn. <br/><code><br/></code></pre>
+<div>
+<div><svg height="20px" viewbox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"> </path></svg></div>
+</div>
+<p>Asking the same questions repeatedly can become monotonous and repetitive. Using our set of questions provided a scientific method to evaluate the effectiveness of the changes we made. If the answers improved, we would keep the change. Otherwise, we would back it out or iterate on it until it proved worthwhile.</p>
+<p>Small changes can drastically change answers, so it’s better to do a little at once rather than implement a bunch of changes and hope they all improve the results. Now, let’s talk about what we can change when we create a chatbot to help improve results and eliminate hallucinations. The majority of these items are low-hanging fruit, so pretty easy to implement.</p>
+<h3>Provide More Data on the Topic </h3>
+<p>LLMs excel at processing written language only when the language describes complete thoughts rather than incomplete ones. If the documents consumed are poorly formed/formatted, or the content consists of incomplete thoughts, then the LLM might have trouble interpreting the content of the document uploaded.</p>
+<p>For instance, we have a page on our website with all our employees’ names and some of their interests. When we asked the LLM about this page, it struggles. The LLM has trouble interpreting the data on the page because it is not formed in a way it can understand.</p>
+<p>To improve this, we have a couple of options:</p>
+<ol>
+<li>
+<p>Clean up the data.</p>
+</li>
+<li>
+<p>Give it more information on the topic in question so it has more data to craft a response.</p>
+</li>
+</ol>
+<p>We’ll talk about cleaning in a minute. Giving the LLM more information about a topic can help it make sense of the data it has already consumed. It’s like writing a research paper… you find lots of information to help reinforce a given point. The LLM will fill in any blanks if it has additional information. We’re doing the same with the LLM so it can better understand what we’ve given it.</p>
+<h3>Clean Your Data</h3>
+<p><img alt="Robot Cleaning" height="1026" loading="lazy" sizes="(max-width: 1028px) 100vw, 1028px" src="https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=1028&amp;height=1026&amp;name=Robot%20Cleaning.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=514&amp;height=513&amp;name=Robot%20Cleaning.png 514w, https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=1028&amp;height=1026&amp;name=Robot%20Cleaning.png 1028w, https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=1542&amp;height=1539&amp;name=Robot%20Cleaning.png 1542w, https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=2056&amp;height=2052&amp;name=Robot%20Cleaning.png 2056w, https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=2570&amp;height=2565&amp;name=Robot%20Cleaning.png 2570w, https://focusedlabs.io/hs-fs/hubfs/Robot%20Cleaning.png?width=3084&amp;height=3078&amp;name=Robot%20Cleaning.png 3084w" style="height: auto; max-width: 100%; width: 1028px;" width="1028"/></p>
+<p>For the model to understand the data we’re giving it, it’s a good idea to tidy up a little bit. Many resources suggest a lot of different types of cleaning, but we took a basic approach and <em>still</em> improved the accuracy of the LLM’s responses. Removing punctuation (e.g. asterisks, trademarks ™, and line breaks) can help.</p>
+<p>For our Notion data set, we also removed emojis. This gave us the biggest boost to response accuracy. The models don’t know how to interpret emojis so it can confuse the model. For example, we asked the LLM when the company onsite event takes place. The model gave us the start date but not the end date because there happened to be emojis involved. We obtained the full date range for the event after removing them.</p>
+<p>When cleaning data, it's important to ensure the meaning of the data does not change. Some sources suggest making the dataset lowercase, which is not uncommon when training an LLM. However, we found it changed the meaning of the data. Proper nouns ended up being ignored and it negatively impacted our results. To better understand how a small change can affect your results, it's important to take small steps and evaluate the impact of each change.</p>
+<h3>Better Prompt Engineering</h3>
+<p>Instructing the LLM on how to answer questions can lead to better results. This is how we can get the LLM to use “reasoning”. This process is called prompt engineering. </p>
+<p>We take the user’s question and then wrap a prompt around it. Something as simple as “Think this through step by step when you answer the following question: &lt;the user’s question goes here&gt;” can yield better results than giving it the question alone.</p>
+<div>
+<pre>"""<br/>You are a helpful virtual assistant for the employees of {company_name}. Focused Labs is a boutique software consulting firm that specializes in enterprise application development and digital transformation. Employees will ask you Questions about the inner workings of the company. Questions could range in areas such as process, procedure, policy, and culture. Use only context Focused Labs Domain Data to provide answers. <br/><br/>Think this through step by step. <br/><br/>If you don't know the answer, just say "Hmm, I'm not sure please contact customer support at {company_email) for further assistance." Don't try to make up an answer.<br/>"""</pre>
+<p>Depending on the chatbot being built, you can use a variety of prompt engineering styles:</p>
+<ul>
+<li><strong>Few Shot Prompting:</strong> Giving examples to the LLM on how you want questions answered will allow it to create better results. The model can gain a better understanding of the task by studying the examples.</li>
+<li><strong>Instructor-Based Prompting:</strong> Asking the LLM to assume a persona will also yield better results. For instance, if you ask the chatbot to answer a question about a coding project, you’ll probably want it to give deep technical answers to a software engineer but perhaps a more summarized version for a project manager. To do this, you can ask the user to input their role in a company and use the role to inform the LLM on how to answer the question.</li>
+<li><strong>Chain of Thought:</strong> Asking the LLM to think things through step by step before answering the question. This forces it to reason its response as it comes up with an answer.</li>
+<li><strong>Tree of Thought:</strong> This particular style of prompting allows the model to reason out answers and correct errors in the response. To arrive at the final answer, you can ask the LLM to generate three different answers, compare them, and use the data embedded in the model to determine the most accurate one. This helps with logic-based questions.</li>
+<li><strong>Society of Mind:</strong> So if one LLM can get to a response and correct its errors using reason as in Tree of Thought, what happens if we add another LLM into the mix? For instance, you could ask Bard and ChatGPT the same question, then funnel those answers along with the question to yet another LLM and it will often correct any mistakes made. Using the Society of Mind prompting is more powerful than Tree of Thought prompting, but it also requires more resources to run.</li>
+</ul>
+<p>Of all the items listed in this article, experimenting with different prompt engineering styles can be one of the more time-consuming due to the amount of necessary experimentation. Using different prompt engineering styles can have a significant impact on the results returned by the LLM.</p>
+<h3>Test Different LLM Settings</h3>
+<p>When creating an LLM there are a lot of levers you can pull to yield better results. You can change configuration settings like the temperature or the top k results returned. Let’s go into a few different settings and talk about those:</p>
+<ul>
+<li><strong>Temperature:</strong> This setting tells the LLM how creative it can be with its responses. The scale is set from 0 to 5, where 0 gives the same output every time because it's more strict. 5 could give you some pretty fantastical answers. For our chatbot, we’ve used 0 and 0.5 for the most part. If the temperature gets too high, the LLM can stray off-topic and enter the realm of fantasy. Maybe you want that if you’re building an LLM to create Dungeons and Dragons characters, but for a business setting, I’d set it no higher than 1 for the best results.</li>
+<li><strong>Limiting the Number of Tokens:</strong> When querying an LLM, you can limit the number of tokens returned. Tokens are the way a model interprets words, and limiting this number will force the model to choose more statistically accurate results when generating a response.</li>
+<li><strong>Top K:</strong> The LLM picks the top k tokens sorted by probability to determine what token comes next in the response, where k is the number of tokens to return as options. If the top k is set to 1, it’s always going to choose the top-ranked token. If it’s set to higher than 1, then it’ll look at multiple tokens before making a decision of which to choose. A pretty common value for this is 3.</li>
+<li><strong>Swapping out the Model:</strong> Different LLMs are good at different things. OpenAI initially had a model known as Codex, which excelled at interpreting code-related topics (code interpretation capabilities are coming for the GPT 4 model). Whereas some models are better for a chatbot, others might be more optimized to translate from one language to another. If you’re building an app with multiple purposes, then you might want to investigate which models suit each purpose the best. To achieve the best results for a given task, it is common practice to utilize multiple models to perform different functions.</li>
+</ul>
+<h3>Cite the Model's Sources</h3>
+<p>Establishing trust with users who interact with a chatbot is crucial. To ensure transparency, it's best to cite the documents used to inform an answer since LLMs can be wrong on occasion. This allows the user to go review sources and verify the results are accurate. Citing the sources allows users to verify the information returned and build trust, although not everyone will check them.</p>
+<p><img alt="Screen Shot 2023-08-14 at 4.01.35 PM" height="1356" loading="lazy" sizes="(max-width: 2068px) 100vw, 2068px" src="https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=2068&amp;height=1356&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=1034&amp;height=678&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png 1034w, https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=2068&amp;height=1356&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png 2068w, https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=3102&amp;height=2034&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png 3102w, https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=4136&amp;height=2712&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png 4136w, https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=5170&amp;height=3390&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png 5170w, https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png?width=6204&amp;height=4068&amp;name=Screen%20Shot%202023-08-14%20at%204.01.35%20PM.png 6204w" style="height: auto; max-width: 100%; width: 2068px;" width="2068"/></p>
+<h3>Audit User Input</h3>
+<p>Once a chatbot is released for production, it's important to assess whether the user perceives its responses as accurate. One way is to add a feedback mechanism to let you know what is going on. Whether that be a way to flag the response or a way to contact customer support.</p>
+<p>This feedback can let you know what issues there might be with the LLM. If the chatbot repeatedly answers a specific topic incorrectly, the data for that topic can be examined. Perhaps it has malformed data and needs to be cleaned up, or more information needs to be embedded for the LLM to reference. User input will allow us to focus on any particular dataset that needs to be modified.</p>
+<h3>Acceptance: LLMs Are Occasionally Wrong</h3>
+<p>I found it interesting in the AI community most people do not worry about their chatbot hallucinating once they have it to a point where it’s answering the majority of questions correctly. The AI community understands that models aren’t perfect and that they occasionally make mistakes. It is impossible to guarantee that the chatbot's answers will be correct 100% of the time.</p>
+<p>Does the general public know this as well?</p>
+<p><img alt="ChatGPT" height="914" loading="lazy" sizes="(max-width: 1634px) 100vw, 1634px" src="https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=1634&amp;height=914&amp;name=ChatGPT.png" srcset="https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=817&amp;height=457&amp;name=ChatGPT.png 817w, https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=1634&amp;height=914&amp;name=ChatGPT.png 1634w, https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=2451&amp;height=1371&amp;name=ChatGPT.png 2451w, https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=3268&amp;height=1828&amp;name=ChatGPT.png 3268w, https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=4085&amp;height=2285&amp;name=ChatGPT.png 4085w, https://focusedlabs.io/hs-fs/hubfs/ChatGPT.png?width=4902&amp;height=2742&amp;name=ChatGPT.png 4902w" style="height: auto; max-width: 100%; width: 1634px;" width="1634"/></p>
+<p>ChatGPT informs the user that it may provide inaccurate answers, and welcomes feedback. Perhaps developers should add copy to let users know the chatbot isn't perfect. However, that is a decision each development team should have to make for themselves.</p>
+<h3>The Levers to Eliminate Hallucinations</h3>
+<p>Numerous techniques exist to tackle and mitigate hallucinations. Providing more data in embeddings, cleaning the data, prompt engineering, citing sources, LLM settings, and gathering user input will allow you to gain a bit more control over how your chatbot responds.</p>
+<p>When iterating on changes, make sure to take small steps so you know what changes are most effective for the application. Although there is still the possibility of inaccurate responses, we can expect fewer concerns in the future as models continue to advance.</p>
+<p>Prompt engineering currently serves as a great tool. However, models like GPT4 are being trained to create their own prompts. Eventually prompt engineering will become a thing of the past. AI Technology is rapidly evolving and changing every day. Experimentation is the key to creating successful AI solutions. Embrace the tools provided, continue researching new technology as it comes out, and you’ll be on your way to creating an AI solution you’re happy with.</p>
+<h3>What’s Next</h3>
+<p><span>If you have an AI development project and would like some expert help from our Focused Labs consultants, complete our </span><span><a href="https://bit.ly/43sb8d7" rel="noopener">Contact Us form</a><a href="https://bit.ly/43sb8d7" rel="noopener"> </a></span><span>and we will have a human chat.</span></p>
+<p> </p>
+</div>
+</div></span>
+</div>
+</div>
+<div class="post_share">
+<div class="post_share_title">
+<p>Share</p>
+</div>
+<div class="post_share_icons">
+<div class="post_share_links">
+<a href="http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate" onclick="window.open('http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6652 0.491943H1.32043C0.863495 0.492218 0.493073 0.862824 0.493164 1.31995V14.6647C0.493439 15.1216 0.864044 15.492 1.32117 15.4919H8.50586V9.69116H6.55762V7.42065H8.50586V5.74973C8.50586 3.81201 9.68881 2.75732 11.4173 2.75732C12.2452 2.75732 12.9567 2.81903 13.1641 2.84659V4.87183H11.9721C11.0317 4.87183 10.8496 5.3187 10.8496 5.97458V7.42065H13.0981L12.8052 9.69116H10.8496V15.4919H14.6652C15.1224 15.492 15.4931 15.1215 15.4932 14.6643C15.4932 14.6642 15.4932 14.6641 15.4932 14.6639V1.31921C15.493 0.862274 15.1223 0.491852 14.6652 0.491943Z" fill="#2B2340" fill-opacity="0.8"></path>
+</svg>
+</a>
+<a href="javascript:;" onclick="window.open('https://twitter.com/intent/tweet?url=https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate&amp;text=What To Do When LLMs Hallucinate','newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self" title="twitter">
+<svg height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path class='text-text text-opacity-80 "fill-current"' d="M15.5278 3.1399C15.4489 3.16295 15.37 3.1844 15.2911 3.20438C14.809 3.32613 14.7646 3.16548 15.1137 2.81104C15.2701 2.65221 15.4082 2.47946 15.5282 2.29288C15.797 1.87449 15.5638 1.69203 15.1063 1.88747C14.9432 1.95719 14.7773 2.0204 14.6091 2.07676C14.1377 2.23505 13.4688 1.99627 13.0488 1.72988C12.5186 1.39362 11.916 1.22559 11.2408 1.22559C10.295 1.22559 9.48891 1.55913 8.82196 2.2257C8.15522 2.89261 7.82167 3.69896 7.82167 4.64448C7.82167 4.77379 7.82906 4.90508 7.84366 5.03818C7.86761 5.25484 7.50272 5.4119 7.01032 5.34236C5.94517 5.19198 4.93317 4.86923 3.97412 4.37447C3.02298 3.88386 2.18352 3.26648 1.45589 2.52228C1.10807 2.1666 0.637649 2.19724 0.507779 2.67737C0.429969 2.96518 0.39127 3.26451 0.39127 3.57539C0.39127 4.16126 0.52885 4.70464 0.804069 5.20551C0.940943 5.45478 1.10124 5.68044 1.28532 5.88235C1.59494 6.22222 1.54756 6.41943 1.11657 6.29859C0.685765 6.17776 0.370052 5.99836 0.370052 6.01007C0.370052 6.02178 0.370052 6.03132 0.370052 6.03132C0.370052 6.85674 0.629232 7.58201 1.14792 8.20643C1.46742 8.59113 1.83861 8.8883 2.26133 9.0976C2.70709 9.3184 2.91474 9.44156 2.66547 9.47382C2.51509 9.49327 2.3638 9.50298 2.21162 9.50298C2.10862 9.50298 2.00056 9.4983 1.88782 9.48877C1.70951 9.47364 1.67746 9.84518 1.94779 10.2627C2.16265 10.5944 2.43766 10.8864 2.77268 11.1385C3.11344 11.3952 3.48068 11.5794 3.87382 11.6916C4.35219 11.828 4.44819 12.0764 4.02167 12.3321C2.96627 12.9654 1.79829 13.282 0.517932 13.282C0.373672 13.282 0.236063 13.2787 0.104604 13.2724C-0.123588 13.2615 0.0295014 13.4624 0.470022 13.6931C1.84656 14.4141 3.33728 14.7743 4.94238 14.7743C6.15594 14.7743 7.29563 14.5822 8.36131 14.1976C9.42661 13.8131 10.337 13.2978 11.092 12.6521C11.847 12.0065 12.4981 11.2639 13.0451 10.424C13.5919 9.58423 13.9993 8.70746 14.2677 7.79381C14.5356 6.87996 14.6698 5.96431 14.6698 5.04686C14.6698 4.9642 14.6691 4.88998 14.6679 4.82462C14.6653 4.70178 14.9902 4.36929 15.353 4.0291C15.5167 3.87548 15.6728 3.71427 15.822 3.54517C16.151 3.17178 16.0053 3.00068 15.5278 3.1399Z"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect height="16" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self"><svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path class='text-text text-opacity-80 "fill-current"' d="M15.9968 15.9995V15.9988H16.0008V10.1308C16.0008 7.26016 15.3828 5.04883 12.0268 5.04883C10.4135 5.04883 9.33082 5.93416 8.88882 6.77349H8.84216V5.31683H5.66016V15.9988H8.97349V10.7095C8.97349 9.31683 9.23749 7.97016 10.9622 7.97016C12.6615 7.97016 12.6868 9.55949 12.6868 10.7988V15.9995H15.9968Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M0.264648 5.31738H3.58198V15.9994H0.264648V5.31738Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M1.92133 0C0.860667 0 0 0.860667 0 1.92133C0 2.982 0.860667 3.86067 1.92133 3.86067C2.982 3.86067 3.84267 2.982 3.84267 1.92133C3.842 0.860667 2.98133 0 1.92133 0V0Z"></path></g><defs><clippath id="clip0"><rect fill="white" height="16" width="16"></rect></clippath></defs></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cm_rp_wrp">
+<div class="cm_rp_inner">
+<div class="cm_rp_header">
+<div class="cm_rp_title">
+<p>Read More</p>
+</div>
+<div class="cm_rp_subtitle">
+<h2>Related Posts</h2>
+</div>
+</div>
+<div class="cm_rp_list">
+<a href="https://focusedlabs.io/blog/top-6-things-i-learned-while-building-a-domain-specific-custom-ai-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot" src="https://focusedlabs.io/hubfs/AI-books.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.19.2023
+                
+                
+                | Testing
+                
+                | AI
+                
+                | chatbot
+                
+                | Llama Index
+                
+                | Llangchain
+                
+                | vector embeddings
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/architecture-domain-specific-custom-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Basic Architecture of a Domain Specific Custom AI Chatbot" src="https://focusedlabs.io/hubfs/Architecture.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.16.2023
+                
+                
+                | AI
+                
+                | LLM
+                
+                | Architecture
+                
+                | Langchain
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Basic Architecture of a Domain Specific Custom AI Chatbot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/highlights-from-session-with-cmo-of-lettuce">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Strengthening Customer Loyalty with a Digitized Dining Experience" src="https://focusedlabs.io/hubfs/RLC%20Ad%20Web.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">06.13.2023
+                
+                
+                | Mobile App Development
+                
+                 | Focused Labs
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Strengthening Customer Loyalty with a Digitized Dining Experience
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/focused-on-culture">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Focused On: Culture" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/86b08b318cb4c6457a6e7935c41d2a9727e64d3f-1000x420.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">11.19.2020
+                
+                
+                | Culture
+                
+                 | Ryan Taylor
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Focused On: Culture
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/lightning-talks-the-best-activity-youre-not-doing-yet">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Lightning Talks: the best activity you’re not doing yet" src="https://focusedlabs.io/hubfs/Untitled%20design-1.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.03.2023
+                
+                
+                | Culture
+                
+                 | Peter Swartwout
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Lightning Talks: the best activity you’re not doing yet
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Small Steps Towards Effective Prompt Engineering" src="https://focusedlabs.io/hubfs/Prompt%20Engineering.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.22.2023
+                
+                
+                | AI
+                
+                | LLM
+                
+                | Prompt Engineering
+                
+                 | Peter Swartwout
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Small Steps Towards Effective Prompt Engineering
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/6-tips-to-improving-your-chatgpt-coding-experience">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="6 Tips to Improving Your ChatGPT Coding Experience" src="https://focusedlabs.io/hubfs/Marketing%20Illustration.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">05.30.2023
+                
+                
+                | ChatGPT
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  6 Tips to Improving Your ChatGPT Coding Experience
+                </h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/footer.html"><footer class="footer">
+<div class="ft_img_left_wrp">
+<div class="ft_img_left_inner">
+<div class="ft_img_left">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_left_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_left_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_left_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="ft_img_top">
+<div class="ft_img_top_inner">
+<div class="ft_img_top_img">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_top_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_top_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/mobile_animated_imge.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="dnd-section">
+<div class="hs_footer">
+<div class="hs_ft_inner">
+<div class="hs_ft_col">
+<div class="hs_ft_logo">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_logo_hs_logo_widget" style=""><a href="/" id="hs-link-logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="FocusedLabs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="FocusedLabs" width="0"/></a></span>
+</div>
+</div>
+<div class="footer_info">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_information" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_information_" style=""><p>433 W Van Buren St<br \=""/>
+Suite 1100-B<br \=""/>
+Chicago, IL 60607<br \=""/>
+<a href="tel:+17083038088">(708) 303-8088</a>
+</p></span></div>
+</div>
+<div class="footer_info_link">
+<a href="mailto:work@focusedlabs.io">work@focusedlabs.io</a>
+</div>
+</div>
+<div class="hs_ft_col ft_2">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_1" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93462616833" data-sitemap-name="default" id="hs_menu_wrapper_menu_1" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">COMPANY</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io" role="menuitem">Home</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact Us</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/privacy-policy" role="menuitem">Privacy Policy</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="hs_ft_col ft_3">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_2" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93463743912" data-sitemap-name="default" id="hs_menu_wrapper_menu_2" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">EXPLORE</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/case-studies" role="menuitem">Case Studies</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="fooer_sp"></div>
+</div>
+</div>
+<div class="hs_bt_footer">
+<div class="ft_copyright">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_copyright" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_copyright_" style=""><p>© 2023 Focused Labs, All Rights Reserved.</p></span></div>
+</div>
+<div class="ft_social">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_footer_icons" style=""><ul class="ft_icons">
+<li>
+<a href="https://www.facebook.com/withfocus">
+<img alt="facebook" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/facebook.svg"/>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/BuildWithFocus">
+<img alt="twitter" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/twitter.svg"/>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/build-focused-labs/">
+<img alt="linkedin" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/linkedin.svg"/>
+</a>
+</li>
+<li>
+<a href="https://github.com/focused-labs">
+<img alt="github" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/github.svg"/>
+</a>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="ft_img_right_wrp">
+<div class="ft_img_right_inner">
+<div class="ft_img_right">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_right_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_right_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_right_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+</footer>
+<div class="back_to_top">
+<span class="back_top">
+<svg class="block group-hover:scale-125 transform transition-transform" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m17 11-5-5-5 5M17 18l-5-5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div></div>
+</div>
+<!-- HubSpot performance collection script -->
+<script defer="" src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429719598/1681240383335/FocusedLabs_November_2022/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/focusedlabs.io\/blog\/what-to-do-when-llms-hallucinate"]);
+_hsq.push(["setPageId", "130033111967"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 130033111967,
+    "legacyPageId": "130033111967",
+    "contentFolderId": null,
+    "contentGroupId": 93617369930,
+    "abTestId": null,
+    "languageVariantId": 130033111967,
+    "languageCode": "en",
+    
+}]);
+</script>
+<script async="" defer="" id="hs-script-loader" src="/hs/scriptloader/5845897.js" type="text/javascript"></script>
+<!-- End of HubSpot Analytics Code -->
+<script type="text/javascript">
+var hsVars = {
+    render_id: "074abb0b-7e89-436c-b6ae-d4085a208f49",
+    ticks: 1700477593371,
+    page_id: 130033111967,
+    
+    content_group_id: 93617369930,
+    portal_id: 5845897,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "130033111967",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+<script defer="" src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</body></html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Trends and Patterns for Creating a Custom LLM App</title>
+<link href="https://focusedlabs.io/hubfs/focusedlabs-favicon.png" rel="shortcut icon"/>
+<meta content="AI leverages both new and existing UX patterns - learn which patterns to use when designing AI interfaces " name="description"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951526/1686607647092/FocusedLabs_November_2022/css/templates/_blog.min.css" rel="stylesheet" type="text/css"/>
+<script>
+      var show = localStorage.getItem('show');
+      if(show === 'true'){
+        document.documentElement.classList.add('dark');
+      } 
+    </script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<meta content="AI leverages both new and existing UX patterns - learn which patterns to use when designing AI interfaces " property="og:description"/>
+<meta content="Trends and Patterns for Creating a Custom LLM App" property="og:title"/>
+<meta content="AI leverages both new and existing UX patterns - learn which patterns to use when designing AI interfaces " name="twitter:description"/>
+<meta content="Trends and Patterns for Creating a Custom LLM App" name="twitter:title"/>
+<style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429468540/1694708451506/FocusedLabs_November_2022/css/main.min.css" rel="stylesheet"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951529/1690380436362/FocusedLabs_November_2022/css/theme-overrides.min.css" rel="stylesheet"/>
+<link href="//fonts.googleapis.com/css2?family=DM+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn2.hubspot.net/hub/-1/hub_generated/module_assets/-98459521332/1700230849970/module_-98459521332_Image_Slider.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/css/splide.min.css" rel="stylesheet"/>
+<style>
+        #hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .slider__container {}
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .hs-gallery-slider-main__arrow .splide__arrow {}
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .hs-gallery-slider-main__arrow .splide__arrow svg {}
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .splide__slide--image { border-radius:px; }
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .splide__slide--caption {}
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .hs-gallery-slider-main__arrow .splide__arrow--prev svg { transform:scaleX(1); }
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .hs-gallery-slider-main__arrow .splide__arrow svg { margin-top:0.25rem; }
+
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .splide__pagination__page,
+#hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670 .splide__toggle {}
+
+    </style>
+<style>
+</style>
+<script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app"
+  },
+  "author" : {
+    "name" : "Annie McDonald",
+    "url" : "https://focusedlabs.io/blog/author/annie-mcdonald",
+    "@type" : "Person"
+  },
+  "headline" : "Trends and Patterns for Creating a Custom LLM App",
+  "datePublished" : "2023-08-22T16:42:43.173Z",
+  "dateModified" : "2023-08-22T16:42:43.173Z",
+  "publisher" : {
+    "name" : "Focused Labs",
+    "logo" : {
+      "url" : "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FL%20Logo%20Mode=Light.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://focusedlabs.io/hubfs/UI%20in%20AI.png" ]
+}
+</script>
+<script data-gallery_slider-config="config_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670" type="application/json">
+    {
+        "instance_name": "config_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670",
+        "show_thumbnails": "false",
+        "show_main_arrows": "true",
+        "show_dots": "false",
+        "loop_slides": "false",
+        "auto_advance": "false",
+        "image_transition": "slide",
+        "auto_advance_speed_seconds": "5",
+        "slides_sizing": "natural",
+        "slides_aspect_ratio": "16/9",
+        "slides_caption_position": "below",
+        "thumbnail_width": "270",
+        "slides_per_page": 1,
+        "gap_between_slides": "15",
+        "splide_i18n": {
+            "prev": "Previous slide",
+            "next": "Next slide",
+            "first": "Go to first slide",
+            "slideX": "Go to slide %s",
+            "pageX": "Go to page %s",
+            "play": "Start autoplay",
+            "pause": "Pause autoplay",
+            "carousel": "carousel",
+            "select": "Select a slide to show",
+            "slide": "slide",
+            "slideLabel": "%s of %s"
+        }
+    }
+    </script>
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-3W4SF8W0DX');
+</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3W4SF8W0DX"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFKNBDPP');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+<!-- /Added by GoogleTagManager integration -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFKNBDPP');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+window.__lo_site_id = 330223;
+
+	(function() {
+		var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+		wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  })();
+	</script>
+<link href="https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app?hs_amp=true" rel="amphtml"/>
+<meta content="https://focusedlabs.io/hubfs/UI%20in%20AI.png#keepProtocol" property="og:image"/>
+<meta content="4096" property="og:image:width"/>
+<meta content="2688" property="og:image:height"/>
+<meta content="https://focusedlabs.io/hubfs/UI%20in%20AI.png#keepProtocol" name="twitter:image"/>
+<meta content="https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<link href="https://focusedlabs.io/blog/rss.xml" rel="alternate" type="application/rss+xml"/>
+<meta content="focusedlabs.io" name="twitter:domain"/>
+<meta content="@BuildWithFocus" name="twitter:site"/>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<meta content="en" http-equiv="content-language"/>
+<meta content="HubSpot" name="generator"/></head>
+<body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- /Added by GoogleTagManager integration -->
+<div class="body-wrapper hs-content-id-130653553208 hs-blog-post hs-blog-id-93617369930">
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/header.html"><header class="header">
+<a class="header__skip" href="#main-content">Skip to content</a>
+<div class="header_container">
+<div class="container">
+<div class="header_row">
+<div class="header_logo">
+<div class="light_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_light_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_light_logo_hs_logo_widget" style=""><a href="/" id="hs-link-light_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="dark_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_dark_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_dark_logo_hs_logo_widget" style=""><a href="/" id="hs-link-dark_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/light_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="mobile_trigger">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</div>
+</div>
+<div class="header_menu">
+<div class="custom_menu_primary">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93449046703" data-sitemap-name="default" id="hs_menu_wrapper_menu" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact</a></li>
+</ul>
+</div></span>
+</div>
+</div>
+<div class="mb_menu_wrp">
+<div class="mb_menu">
+</div>
+<div class="mode_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mb_menu_imge_wrp">
+<div class="mb_menu_imge">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_Menu_bg" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_Menu_bg_" style=""><img alt="Accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/menu_bg.png" style="width:0px;border-width:0px;border:0px;" title="Accent" width="0"/></span></div>
+</div>
+</div>
+<div class="header_right">
+<div class="mode_toggle mob_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header></div>
+<main class="body-container-wrapper" id="main-content">
+<div class="body-container body-container--blog-post">
+<div class="blog_post_wrapper">
+<div class="post_inner">
+<div class="post_bnr_wrp">
+<div class="post_bnr">
+<a href="https://focusedlabs.io/blog">
+<svg class="mb_back" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path><path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+<p>
+                Blog
+              </p>
+</a>
+<div class="post_bnr_icon">
+<a href="https://focusedlabs.io/blog">
+<svg fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</a>
+<div class="post_bnr_title">
+<h1><span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="text" id="hs_cos_wrapper_name" style="">Trends and Patterns for Creating a Custom LLM App</span></h1>
+</div>
+</div>
+<div class="hs_date_t2">
+              08.22.2023 |
+              
+              
+              AI
+              
+              LLM
+              
+              UX
+              
+               | <a href="https://focusedlabs.io/blog/author/annie-mcdonald">
+  Annie McDonald
+</a>
+</div>
+</div>
+</div>
+<div class="post_featured_image">
+<img alt="Trends and Patterns for Creating a Custom LLM App" src="https://focusedlabs.io/hubfs/UI%20in%20AI.png"/>
+</div>
+<div class="blog_post_content">
+<div class="blog_post_body">
+<span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text" id="hs_cos_wrapper_post_body" style=""><p> </p>
+<!--more-->
+<h3><span style="font-weight: bold;">AI LLM </span><strong>Trends &amp; Patterns</strong></h3>
+<p>The rise of ChatGPT has sparked a surge in the popularity of AI LLMs (Artificial Intelligence Large Language Models). Almost every industry is actively exploring how to incorporate AI into their existing systems or workflows. Amidst this wave of innovation and experimentation, it is important to remember well-established UI/UX best practices when designing AI tools. <span> </span></p>
+<p>AI-powered applications, such as ChatGPT, are designed so that when a user inputs a prompt, it responds with output. This process is quite similar to seeking information from popular search engines like Google. From a design standpoint, how are companies implementing AI applications in order to deliver greater value than existing search engines and chatbots? What common patterns in AI are emerging and how do we see those patterns evolving in the future?</p>
+<h2><strong>User Interface Patterns</strong></h2>
+<h3><strong>The Icon</strong></h3>
+<p>Icons play a vital role in visually depicting steps and navigation within software. These visual indicators are the initial impression we encounter when engaging with a new feature. Among these icons, one has gained universal recognition for AI: the sparkle. ✨</p>
+<p>Let's discuss why this symbol has become synonymous with "AI" tools. The sparkle icon captures the essence of wonder, magic, and innovation. It perfectly embodies the incredible capabilities of AI, generating vast amounts of information seemingly out of thin air. It is this awe-inspiring quality that makes the sparkle icon such a fitting and widely recognized symbol for AI.</p>
+<p>Take a moment to observe its versatility and widespread use in various contexts.</p>
+<p>With <a href="https://www.grammarly.com/grammarlygo">GrammarlyGo</a>, a writing assistant:</p>
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670" style="">
+<div class="slider__container" data-gallery_slider="widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670">
+<section aria-label="Image carousel with 3 slides." class="splide__main splide">
+<div class="splide__arrows hs-gallery-slider-main__arrow">
+<button class="splide__arrow splide__arrow--prev">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" data-hs-cos-general-type="widget" data-hs-cos-type="icon" id="hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670_prev_icon" style=""><svg aria-hidden="true" version="1.0" viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><g id="angle-left1_layer"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></g></svg></span>
+</button>
+<button class="splide__arrow splide__arrow--next">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_icon" data-hs-cos-general-type="widget" data-hs-cos-type="icon" id="hs_cos_wrapper_widget_21d98b49-3db8-4f94-94d7-2ae8a7a1a670_next_icon" style=""><svg aria-hidden="true" version="1.0" viewbox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><g id="angle-right2_layer"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></g></svg></span>
+</button>
+</div>
+<div class="splide__track">
+<div class="splide__list">
+<div class="splide__slide">
+<div class="splide__slide__contents">
+<div class="splide__slide--image_caption__wrapper">
+<div class="splide__slide--image__wrapper">
+<img alt="GrammarlyGo" class="splide__slide--image" data-splide-lazy="https://focusedlabs.io/hs-fs/hubfs/GrammarlyGo.png?width=1200&amp;length=1200&amp;name=GrammarlyGo.png"/>
+</div>
+<div class="splide__slide--caption"><strong>GrammarlyGo writing system features a lightbulb with a sparkle</strong></div>
+</div>
+</div>
+</div>
+<div class="splide__slide">
+<div class="splide__slide__contents">
+<div class="splide__slide--image_caption__wrapper">
+<div class="splide__slide--image__wrapper">
+<img alt="Spotify Song Recommendation" class="splide__slide--image" data-splide-lazy="https://focusedlabs.io/hs-fs/hubfs/Spotify2.png?width=1200&amp;length=1200&amp;name=Spotify2.png"/>
+</div>
+<div class="splide__slide--caption"><strong>Sparkles are part of Spotify Enhance, a song recommendation feature</strong></div>
+</div>
+</div>
+</div>
+<div class="splide__slide">
+<div class="splide__slide__contents">
+<div class="splide__slide--image_caption__wrapper">
+<div class="splide__slide--image__wrapper">
+<img alt="Screenshot of Canva Magic Write" class="splide__slide--image" data-splide-lazy="https://focusedlabs.io/hs-fs/hubfs/Screen%20Shot%202023-08-17%20at%202.49.05%20PM.png?width=1200&amp;length=1200&amp;name=Screen%20Shot%202023-08-17%20at%202.49.05%20PM.png"/>
+</div>
+<div class="splide__slide--caption"><strong>Canva Magic Write is an image generating tool</strong></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="splide__controls">
+<div class="splide__pagination"></div>
+</div>
+</section>
+</div>
+</div>
+<p>Interactions involving submitting questions into a search bar may not feel novel or groundbreaking. However, by incorporating the "glitter icon", it elevates the experience beyond just delivering a superior answer compared to generic search bars or chatbots. The inclusion of this eye-catching feature adds an element of intrigue and allure that sets it apart from traditional methods of information retrieval leaving them with a sense that they are partaking in an exceptional user experience.</p>
+<p>In the future, could we witness a possible transformation of this icon? It's essential to acknowledge that there is no one-size-fits-all answer encompassing all the intricate variations in different usage scenarios. The key factor to consider when selecting an icon is its universal comprehension. Maintaining a consistent and universally understood icon associated with AI creates a sense of permanence and reliability.</p>
+<p>As AI-powered applications become more integrated into different sectors, companies are increasingly seeking ways to stand out. <a href="https://www.dropbox.com/dash?&amp;_tk=paid_sem_goog_dash_b&amp;_camp=20298861733&amp;_kw=dropbox%20dash%7ce&amp;_ad=663158507248%7c%7cc&amp;gclid=CjwKCAjw2K6lBhBXEiwA5RjtCa4q9HFOJodDamuUZwtfgMCCCY5SkmqZc5WtWC6x3Bp2wR9J3RJAHhoCw-wQAvD_BwE&amp;gclsrc=aw.ds">Dropbox Dash</a> is a prime example of this trend, with the company moving away from the conventional sparkle icon typically associated with AI interfaces and instead branding their own artificial intelligence. This strategic decision reflects an effort by industries to establish distinct identities for their AI platforms in order to create a unique user experience. By doing so, they can effectively differentiate themselves from competitors and foster stronger brand loyalty among consumers.</p>
+<p><img alt="Dropbox Dash" height="700" loading="lazy" sizes="(max-width: 1196px) 100vw, 1196px" src="https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=1196&amp;height=700&amp;name=Dropbox%20Dash.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=598&amp;height=350&amp;name=Dropbox%20Dash.png 598w, https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=1196&amp;height=700&amp;name=Dropbox%20Dash.png 1196w, https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=1794&amp;height=1050&amp;name=Dropbox%20Dash.png 1794w, https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=2392&amp;height=1400&amp;name=Dropbox%20Dash.png 2392w, https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=2990&amp;height=1750&amp;name=Dropbox%20Dash.png 2990w, https://focusedlabs.io/hs-fs/hubfs/Dropbox%20Dash.png?width=3588&amp;height=2100&amp;name=Dropbox%20Dash.png 3588w" style="height: auto; max-width: 100%; width: 1196px;" width="1196"/></p>
+<h3><strong>The Layout</strong></h3>
+<p>A well-designed layout enhances user navigation. The placement of the AI LLM will primarily be determined by the site or application's most critical use case. This prioritizes functionality and streamlines the user experience.</p>
+<p><strong>Individual Search Engine Site / Landing Page</strong></p>
+<p>Currently, many powerful AI-based language models exist as standalone websites. For instance, if you wish to utilize <a href="https://bard.google.com/">Bard</a> you need to open a new tab and input your prompt in the search bar. The advantage of these engines is that they offer a fully responsive interface for reading and scanning large volumes of text, allowing users to effortlessly navigate through various tabs.</p>
+<p><img alt="Bard" height="1478" loading="lazy" sizes="(max-width: 2860px) 100vw, 2860px" src="https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=2860&amp;height=1478&amp;name=Bard.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=1430&amp;height=739&amp;name=Bard.png 1430w, https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=2860&amp;height=1478&amp;name=Bard.png 2860w, https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=4290&amp;height=2217&amp;name=Bard.png 4290w, https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=5720&amp;height=2956&amp;name=Bard.png 5720w, https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=7150&amp;height=3695&amp;name=Bard.png 7150w, https://focusedlabs.io/hs-fs/hubfs/Bard.png?width=8580&amp;height=4434&amp;name=Bard.png 8580w" style="height: auto; max-width: 100%; width: 2860px;" width="2860"/></p>
+<p><strong>Task Bars</strong></p>
+<p>Other AI interfaces are reduced to taskbars, serving as secondary tools for finding or generating information on specific websites. <a href="http://notion.ai/">Notion.AI</a> is an example of such an interface. To activate the Notion AI taskbar, you have multiple options: press the space bar, use the command + J hotkey shortcut, or simply highlight the desired content to activate various AI features. The advantage of using a taskbar is that it remains hidden until activated. However, one drawback of relying on shortcuts like pressing the spacebar is that there's a chance you may unintentionally trigger the tool when you don't need it.</p>
+<p><img alt="Notion AI" height="1022" loading="lazy" sizes="(max-width: 1516px) 100vw, 1516px" src="https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=1516&amp;height=1022&amp;name=Notion%20AI.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=758&amp;height=511&amp;name=Notion%20AI.png 758w, https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=1516&amp;height=1022&amp;name=Notion%20AI.png 1516w, https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=2274&amp;height=1533&amp;name=Notion%20AI.png 2274w, https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=3032&amp;height=2044&amp;name=Notion%20AI.png 3032w, https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=3790&amp;height=2555&amp;name=Notion%20AI.png 3790w, https://focusedlabs.io/hs-fs/hubfs/Notion%20AI.png?width=4548&amp;height=3066&amp;name=Notion%20AI.png 4548w" style="height: auto; max-width: 100%; width: 1516px;" width="1516"/></p>
+<p><strong>Widgets</strong></p>
+<p>A popular way industries are integrating AI LLMs into their sites are through chatbot widgets. But how are they differentiating them from current chatbots?</p>
+<p>Industries are increasingly integrating AI LLMs into their websites using chatbot widgets. However, they face a challenge in differentiating these widgets from traditional chatbots. A powerful tool like <a href="https://www.grammarly.com/grammarlygo">GrammarlyGo</a> leverages AI to enhance writing for users across multiple platforms, including Slack integration shown below. The user-friendly widget is conveniently positioned at the top of your browser or lower left corner of your screen. Unlike typical virtual assistant-style chatbots, Grammarly provides useful additional prompts and commands tailored to the specific needs of writers. It also offers flexibility by allowing you to reposition or disable the widget if it becomes obstructive during use. Despite these benefits, similar to regular chatbots, these widgets have limited on-screen space allocation which can pose readability issues when dealing with longer responses.</p>
+<p><img alt="Grammarly" height="1454" loading="lazy" sizes="(max-width: 2552px) 100vw, 2552px" src="https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=2552&amp;height=1454&amp;name=Grammarly.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=1276&amp;height=727&amp;name=Grammarly.png 1276w, https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=2552&amp;height=1454&amp;name=Grammarly.png 2552w, https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=3828&amp;height=2181&amp;name=Grammarly.png 3828w, https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=5104&amp;height=2908&amp;name=Grammarly.png 5104w, https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=6380&amp;height=3635&amp;name=Grammarly.png 6380w, https://focusedlabs.io/hs-fs/hubfs/Grammarly.png?width=7656&amp;height=4362&amp;name=Grammarly.png 7656w" style="height: auto; max-width: 100%; width: 2552px;" width="2552"/></p>
+<p><strong>Universal Widgets + Task Bars + Sites</strong></p>
+<p>AI LLMS apps with multiple capabilities that are integrated into multiple systems usually have various interactive elements such as widgets, taskbars, and individual sites. One example of this integration is <a href="https://blogs.microsoft.com/blog/2023/03/16/introducing-microsoft-365-copilot-your-copilot-for-work/">Copilot</a> in Microsoft's applications which offers a range of capabilities. In Copilot, there is a chat widget located in the lower left corner that allows users to generate prompts and utilize the taskbar for specific commands. Additionally, it provides its own landing page space where you can easily create content.</p>
+<p><img alt="Microsoft 365" height="816" loading="lazy" sizes="(max-width: 1452px) 100vw, 1452px" src="https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=1452&amp;height=816&amp;name=Microsoft%20365.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=726&amp;height=408&amp;name=Microsoft%20365.png 726w, https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=1452&amp;height=816&amp;name=Microsoft%20365.png 1452w, https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=2178&amp;height=1224&amp;name=Microsoft%20365.png 2178w, https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=2904&amp;height=1632&amp;name=Microsoft%20365.png 2904w, https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=3630&amp;height=2040&amp;name=Microsoft%20365.png 3630w, https://focusedlabs.io/hs-fs/hubfs/Microsoft%20365.png?width=4356&amp;height=2448&amp;name=Microsoft%20365.png 4356w" style="height: auto; max-width: 100%; width: 1452px;" width="1452"/></p>
+<p><strong>Responsiveness</strong></p>
+<p>In the near future, we can expect an increasing number of companies to adopt dynamic and responsive layouts that empower users to personalize their AI experience. This includes providing options for users to easily customize the size and position of their AI interface on their screens. Moreover, companies will give users greater control by enabling them to disable the AI feature whenever they find it unnecessary or obstructive. By implementing these user-friendly design elements, companies will enhance customer satisfaction and ensure a seamless integration of AI technology into everyday life.</p>
+<h3 style="font-weight: bold;">Interactions</h3>
+<p><strong>Animations</strong></p>
+<p>Major drawback of LLMs is their extensive computational requirements, demanding significant amounts of time and energy. To effectively manage user expectations during the generation process without causing frustration, it is crucial to engage and entertain them throughout. An effective approach would be to employ visually stimulating elements such as entertaining animations and engaging prompts.</p>
+<p><a href="https://chat.openai.com/">Open AI’s ChatGPT</a> allows the user to begin reading before all the information is fully available by generating text that appears as if it's being typed on the screen while still computing. By providing an immersive experience where words appear gradually, ChatGPT draws in readers and encourages them to keep reading despite incomplete information.</p>
+<p><img alt="Screenshot 2023-07-11 at 1.25.23 PM" height="584" loading="lazy" sizes="(max-width: 2098px) 100vw, 2098px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=2098&amp;height=584&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=1049&amp;height=292&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png 1049w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=2098&amp;height=584&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png 2098w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=3147&amp;height=876&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png 3147w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=4196&amp;height=1168&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png 4196w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=5245&amp;height=1460&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png 5245w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.25.23%20PM.png?width=6294&amp;height=1752&amp;name=Screenshot%202023-07-11%20at%201.25.23%20PM.png 6294w" style="height: auto; max-width: 100%; width: 2098px;" width="2098"/><a data-token-index="0" href="https://miro.com/ai/" rel="noopener noreferrer" tabindex="0"><span>Miro AI</span></a> effectively uses a captivating tone when showcasing various magic-themed snack bars, such as their enticing phrase "enjoy spellbinding results”.</p>
+<h3 style="font-weight: normal;"><img alt="Screenshot 2023-07-10 at 12.44.40 PM (1)" height="680" loading="lazy" sizes="(max-width: 1208px) 100vw, 1208px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=1208&amp;height=680&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=604&amp;height=340&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png 604w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=1208&amp;height=680&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png 1208w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=1812&amp;height=1020&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png 1812w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=2416&amp;height=1360&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png 2416w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=3020&amp;height=1700&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png 3020w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png?width=3624&amp;height=2040&amp;name=Screenshot%202023-07-10%20at%2012.44.40%20PM%20(1).png 3624w" style="height: auto; max-width: 100%; width: 1208px;" width="1208"/></h3>
+<p>When <a data-token-index="1" href="https://tripnotes.ai/app" rel="noopener noreferrer" tabindex="0"><span>Tripnotes</span></a> is loading results, its icon pulsates in a way that mimics breathing, creating a visually pleasing animation that distracts the user from the waiting time.</p>
+<p><img alt="Screenshot 2023-07-11 at 1.29.36 PM copy" height="190" loading="lazy" sizes="(max-width: 1444px) 100vw, 1444px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=1444&amp;height=190&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=722&amp;height=95&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png 722w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=1444&amp;height=190&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png 1444w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=2166&amp;height=285&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png 2166w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=2888&amp;height=380&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png 2888w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=3610&amp;height=475&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png 3610w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png?width=4332&amp;height=570&amp;name=Screenshot%202023-07-11%20at%201.29.36%20PM%20copy.png 4332w" style="height: auto; max-width: 100%; width: 1444px;" width="1444"/><img alt="Screenshot 2023-07-11 at 1.28.30 PM" height="216" loading="lazy" sizes="(max-width: 1446px) 100vw, 1446px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=1446&amp;height=216&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=723&amp;height=108&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png 723w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=1446&amp;height=216&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png 1446w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=2169&amp;height=324&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png 2169w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=2892&amp;height=432&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png 2892w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=3615&amp;height=540&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png 3615w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%201.28.30%20PM.png?width=4338&amp;height=648&amp;name=Screenshot%202023-07-11%20at%201.28.30%20PM.png 4338w" style="height: auto; max-width: 100%; width: 1446px;" width="1446"/></p>
+<p>In the distant future, the computational speed of AI will increase significantly, leading to a decrease in the need for loading prompts and animations. However, in the near future, there is a growing demand for visually appealing and interactive AI LLM elements. Therefore, we will continue to witness more innovative visual patterns to enhance the user experience.</p>
+<h2><strong>User Experience Trends</strong></h2>
+<p style="font-weight: normal;">The new LLMs are truly exceptional compared to chatbots and search engines of the past. Their integrated features and commands are revolutionary, providing shortcuts in the workspace that significantly boost productivity and save valuable time for users.</p>
+<h3 style="font-weight: bold;">Common Features</h3>
+<p style="font-weight: bold;"><span style="color: #2b2340;"><strong>Customization / Terminology Settings</strong> </span></p>
+<p style="font-weight: normal;">LLMs are an exceptionally powerful tool, providing a multitude of customization options that can be tailored to individual users and their specific needs. And as technology continues to evolve, the potential applications for LLMs will only continue to expand.</p>
+<p style="font-weight: bold;"><span style="color: #2b2340;"><strong>Tone </strong></span></p>
+<p style="font-weight: normal;">LLMs offer the flexibility to adjust the tone of how they communicate to you and how they present your information, depending on the scenario. <a data-token-index="1" href="http://jasper.ai/" rel="noopener noreferrer" tabindex="0">Jasper.AI</a> is an example of a platform that enables you to fine-tune the tone of voice and intended audience.</p>
+<p style="font-weight: normal;"><img alt="Screenshot 2023-07-10 at 1.00.34 PM (1)" height="1592" loading="lazy" sizes="(max-width: 2858px) 100vw, 2858px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=2858&amp;height=1592&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=1429&amp;height=796&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png 1429w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=2858&amp;height=1592&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png 2858w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=4287&amp;height=2388&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png 4287w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=5716&amp;height=3184&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png 5716w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=7145&amp;height=3980&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png 7145w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png?width=8574&amp;height=4776&amp;name=Screenshot%202023-07-10%20at%201.00.34%20PM%20(1).png 8574w" style="height: auto; max-width: 100%; width: 2858px;" width="2858"/></p>
+<p style="font-weight: bold;"><span style="color: #000000;"><strong>Length</strong></span></p>
+<p style="font-weight: normal;">Not only can users adjust the tone of their responses, they also have the ability to control the length of their output. With the range adjustment feature in <a data-token-index="1" href="https://www.microsoft.com/en-us/bing?form=MW00X7&amp;ef_id=_k_CjwKCAjw2K6lBhBXEiwA5RjtCUnqSDVAD3uCoCeAeej94-LJuGAOXTGcT5NChvnLnwasBm14WllPmxoCS2wQAvD_BwE_k_&amp;OCID=AIDcmmf8m4fdss_SEM__k_CjwKCAjw2K6lBhBXEiwA5RjtCUnqSDVAD3uCoCeAeej94-LJuGAOXTGcT5NChvnLnwasBm14WllPmxoCS2wQAvD_BwE_k_&amp;gclid=CjwKCAjw2K6lBhBXEiwA5RjtCUnqSDVAD3uCoCeAeej94-LJuGAOXTGcT5NChvnLnwasBm14WllPmxoCS2wQAvD_BwE" rel="noopener noreferrer" tabindex="0">Bing AI</a>, users can save time when they need to lengthen or shorten content.</p>
+<p style="font-weight: normal;"><img alt="Screenshot 2023-07-10 at 1.08.38 PM (1)" height="994" loading="lazy" sizes="(max-width: 1712px) 100vw, 1712px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=1712&amp;height=994&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=856&amp;height=497&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png 856w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=1712&amp;height=994&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png 1712w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=2568&amp;height=1491&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png 2568w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=3424&amp;height=1988&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png 3424w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=4280&amp;height=2485&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png 4280w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png?width=5136&amp;height=2982&amp;name=Screenshot%202023-07-10%20at%201.08.38%20PM%20(1).png 5136w" style="height: auto; max-width: 100%; width: 1712px;" width="1712"/></p>
+<p style="font-weight: bold;"><span style="color: #2b2340;"><strong>Role-Based </strong></span></p>
+<p style="font-weight: normal;">Industries, <a data-token-index="1" href="https://glean.com/product/overview" rel="noopener noreferrer" tabindex="0">Glean </a>have taken customization to the next level by generating outputs based on the role of the user. This allows an even more curated user experience for the user.</p>
+<h3 style="font-weight: normal;"><img alt="Screenshot 2023-07-10 at 1.28.53 PM (1)" height="966" loading="lazy" sizes="(max-width: 2732px) 100vw, 2732px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=2732&amp;height=966&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=1366&amp;height=483&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png 1366w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=2732&amp;height=966&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png 2732w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=4098&amp;height=1449&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png 4098w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=5464&amp;height=1932&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png 5464w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=6830&amp;height=2415&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png 6830w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png?width=8196&amp;height=2898&amp;name=Screenshot%202023-07-10%20at%201.28.53%20PM%20(1).png 8196w" style="height: auto; max-width: 100%; width: 2732px;" width="2732"/></h3>
+<h3 style="font-weight: bold;"><span style="color: #2b2340;">Trusted Answers</span></h3>
+<p><span data-token-index="0">It is crucial to ensure that responses are always up-to-date and accurate. Industries are implementing various strategies to instill trust in users regarding the answers they receive.</span></p>
+<p style="font-weight: bold;"><span style="color: #2b2340;"><strong>Multiple Options</strong></span></p>
+<p style="font-weight: normal;">Most prompts create 1 to 3 variations for users to choose from so they can choose the most accurate response. <a data-token-index="1" href="https://www.adobe.com/products/photoshop/generative-fill.html" rel="noopener noreferrer" tabindex="0">Photoshop Generative AI</a> allows the user to toggle through three variations.</p>
+<p style="font-weight: normal;"><img alt="Photoshop (1)" height="670" loading="lazy" sizes="(max-width: 1256px) 100vw, 1256px" src="https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=1256&amp;height=670&amp;name=Photoshop%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=628&amp;height=335&amp;name=Photoshop%20(1).png 628w, https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=1256&amp;height=670&amp;name=Photoshop%20(1).png 1256w, https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=1884&amp;height=1005&amp;name=Photoshop%20(1).png 1884w, https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=2512&amp;height=1340&amp;name=Photoshop%20(1).png 2512w, https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=3140&amp;height=1675&amp;name=Photoshop%20(1).png 3140w, https://focusedlabs.io/hs-fs/hubfs/Photoshop%20(1).png?width=3768&amp;height=2010&amp;name=Photoshop%20(1).png 3768w" style="height: auto; max-width: 100%; width: 1256px;" width="1256"/></p>
+<p style="font-weight: bold;"><span style="color: #2b2340;"><strong>Verified Source Links </strong></span></p>
+<p style="font-weight: normal;">To ensure the accuracy of information provided by LLMs, it's crucial to know where they are getting their data. <a data-token-index="1" href="https://www.llamaindex.ai/" rel="noopener noreferrer" tabindex="0">Llama Index</a> has implemented a reliable method for verifying their responses to users by providing links to the sources being utilized.</p>
+<p style="font-weight: normal;"><img alt="Llama Index (1)" height="752" loading="lazy" sizes="(max-width: 904px) 100vw, 904px" src="https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=904&amp;height=752&amp;name=Llama%20Index%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=452&amp;height=376&amp;name=Llama%20Index%20(1).png 452w, https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=904&amp;height=752&amp;name=Llama%20Index%20(1).png 904w, https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=1356&amp;height=1128&amp;name=Llama%20Index%20(1).png 1356w, https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=1808&amp;height=1504&amp;name=Llama%20Index%20(1).png 1808w, https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=2260&amp;height=1880&amp;name=Llama%20Index%20(1).png 2260w, https://focusedlabs.io/hs-fs/hubfs/Llama%20Index%20(1).png?width=2712&amp;height=2256&amp;name=Llama%20Index%20(1).png 2712w" style="height: auto; max-width: 100%; width: 904px;" width="904"/></p>
+<p style="font-weight: bold;"><span style="color: #2b2340;"><strong>Provide Feedback </strong></span></p>
+<p style="font-weight: normal;">LLMs can provide responses that range from highly accurate to not accurate at all, depending on the user's input. Most LLMs allow for feedback to be provided, such as with <a data-token-index="1" href="https://www.adobe.com/products/photoshop/generative-fill.html?gclid=CjwKCAjw-7OlBhB8EiwAnoOEk7KJBlc97Kvsr_OyEOyNl5qjaD2tzSaCHr8SuYL9hFhPTp3zm1uGdRoC5VkQAvD_BwE&amp;sdid=HCS3XGD1&amp;mv=search&amp;mv2=paidsearch&amp;ef_id=CjwKCAjw-7OlBhB8EiwAnoOEk7KJBlc97Kvsr_OyEOyNl5qjaD2tzSaCHr8SuYL9hFhPTp3zm1uGdRoC5VkQAvD_BwE%3AG%3As&amp;s_kwcid=AL%213085%213%21659589853647%21e%21%21g%21%21photoshop+ai%2120179938897%21149860372256" rel="noopener noreferrer" tabindex="0">Photoshop Generative Fill</a>. Feedback can range from good to poor, with space given for descriptions to aid future users. It is important to note that the accuracy of an LLM's response is directly tied to the quality of the input provided by the user.</p>
+<p style="font-weight: normal;"><img alt="Screenshot 2023-06-07 at 10.54" height="670" loading="lazy" sizes="(max-width: 629px) 100vw, 629px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=629&amp;height=670&amp;name=Screenshot%202023-06-07%20at%2010.54.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=315&amp;height=335&amp;name=Screenshot%202023-06-07%20at%2010.54.png 315w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=629&amp;height=670&amp;name=Screenshot%202023-06-07%20at%2010.54.png 629w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=944&amp;height=1005&amp;name=Screenshot%202023-06-07%20at%2010.54.png 944w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=1258&amp;height=1340&amp;name=Screenshot%202023-06-07%20at%2010.54.png 1258w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=1573&amp;height=1675&amp;name=Screenshot%202023-06-07%20at%2010.54.png 1573w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-07%20at%2010.54.png?width=1887&amp;height=2010&amp;name=Screenshot%202023-06-07%20at%2010.54.png 1887w" style="height: auto; max-width: 100%; width: 629px;" width="629"/></p>
+<p style="font-weight: normal;">Moving forward, the accuracy of these responses will undoubtedly improve. We can expect to see new methods of verifying the accuracy of these responses emerge in the future. One such initiative is <a data-token-index="1" href="https://www.deepmind.com/blog/building-safer-dialogue-agents" rel="noopener noreferrer" tabindex="0"><span>Deepmind Sparrow</span></a> , which is spearheaded by Google to generate dialogue agents that are not only helpful but also precise and benign.</p>
+<p style="font-weight: normal;"><img alt="Screenshot 2023-07-10 at 4.00.38 PM (1)" height="940" loading="lazy" sizes="(max-width: 1330px) 100vw, 1330px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=1330&amp;height=940&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=665&amp;height=470&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png 665w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=1330&amp;height=940&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png 1330w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=1995&amp;height=1410&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png 1995w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=2660&amp;height=1880&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png 2660w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=3325&amp;height=2350&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png 3325w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png?width=3990&amp;height=2820&amp;name=Screenshot%202023-07-10%20at%204.00.38%20PM%20(1).png 3990w" style="height: auto; max-width: 100%; width: 1330px;" width="1330"/><span style="font-weight: bold; color: #2b2340;"><strong>Privacy</strong></span></p>
+<p>Currently, there are no regulations or standards regarding data security or how large LLM industries store and share data. These cybersecurity risks are a cause for concern among users and industries, particularly when sensitive information is involved.</p>
+<p>Industries venturing into the LLM space must prioritize privacy and security for their users, ensuring that they can confidently input information into these systems. While governments work on implementing regulations, it is crucial to include a disclaimer regarding the lack of data security when creating an AI LLM application in the meantime.</p>
+<h3 style="font-weight: bold;">Prompt Commands / Shortcuts</h3>
+<p><span data-token-index="0">Many industries are taking advantage of creating specialized commands in the LLM space that are taking tasks that once took multiple steps or revisions into a single action.</span></p>
+<p>Different industries have been competing with each other but overall all are promoting how they will increase:</p>
+<ol>
+<li><strong>Productivity &amp; Efficiency</strong></li>
+<li><strong>Knowledge Management</strong></li>
+<li><strong>Collaboration &amp; Engagement</strong></li>
+<li><strong>Creativity</strong></li>
+</ol>
+<p style="font-weight: normal;">Here are popular commands we have seen so far are in the work industry space:</p>
+<p>Here are popular commands we have seen so far are in the work industry space:</p>
+<span style="color: #2b2340;"><strong>Summarize:</strong></span> <a href="https://slack.com/blog/news/introducing-slack-gpt">Slack GPT</a><br/>
+<p><img alt="Screenshot 2023-07-10 at 4.03.44 PM (1)" height="790" loading="lazy" sizes="(max-width: 1402px) 100vw, 1402px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=1402&amp;height=790&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=701&amp;height=395&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png 701w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=1402&amp;height=790&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png 1402w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=2103&amp;height=1185&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png 2103w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=2804&amp;height=1580&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png 2804w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=3505&amp;height=1975&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png 3505w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png?width=4206&amp;height=2370&amp;name=Screenshot%202023-07-10%20at%204.03.44%20PM%20(1).png 4206w" style="height: auto; max-width: 100%; width: 1402px;" width="1402"/></p>
+<span style="font-weight: bold;"><strong>Generate text</strong>:</span> <a data-token-index="1" href="https://clickup.com/?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=gs_cpc_am_nnc_brand_trial_all-devices_cpc_lp_x_all-departments_alpha_kd-brand-amusa-20230316&amp;utm_content=all-countries_kw-target_text_all-industries_all-features_all-use-cases_clickup_exact&amp;utm_term=e_clickup&amp;utm_creative=651395099168_BrandChampion-03072023_rsa&amp;utm_custom1=&amp;utm_custom2=&amp;gad=1&amp;gclid=CjwKCAjw2K6lBhBXEiwA5RjtCVFW0-fZV5jqox9DimBFpnoEHIrZ2CC4I4Kta7uNv0FFkEGd7NBMexoCJswQAvD_BwE" rel="noopener noreferrer" style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 1.125rem; letter-spacing: 0.03em;" tabindex="0">Clickup</a><br/>
+<p><img alt="Clickup (1)" height="623" loading="lazy" sizes="(max-width: 965px) 100vw, 965px" src="https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=965&amp;height=623&amp;name=Clickup%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=483&amp;height=312&amp;name=Clickup%20(1).png 483w, https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=965&amp;height=623&amp;name=Clickup%20(1).png 965w, https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=1448&amp;height=935&amp;name=Clickup%20(1).png 1448w, https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=1930&amp;height=1246&amp;name=Clickup%20(1).png 1930w, https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=2413&amp;height=1558&amp;name=Clickup%20(1).png 2413w, https://focusedlabs.io/hs-fs/hubfs/Clickup%20(1).png?width=2895&amp;height=1869&amp;name=Clickup%20(1).png 2895w" style="height: auto; max-width: 100%; width: 965px;" width="965"/></p>
+<span style="font-weight: bold;"><strong>Generate Visuals</strong>:</span> <a data-token-index="2" href="https://www.figma.com/whats-new/" rel="noopener noreferrer" tabindex="0"><span>Figma Magician</span></a><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.32.18 AM (1)" height="888" loading="lazy" sizes="(max-width: 1342px) 100vw, 1342px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=1342&amp;height=888&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=671&amp;height=444&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png 671w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=1342&amp;height=888&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png 1342w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=2013&amp;height=1332&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png 2013w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=2684&amp;height=1776&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png 2684w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=3355&amp;height=2220&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png 3355w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png?width=4026&amp;height=2664&amp;name=Screenshot%202023-07-11%20at%2010.32.18%20AM%20(1).png 4026w" style="height: auto; max-width: 100%; width: 1342px;" width="1342"/></span></p>
+<span><span style="font-weight: bold;">Edit Writing/Tone:</span> <a data-token-index="2" href="https://jenni.ai/?utm_medium=cpc&amp;utm_campaign=19905599675&amp;utm_source=%7Bgoogle%7D&amp;gclid=CjwKCAjw2K6lBhBXEiwA5RjtCe-tR4pbKHAOYIZuAPdi807HmmYLTjQcde5ZQs4vVfL1b-KJL7KDsBoC-yIQAvD_BwE" rel="noopener noreferrer" tabindex="0">Jenni.AI</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-10 at 4.17.52 PM (1)" height="758" loading="lazy" sizes="(max-width: 1374px) 100vw, 1374px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=1374&amp;height=758&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=687&amp;height=379&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png 687w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=1374&amp;height=758&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png 1374w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=2061&amp;height=1137&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png 2061w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=2748&amp;height=1516&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png 2748w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=3435&amp;height=1895&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png 3435w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png?width=4122&amp;height=2274&amp;name=Screenshot%202023-07-10%20at%204.17.52%20PM%20(1).png 4122w" style="height: auto; max-width: 100%; width: 1374px;" width="1374"/></span></p>
+<span><span style="font-weight: bold;"><strong>Synthesize / Cluster</strong>:</span> <a data-token-index="4" href="https://miro.com/ai/" rel="noopener noreferrer" tabindex="0">Miro.AI</a></span><br/>
+<p><img alt="Screenshot 2023-07-11 at 9.10.15 AM (1)" height="1412" loading="lazy" sizes="(max-width: 1910px) 100vw, 1910px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=1910&amp;height=1412&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=955&amp;height=706&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png 955w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=1910&amp;height=1412&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png 1910w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=2865&amp;height=2118&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png 2865w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=3820&amp;height=2824&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png 3820w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=4775&amp;height=3530&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png 4775w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png?width=5730&amp;height=4236&amp;name=Screenshot%202023-07-11%20at%209.10.15%20AM%20(1).png 5730w" style="height: auto; max-width: 100%; width: 1910px;" width="1910"/></p>
+<span><span style="font-weight: bold;"><strong>Brainstormg</strong>: </span><a data-token-index="2" href="https://www.copy.ai/" rel="noopener noreferrer" tabindex="0">Copy.ai</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.19.49 AM (1)" height="940" loading="lazy" sizes="(max-width: 1528px) 100vw, 1528px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=1528&amp;height=940&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=764&amp;height=470&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 764w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=1528&amp;height=940&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 1528w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=2292&amp;height=1410&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 2292w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=3056&amp;height=1880&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 3056w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=3820&amp;height=2350&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 3820w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=4584&amp;height=2820&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 4584w" style="height: auto; max-width: 100%; width: 1528px;" width="1528"/></span></p>
+<span><span style="font-weight: bold;">Locate:</span> <a data-token-index="2" href="https://glean.com/" rel="noopener noreferrer" tabindex="0">Glean</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.19.49 AM (1)" height="940" loading="lazy" sizes="(max-width: 1528px) 100vw, 1528px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=1528&amp;height=940&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=764&amp;height=470&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 764w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=1528&amp;height=940&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 1528w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=2292&amp;height=1410&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 2292w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=3056&amp;height=1880&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 3056w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=3820&amp;height=2350&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 3820w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png?width=4584&amp;height=2820&amp;name=Screenshot%202023-07-11%20at%2010.19.49%20AM%20(1).png 4584w" style="height: auto; max-width: 100%; width: 1528px;" width="1528"/></span></p>
+<span><span style="font-weight: bold;">Sort: </span><a data-token-index="2" href="https://www.youtube.com/watch?v=7Zh6PrC-lGo" rel="noopener noreferrer" tabindex="0">Dropbox Dash</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.30.50 AM (1)" height="1246" loading="lazy" sizes="(max-width: 1544px) 100vw, 1544px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=1544&amp;height=1246&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=772&amp;height=623&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png 772w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=1544&amp;height=1246&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png 1544w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=2316&amp;height=1869&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png 2316w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=3088&amp;height=2492&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png 3088w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=3860&amp;height=3115&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png 3860w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png?width=4632&amp;height=3738&amp;name=Screenshot%202023-07-11%20at%2010.30.50%20AM%20(1).png 4632w" style="height: auto; max-width: 100%; width: 1544px;" width="1544"/></span></p>
+<span><span style="font-weight: bold;">Suggest:</span> <a data-token-index="1" href="https://github.com/features/copilot?ref=eluna" rel="noopener noreferrer" tabindex="0">[Github Copilot]</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.36.57 AM (1)" height="1036" loading="lazy" sizes="(max-width: 2202px) 100vw, 2202px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=2202&amp;height=1036&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=1101&amp;height=518&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png 1101w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=2202&amp;height=1036&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png 2202w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=3303&amp;height=1554&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png 3303w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=4404&amp;height=2072&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png 4404w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=5505&amp;height=2590&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png 5505w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png?width=6606&amp;height=3108&amp;name=Screenshot%202023-07-11%20at%2010.36.57%20AM%20(1).png 6606w" style="height: auto; max-width: 100%; width: 2202px;" width="2202"/></span></p>
+<span><span style="font-weight: bold;">Transcribe:</span> <a data-token-index="2" href="https://otter.ai/?irclickid=QLH3zC1tez7qUl%3Azu0U6cx%3AOUkFzXw2-M1fK180&amp;irgwc=1&amp;utm_content=Cloudtraffic&amp;utm_term=1113693&amp;utm_medium=tracking_link&amp;utm_source=affiliate&amp;utm_content=other" rel="noopener noreferrer" tabindex="0">Otter</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.37.35 AM (1)" height="1188" loading="lazy" sizes="(max-width: 1736px) 100vw, 1736px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=1736&amp;height=1188&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=868&amp;height=594&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png 868w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=1736&amp;height=1188&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png 1736w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=2604&amp;height=1782&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png 2604w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=3472&amp;height=2376&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png 3472w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=4340&amp;height=2970&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png 4340w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png?width=5208&amp;height=3564&amp;name=Screenshot%202023-07-11%20at%2010.37.35%20AM%20(1).png 5208w" style="height: auto; max-width: 100%; width: 1736px;" width="1736"/></span></p>
+<span><span style="font-weight: bold;">Create images: </span><a data-token-index="1" href="https://docs.midjourney.com/docs/quick-start" rel="noopener noreferrer" tabindex="0">Mid-journey</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.43.12 AM (1)" height="574" loading="lazy" sizes="(max-width: 486px) 100vw, 486px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=486&amp;height=574&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=243&amp;height=287&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png 243w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=486&amp;height=574&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png 486w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=729&amp;height=861&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png 729w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=972&amp;height=1148&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png 972w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=1215&amp;height=1435&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png 1215w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png?width=1458&amp;height=1722&amp;name=Screenshot%202023-07-11%20at%2010.43.12%20AM%20(1).png 1458w" style="height: auto; max-width: 100%; width: 486px;" width="486"/></span></p>
+<span><span style="font-weight: bold;">Create a PowerPoint Deck: </span><a data-token-index="1" href="https://tome.app/lightspeed-venture-partners/storytelling-at-the-cost-of-zero-cleetx7da033n1z6l9e9n861u" rel="noopener noreferrer" tabindex="0">Tome</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.50.23 AM (1)" height="1036" loading="lazy" sizes="(max-width: 1386px) 100vw, 1386px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=1386&amp;height=1036&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=693&amp;height=518&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png 693w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=1386&amp;height=1036&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png 1386w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=2079&amp;height=1554&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png 2079w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=2772&amp;height=2072&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png 2772w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=3465&amp;height=2590&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png 3465w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png?width=4158&amp;height=3108&amp;name=Screenshot%202023-07-11%20at%2010.50.23%20AM%20(1).png 4158w" style="height: auto; max-width: 100%; width: 1386px;" width="1386"/></span></p>
+<span><span style="font-weight: bold;">Create a Video:</span> <a data-token-index="1" href="https://kaiber.ai/dashboard" rel="noopener noreferrer" tabindex="0">Kaiber</a></span><br/>
+<p><span><img alt="Screenshot 2023-06-08 at 2.58 1 (1)" height="1028" loading="lazy" sizes="(max-width: 2340px) 100vw, 2340px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=2340&amp;height=1028&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=1170&amp;height=514&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png 1170w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=2340&amp;height=1028&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png 2340w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=3510&amp;height=1542&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png 3510w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=4680&amp;height=2056&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png 4680w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=5850&amp;height=2570&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png 5850w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-06-08%20at%202.58%201%20(1).png?width=7020&amp;height=3084&amp;name=Screenshot%202023-06-08%20at%202.58%201%20(1).png 7020w" style="height: auto; max-width: 100%; width: 2340px;" width="2340"/></span></p>
+<span><span style="font-weight: bold;">Text to Speech:</span> <a data-token-index="2" href="https://www.synthesia.io/?utm_term=synthesia&amp;utm_campaign=Synthesia&amp;utm_source=google&amp;utm_medium=cpc&amp;hsa_acc=5132031546&amp;hsa_cam=16607623891&amp;hsa_grp=135039912935&amp;hsa_ad=635513368001&amp;hsa_src=g&amp;hsa_tgt=kwd-323407513834&amp;hsa_kw=synthesia&amp;hsa_mt=e&amp;hsa_net=adwords&amp;hsa_ver=3&amp;gclid=CjwKCAjw-7OlBhB8EiwAnoOEk2Faq-ZDRuNkU3a8LPKbayWaXwUHyaM-3w8kP6fpytfg-_T8T6PS1xoCN3gQAvD_BwE" rel="noopener noreferrer" tabindex="0">Synthesia</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.53.52 AM (1)" height="764" loading="lazy" sizes="(max-width: 1452px) 100vw, 1452px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=1452&amp;height=764&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=726&amp;height=382&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png 726w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=1452&amp;height=764&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png 1452w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=2178&amp;height=1146&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png 2178w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=2904&amp;height=1528&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png 2904w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=3630&amp;height=1910&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png 3630w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png?width=4356&amp;height=2292&amp;name=Screenshot%202023-07-11%20at%2010.53.52%20AM%20(1).png 4356w" style="height: auto; max-width: 100%; width: 1452px;" width="1452"/></span></p>
+<span><span style="font-weight: bold;">Audio Editing:</span> <a data-token-index="2" href="https://podcast.adobe.com/" rel="noopener noreferrer" tabindex="0">Adobe Podcast</a></span><br/>
+<p><span><img alt="Screenshot 2023-07-11 at 10.55.29 AM (1)" height="938" loading="lazy" sizes="(max-width: 1486px) 100vw, 1486px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=1486&amp;height=938&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=743&amp;height=469&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png 743w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=1486&amp;height=938&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png 1486w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=2229&amp;height=1407&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png 2229w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=2972&amp;height=1876&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png 2972w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=3715&amp;height=2345&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png 3715w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png?width=4458&amp;height=2814&amp;name=Screenshot%202023-07-11%20at%2010.55.29%20AM%20(1).png 4458w" style="height: auto; max-width: 100%; width: 1486px;" width="1486"/></span></p>
+<span> <span style="font-weight: bold;">A Career Mentor: </span><a data-token-index="2" href="https://pi.ai/talk" rel="noopener noreferrer" tabindex="0">Pi</a></span><br/>
+<p><span><img alt="Screenshot 2023-08-17 at 4.09.28 PM" height="1446" loading="lazy" sizes="(max-width: 2866px) 100vw, 2866px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=2866&amp;height=1446&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=1433&amp;height=723&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png 1433w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=2866&amp;height=1446&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png 2866w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=4299&amp;height=2169&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png 4299w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=5732&amp;height=2892&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png 5732w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=7165&amp;height=3615&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png 7165w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-08-17%20at%204.09.28%20PM.png?width=8598&amp;height=4338&amp;name=Screenshot%202023-08-17%20at%204.09.28%20PM.png 8598w" style="height: auto; max-width: 100%; width: 2866px;" width="2866"/></span></p>
+<h1 style="font-weight: bold;">The Future of UI/UX as AI LLMs Commands Become More Powerful</h1>
+<p>As we journey into the future, the power of AI-driven commands is set to reach new heights, revolutionizing the way we interact with technology. With the potential to streamline entire processes into a single command, the visual information presented to users will be significantly reduced. According to <a data-token-index="1" href="https://config.figma.com/video-on-demand/6329924726112" rel="noopener noreferrer" tabindex="0"><span>Figma from Config 2023 </span></a>, the user interface is expected to undergo a radical transformation, shifting away from traditional apps and embracing the concept of "tasks" instead. Why bother navigating through a takeout ordering app on your phone when you can effortlessly instruct an advanced language model to handle the entire experience for you? The possibilities for AI are limitless, leaving us to wonder: what exciting advancements await us in the realm of artificial intelligence?</p>
+<p><img alt="Screenshot 2023-07-07 at 8.47.42 AM (1)" height="710" loading="lazy" sizes="(max-width: 1150px) 100vw, 1150px" src="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=1150&amp;height=710&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png" srcset="https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=575&amp;height=355&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png 575w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=1150&amp;height=710&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png 1150w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=1725&amp;height=1065&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png 1725w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=2300&amp;height=1420&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png 2300w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=2875&amp;height=1775&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png 2875w, https://focusedlabs.io/hs-fs/hubfs/Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png?width=3450&amp;height=2130&amp;name=Screenshot%202023-07-07%20at%208.47.42%20AM%20(1).png 3450w" style="height: auto; max-width: 100%; width: 1150px;" width="1150"/></p>
+<h3 style="font-weight: bold;">References </h3>
+<ul>
+<li>Adobe Podcast: <strong><a href="https://podcast.adobe.com/"></a><a href="https://podcast.adobe.com">https://podcast.adobe.com</a></strong></li>
+<li>Bard. (n.d.). <strong><a href="https://bard.google.com/"></a><a href="https://bard.google.com">https://bard.google.com</a></strong></li>
+<li>Bing AI. (n.d.). <strong><a href="https://www.microsoft.com/en-us/bing?form=MW00X7&amp;ef_id=_k_CjwKCAjw2K6lBhBXEiwA5RjtCUnqSDVAD3uCoCeAeej94-LJuGAOXTGcT5NChvnLnwasBm14WllPmxoCS2wQAvD_BwE_k_&amp;OCID=AIDcmmf8m4fdss_SEM__k_CjwKCAjw2K6lBhBXEiwA5RjtCUnqSDVAD3uCoCeAeej94-LJuGAOXTGcT5NChvnLnwasBm14WllPmxoCS2wQAvD_BwE"></a><a href="https://www.microsoft.com/en-us/bing">https://www.microsoft.com/en-us/bing</a></strong></li>
+<li>Canva Magic Write. (n.d.).<span style="font-weight: bold;"> </span><a href="https://www.canva.com/magic-write**" style="font-weight: bold;">https://www.canva.com/magic-write</a></li>
+<li>Clickup: <strong><a href="https://clickup.com/"></a><a href="https://clickup.com">https://clickup.com</a></strong></li>
+<li>Copilot AI: <a href="https://blogs.microsoft.com/blog/2023/03/16/introducing-microsoft-365-copilot-your-copilot-for-work**" style="font-weight: bold;">https://blogs.microsoft.com/blog/2023/03/16/introducing-microsoft-365-copilot-your-copilot-for-work</a></li>
+<li>Copy.ai: <strong><a href="https://www.copy.ai/"></a><a href="https://www.copy.ai">https://www.copy.ai</a></strong></li>
+<li>Data-Driven Investor. (n.d.). AI in Design: Current Trends and Future Possibilities.:<span style="font-weight: bold;"> </span><a href="https://medium.datadriveninvestor.com/ai-in-design-current-trends-and-future-possibilities-1318d637393**" style="font-weight: bold;">https://medium.datadriveninvestor.com/ai-in-design-current-trends-and-future-possibilities-1318d637393</a></li>
+<li>Deepmind Sparrow: <a href="https://www.deepmind.com/blog/building-safer-dialogue-agents**" style="font-weight: bold;">https://www.deepmind.com/blog/building-safer-dialogue-agents</a></li>
+<li>Dropbox Dash. (n.d.). <strong><a href="https://www.dropbox.com/dash?&amp;_tk=paid_sem_goog_dash_b&amp;_camp=20298861733&amp;_kw=dropbox%20dash%7ce&amp;_ad=663158507248%7c%7cc&amp;gclid=CjwKCAjw2K6lBhBXEiwA5RjtCa4q9HFOJodDamuUZwtfgMCCCY5SkmqZc5WtWC6x3Bp2wR9J3RJAHhoCw-wQAvD_BwE&amp;gclsrc=aw.ds"></a><a href="https://www.dropbox.com/dash">https://www.dropbox.com/dash</a></strong></li>
+<li>Figma Config. (n.d.). Video on Demand. <a href="https://config.figma.com/video-on-demand/6329924726112**" style="font-weight: bold;">https://config.figma.com/video-on-demand/6329924726112</a></li>
+<li>Figma Magician: <a href="https://www.figma.com/whats-new**" style="font-weight: bold;">https://www.figma.com/whats-new</a></li>
+<li>Github Copilot:<span style="font-weight: bold;"> </span><a href="https://github.com/features/copilot?ref=eluna**" style="font-weight: bold;">https://github.com/features/copilot?ref=eluna</a></li>
+<li>Glean:<a href="https://glean.com/product/overview**" style="font-weight: bold;">https://glean.com/product/overview</a></li>
+<li>GrammarlyGO. (n.d.). Retrieved from <a href="https://www.grammarly.com/grammarlygo**" style="font-weight: bold;">https://www.grammarly.com/grammarlygo</a></li>
+<li>GrammarlyGO Video. (n.d.). <a href="https://www.youtube.com/watch?v=mIqEn-GncUw&amp;t=4s**" style="font-weight: bold;">https://www.youtube.com/watch?v=mIqEn-GncUw&amp;t=4s</a></li>
+<li>Jasper AI. (n.d.). <strong><a href="https://www.jasper.ai/"></a><a href="https://www.jasper.ai">https://www.jasper.ai</a></strong></li>
+<li>Jenni.AI: <strong><a href="https://jenni.ai/"></a><a href="https://jenni.ai">https://jenni.ai</a></strong></li>
+<li>Kaiber: <a href="https://kaiber.ai/login?redirect=/dashboard**" style="font-weight: bold;">https://kaiber.ai/login?redirect=/dashboard</a></li>
+<li>Llama Index: <strong><a href="https://www.llamaindex.ai/"></a><a href="https://www.llamaindex.ai">https://www.llamaindex.ai</a></strong></li>
+<li>LukeW Interface Designs. (n.d.). AI in Design. <a href="https://www.lukew.com/ff/entry.asp?2009**" style="font-weight: bold;">https://www.lukew.com/ff/entry.asp?2009</a></li>
+<li>Material Design. (n.d.). Understanding Layout Principles. <a href="https://m2.material.io/design/layout/understanding-layout.html#principles**" style="font-weight: bold;">https://m2.material.io/design/layout/understanding-layout.html#principles</a></li>
+<li>Miro Ai. (n.d.). <a href="https://miro.com/ai**" style="font-weight: bold;">https://miro.com/ai</a></li>
+<li>Miro AI Capabilities. (n.d.). Using Miro AI with Board Objects (BETA). <a href="https://help.miro.com/hc/en-us/articles/10339593336210-Using-Miro-AI-with-board-objects-BETA-**" style="font-weight: bold;">https://help.miro.com/hc/en-us/articles/10339593336210-Using-Miro-AI-with-board-objects-BETA-</a></li>
+<li>National Cyber Security Centre. (n.d.). ChatGPT and Large Language Models: What's the Risk? <span style="font-weight: bold;"> </span><a href="https://www.ncsc.gov.uk/blog-post/chatgpt-and-large-language-models-whats-the-risk**" style="font-weight: bold;">https://www.ncsc.gov.uk/blog-post/chatgpt-and-large-language-models-whats-the-risk</a></li>
+<li>Notion AI. (n.d.). <strong><a href="https://www.notion.so/product/ai?utm_source=google&amp;utm_campaign=19760654539&amp;utm_medium=146603156397&amp;utm_content=650097729281&amp;utm_term=notion%20ai&amp;targetid=kwd-1547008718840&amp;gclid=CjwKCAjw2K6lBhBXEiwA5RjtCXuBCB92elN1ZofrxNojn13x1JEAMV_jHt1ONy_9CxVfJE5zVbK4PxoCKQIQAvD_BwE"></a><a href="https://www.notion.so/product/ai">https://www.notion.so/product/ai</a></strong></li>
+<li>OpenAI: <a href="https://openai.com/blog/chatgpt**" style="font-weight: bold;">https://openai.com/blog/chatgpt</a></li>
+<li>Otter.ai: <strong><a href="http://otter.ai/"></a><a href="http://Otter.ai">http://Otter.ai</a></strong></li>
+<li>Photoshop AI: <a href="https://www.adobe.com/products/photoshop/generative-fill.html**" style="font-weight: bold;">https://www.adobe.com/products/photoshop/generative-fill.html</a></li>
+<li>Pi AI: <a href="https://pi.ai/talk**" style="font-weight: bold;">https://pi.ai/talk</a></li>
+<li>SlackGPT: <a href="https://slack.com/blog/news/introducing-slack-gpt**" style="font-weight: bold;">https://slack.com/blog/news/introducing-slack-gpt</a></li>
+<li>Smashing Magazine. (2023, March). AI Technology Transforming Design.: <a href="https://www.smashingmagazine.com/2023/03/ai-technology-transform-design**" style="font-weight: bold;">https://www.smashingmagazine.com/2023/03/ai-technology-transform-design</a></li>
+<li>Spotify Enhance. (2021, September 9). Get Perfect Song Recommendations in the Playlists You Create with Enhance.: <a href="https://newsroom.spotify.com/2021-09-09/get-perfect-song-recommendations-in-the-playlists-you-create-with-enhance**" style="font-weight: bold;">https://newsroom.spotify.com/2021-09-09/get-perfect-song-recommendations-in-the-playlists-you-create-with-enhance</a></li>
+<li>Synthesia: <strong><a href="https://www.synthesia.io/"></a><a href="https://www.synthesia.io">https://www.synthesia.io</a></strong></li>
+<li>Tome:<a href="https://tome.app/lightspeed-venture-partners/storytelling-at-the-cost-of-zero-cleetx7da033n1z6l9e9n861u**" style="font-weight: bold;">https://tome.app/lightspeed-venture-partners/storytelling-at-the-cost-of-zero-cleetx7da033n1z6l9e9n861u</a></li>
+<li>Tripnotes:<a href="https://tripnotes.ai/app**" style="font-weight: bold;">https://tripnotes.ai/app</a></li>
+<li>UX Design Bootcamp. (n.d.). The Unstoppable Rise of Spark as AI's Iconic Symbol.:<a href="https://bootcamp.uxdesign.cc/the-unstoppable-rise-of-spark-as-ais-iconic-symbol-ca663162cccc**" style="font-weight: bold;">https://bootcamp.uxdesign.cc/the-unstoppable-rise-of-spark-as-ais-iconic-symbol-ca663162cccc</a></li>
+</ul>
+<h3>What’s Next</h3>
+<p><span>If you have an AI development project and would like some expert help from our Focused Labs consultants, complete our </span><span><a href="https://bit.ly/43sb8d7" rel="noopener">Contact Us form</a><a href="https://bit.ly/43sb8d7" rel="noopener"> </a></span><span>and we will have a human chat.</span></p></span>
+</div>
+</div>
+<div class="post_share">
+<div class="post_share_title">
+<p>Share</p>
+</div>
+<div class="post_share_icons">
+<div class="post_share_links">
+<a href="http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app" onclick="window.open('http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6652 0.491943H1.32043C0.863495 0.492218 0.493073 0.862824 0.493164 1.31995V14.6647C0.493439 15.1216 0.864044 15.492 1.32117 15.4919H8.50586V9.69116H6.55762V7.42065H8.50586V5.74973C8.50586 3.81201 9.68881 2.75732 11.4173 2.75732C12.2452 2.75732 12.9567 2.81903 13.1641 2.84659V4.87183H11.9721C11.0317 4.87183 10.8496 5.3187 10.8496 5.97458V7.42065H13.0981L12.8052 9.69116H10.8496V15.4919H14.6652C15.1224 15.492 15.4931 15.1215 15.4932 14.6643C15.4932 14.6642 15.4932 14.6641 15.4932 14.6639V1.31921C15.493 0.862274 15.1223 0.491852 14.6652 0.491943Z" fill="#2B2340" fill-opacity="0.8"></path>
+</svg>
+</a>
+<a href="javascript:;" onclick="window.open('https://twitter.com/intent/tweet?url=https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app&amp;text=Trends and Patterns for Creating a Custom LLM App','newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self" title="twitter">
+<svg height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path class='text-text text-opacity-80 "fill-current"' d="M15.5278 3.1399C15.4489 3.16295 15.37 3.1844 15.2911 3.20438C14.809 3.32613 14.7646 3.16548 15.1137 2.81104C15.2701 2.65221 15.4082 2.47946 15.5282 2.29288C15.797 1.87449 15.5638 1.69203 15.1063 1.88747C14.9432 1.95719 14.7773 2.0204 14.6091 2.07676C14.1377 2.23505 13.4688 1.99627 13.0488 1.72988C12.5186 1.39362 11.916 1.22559 11.2408 1.22559C10.295 1.22559 9.48891 1.55913 8.82196 2.2257C8.15522 2.89261 7.82167 3.69896 7.82167 4.64448C7.82167 4.77379 7.82906 4.90508 7.84366 5.03818C7.86761 5.25484 7.50272 5.4119 7.01032 5.34236C5.94517 5.19198 4.93317 4.86923 3.97412 4.37447C3.02298 3.88386 2.18352 3.26648 1.45589 2.52228C1.10807 2.1666 0.637649 2.19724 0.507779 2.67737C0.429969 2.96518 0.39127 3.26451 0.39127 3.57539C0.39127 4.16126 0.52885 4.70464 0.804069 5.20551C0.940943 5.45478 1.10124 5.68044 1.28532 5.88235C1.59494 6.22222 1.54756 6.41943 1.11657 6.29859C0.685765 6.17776 0.370052 5.99836 0.370052 6.01007C0.370052 6.02178 0.370052 6.03132 0.370052 6.03132C0.370052 6.85674 0.629232 7.58201 1.14792 8.20643C1.46742 8.59113 1.83861 8.8883 2.26133 9.0976C2.70709 9.3184 2.91474 9.44156 2.66547 9.47382C2.51509 9.49327 2.3638 9.50298 2.21162 9.50298C2.10862 9.50298 2.00056 9.4983 1.88782 9.48877C1.70951 9.47364 1.67746 9.84518 1.94779 10.2627C2.16265 10.5944 2.43766 10.8864 2.77268 11.1385C3.11344 11.3952 3.48068 11.5794 3.87382 11.6916C4.35219 11.828 4.44819 12.0764 4.02167 12.3321C2.96627 12.9654 1.79829 13.282 0.517932 13.282C0.373672 13.282 0.236063 13.2787 0.104604 13.2724C-0.123588 13.2615 0.0295014 13.4624 0.470022 13.6931C1.84656 14.4141 3.33728 14.7743 4.94238 14.7743C6.15594 14.7743 7.29563 14.5822 8.36131 14.1976C9.42661 13.8131 10.337 13.2978 11.092 12.6521C11.847 12.0065 12.4981 11.2639 13.0451 10.424C13.5919 9.58423 13.9993 8.70746 14.2677 7.79381C14.5356 6.87996 14.6698 5.96431 14.6698 5.04686C14.6698 4.9642 14.6691 4.88998 14.6679 4.82462C14.6653 4.70178 14.9902 4.36929 15.353 4.0291C15.5167 3.87548 15.6728 3.71427 15.822 3.54517C16.151 3.17178 16.0053 3.00068 15.5278 3.1399Z"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect height="16" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/trends-and-patterns-for-creating-a-custom-llm-app', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self"><svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path class='text-text text-opacity-80 "fill-current"' d="M15.9968 15.9995V15.9988H16.0008V10.1308C16.0008 7.26016 15.3828 5.04883 12.0268 5.04883C10.4135 5.04883 9.33082 5.93416 8.88882 6.77349H8.84216V5.31683H5.66016V15.9988H8.97349V10.7095C8.97349 9.31683 9.23749 7.97016 10.9622 7.97016C12.6615 7.97016 12.6868 9.55949 12.6868 10.7988V15.9995H15.9968Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M0.264648 5.31738H3.58198V15.9994H0.264648V5.31738Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M1.92133 0C0.860667 0 0 0.860667 0 1.92133C0 2.982 0.860667 3.86067 1.92133 3.86067C2.982 3.86067 3.84267 2.982 3.84267 1.92133C3.842 0.860667 2.98133 0 1.92133 0V0Z"></path></g><defs><clippath id="clip0"><rect fill="white" height="16" width="16"></rect></clippath></defs></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cm_rp_wrp">
+<div class="cm_rp_inner">
+<div class="cm_rp_header">
+<div class="cm_rp_title">
+<p>Read More</p>
+</div>
+<div class="cm_rp_subtitle">
+<h2>Related Posts</h2>
+</div>
+</div>
+<div class="cm_rp_list">
+<a href="https://focusedlabs.io/blog/top-6-things-i-learned-while-building-a-domain-specific-custom-ai-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot" src="https://focusedlabs.io/hubfs/AI-books.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.19.2023
+                
+                
+                | Testing
+                
+                | AI
+                
+                | chatbot
+                
+                | Llama Index
+                
+                | Llangchain
+                
+                | vector embeddings
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/architecture-domain-specific-custom-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Basic Architecture of a Domain Specific Custom AI Chatbot" src="https://focusedlabs.io/hubfs/Architecture.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.16.2023
+                
+                
+                | AI
+                
+                | LLM
+                
+                | Architecture
+                
+                | Langchain
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Basic Architecture of a Domain Specific Custom AI Chatbot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/lightning-talks-the-best-activity-youre-not-doing-yet">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Lightning Talks: the best activity you’re not doing yet" src="https://focusedlabs.io/hubfs/Untitled%20design-1.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.03.2023
+                
+                
+                | Culture
+                
+                 | Peter Swartwout
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Lightning Talks: the best activity you’re not doing yet
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="What To Do When LLMs Hallucinate" src="https://focusedlabs.io/hubfs/AbstractColors.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.21.2023
+                
+                
+                | ChatGPT
+                
+                | AI
+                
+                | LLM
+                
+                 | Sarah Kainec
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  What To Do When LLMs Hallucinate
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/highlights-from-session-with-cmo-of-lettuce">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Strengthening Customer Loyalty with a Digitized Dining Experience" src="https://focusedlabs.io/hubfs/RLC%20Ad%20Web.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">06.13.2023
+                
+                
+                | Mobile App Development
+                
+                 | Focused Labs
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Strengthening Customer Loyalty with a Digitized Dining Experience
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/focused-on-culture">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Focused On: Culture" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/86b08b318cb4c6457a6e7935c41d2a9727e64d3f-1000x420.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">11.19.2020
+                
+                
+                | Culture
+                
+                 | Ryan Taylor
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Focused On: Culture
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Small Steps Towards Effective Prompt Engineering" src="https://focusedlabs.io/hubfs/Prompt%20Engineering.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.22.2023
+                
+                
+                | AI
+                
+                | LLM
+                
+                | Prompt Engineering
+                
+                 | Peter Swartwout
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Small Steps Towards Effective Prompt Engineering
+                </h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/footer.html"><footer class="footer">
+<div class="ft_img_left_wrp">
+<div class="ft_img_left_inner">
+<div class="ft_img_left">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_left_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_left_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_left_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="ft_img_top">
+<div class="ft_img_top_inner">
+<div class="ft_img_top_img">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_top_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_top_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/mobile_animated_imge.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="dnd-section">
+<div class="hs_footer">
+<div class="hs_ft_inner">
+<div class="hs_ft_col">
+<div class="hs_ft_logo">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_logo_hs_logo_widget" style=""><a href="/" id="hs-link-logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="FocusedLabs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="FocusedLabs" width="0"/></a></span>
+</div>
+</div>
+<div class="footer_info">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_information" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_information_" style=""><p>433 W Van Buren St<br \=""/>
+Suite 1100-B<br \=""/>
+Chicago, IL 60607<br \=""/>
+<a href="tel:+17083038088">(708) 303-8088</a>
+</p></span></div>
+</div>
+<div class="footer_info_link">
+<a href="mailto:work@focusedlabs.io">work@focusedlabs.io</a>
+</div>
+</div>
+<div class="hs_ft_col ft_2">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_1" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93462616833" data-sitemap-name="default" id="hs_menu_wrapper_menu_1" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">COMPANY</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io" role="menuitem">Home</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact Us</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/privacy-policy" role="menuitem">Privacy Policy</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="hs_ft_col ft_3">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_2" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93463743912" data-sitemap-name="default" id="hs_menu_wrapper_menu_2" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">EXPLORE</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/case-studies" role="menuitem">Case Studies</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="fooer_sp"></div>
+</div>
+</div>
+<div class="hs_bt_footer">
+<div class="ft_copyright">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_copyright" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_copyright_" style=""><p>© 2023 Focused Labs, All Rights Reserved.</p></span></div>
+</div>
+<div class="ft_social">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_footer_icons" style=""><ul class="ft_icons">
+<li>
+<a href="https://www.facebook.com/withfocus">
+<img alt="facebook" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/facebook.svg"/>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/BuildWithFocus">
+<img alt="twitter" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/twitter.svg"/>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/build-focused-labs/">
+<img alt="linkedin" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/linkedin.svg"/>
+</a>
+</li>
+<li>
+<a href="https://github.com/focused-labs">
+<img alt="github" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/github.svg"/>
+</a>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="ft_img_right_wrp">
+<div class="ft_img_right_inner">
+<div class="ft_img_right">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_right_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_right_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_right_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+</footer>
+<div class="back_to_top">
+<span class="back_top">
+<svg class="block group-hover:scale-125 transform transition-transform" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m17 11-5-5-5 5M17 18l-5-5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div></div>
+</div>
+<!-- HubSpot performance collection script -->
+<script defer="" src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429719598/1681240383335/FocusedLabs_November_2022/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<script src="https://cdn2.hubspot.net/hub/-1/hub_generated/module_assets/-98459521332/1700230849285/module_-98459521332_Image_Slider.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.2/dist/js/splide.min.js"></script>
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/focusedlabs.io\/blog\/trends-and-patterns-for-creating-a-custom-llm-app"]);
+_hsq.push(["setPageId", "130653553208"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 130653553208,
+    "legacyPageId": "130653553208",
+    "contentFolderId": null,
+    "contentGroupId": 93617369930,
+    "abTestId": null,
+    "languageVariantId": 130653553208,
+    "languageCode": "en",
+    
+}]);
+</script>
+<script async="" defer="" id="hs-script-loader" src="/hs/scriptloader/5845897.js" type="text/javascript"></script>
+<!-- End of HubSpot Analytics Code -->
+<script type="text/javascript">
+var hsVars = {
+    render_id: "43f4c5bf-9b33-4bde-800b-2afc31d70857",
+    ticks: 1700477594956,
+    page_id: 130653553208,
+    
+    content_group_id: 93617369930,
+    portal_id: 5845897,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "130653553208",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+<script defer="" src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</body></html>

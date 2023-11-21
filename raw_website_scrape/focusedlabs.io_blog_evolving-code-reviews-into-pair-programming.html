@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Evolving Code Reviews Into Pair Programming</title>
+<link href="https://focusedlabs.io/hubfs/focusedlabs-favicon.png" rel="shortcut icon"/>
+<meta content="Code reviews are becoming more and more standard in the software industry at large. Pair programming, on the other hand, is a rarer practice.
+" name="description"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951526/1686607647092/FocusedLabs_November_2022/css/templates/_blog.min.css" rel="stylesheet" type="text/css"/>
+<script>
+      var show = localStorage.getItem('show');
+      if(show === 'true'){
+        document.documentElement.classList.add('dark');
+      } 
+    </script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<meta content="Code reviews are becoming more and more standard in the software industry at large. Pair programming, on the other hand, is a rarer practice.
+" property="og:description"/>
+<meta content="Evolving Code Reviews Into Pair Programming" property="og:title"/>
+<meta content="Code reviews are becoming more and more standard in the software industry at large. Pair programming, on the other hand, is a rarer practice.
+" name="twitter:description"/>
+<meta content="Evolving Code Reviews Into Pair Programming" name="twitter:title"/>
+<style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429468540/1694708451506/FocusedLabs_November_2022/css/main.min.css" rel="stylesheet"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951529/1690380436362/FocusedLabs_November_2022/css/theme-overrides.min.css" rel="stylesheet"/>
+<link href="//fonts.googleapis.com/css2?family=DM+Mono&amp;display=swap" rel="stylesheet"/>
+<style>
+</style>
+<script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming"
+  },
+  "author" : {
+    "name" : "James McMahon",
+    "url" : "https://focusedlabs.io/blog/author/james-mcmahon",
+    "@type" : "Person"
+  },
+  "headline" : "Evolving Code Reviews Into Pair Programming",
+  "datePublished" : "2020-01-01T07:45:00.000Z",
+  "dateModified" : "2022-12-06T12:10:27.868Z",
+  "publisher" : {
+    "name" : "Focused Labs",
+    "logo" : {
+      "url" : "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FL%20Logo%20Mode=Light.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FocusedLabs_November_2022/Images/bb8a8fad4408e0cbddd3f4b113b33762a2b42357-1000x420.jpg" ]
+}
+</script>
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-3W4SF8W0DX');
+</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3W4SF8W0DX"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFKNBDPP');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+<!-- /Added by GoogleTagManager integration -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFKNBDPP');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+window.__lo_site_id = 330223;
+
+	(function() {
+		var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+		wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  })();
+	</script>
+<link href="https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming?hs_amp=true" rel="amphtml"/>
+<meta content="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/bb8a8fad4408e0cbddd3f4b113b33762a2b42357-1000x420.jpg#keepProtocol" property="og:image"/>
+<meta content="1000" property="og:image:width"/>
+<meta content="420" property="og:image:height"/>
+<meta content="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/bb8a8fad4408e0cbddd3f4b113b33762a2b42357-1000x420.jpg#keepProtocol" name="twitter:image"/>
+<meta content="https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<link href="https://focusedlabs.io/blog/rss.xml" rel="alternate" type="application/rss+xml"/>
+<meta content="focusedlabs.io" name="twitter:domain"/>
+<meta content="@BuildWithFocus" name="twitter:site"/>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<meta content="en" http-equiv="content-language"/>
+<meta content="HubSpot" name="generator"/></head>
+<body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- /Added by GoogleTagManager integration -->
+<div class="body-wrapper hs-content-id-94122270033 hs-blog-post hs-blog-id-93617369930">
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/header.html"><header class="header">
+<a class="header__skip" href="#main-content">Skip to content</a>
+<div class="header_container">
+<div class="container">
+<div class="header_row">
+<div class="header_logo">
+<div class="light_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_light_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_light_logo_hs_logo_widget" style=""><a href="/" id="hs-link-light_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="dark_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_dark_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_dark_logo_hs_logo_widget" style=""><a href="/" id="hs-link-dark_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/light_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="mobile_trigger">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</div>
+</div>
+<div class="header_menu">
+<div class="custom_menu_primary">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93449046703" data-sitemap-name="default" id="hs_menu_wrapper_menu" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact</a></li>
+</ul>
+</div></span>
+</div>
+</div>
+<div class="mb_menu_wrp">
+<div class="mb_menu">
+</div>
+<div class="mode_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mb_menu_imge_wrp">
+<div class="mb_menu_imge">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_Menu_bg" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_Menu_bg_" style=""><img alt="Accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/menu_bg.png" style="width:0px;border-width:0px;border:0px;" title="Accent" width="0"/></span></div>
+</div>
+</div>
+<div class="header_right">
+<div class="mode_toggle mob_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header></div>
+<main class="body-container-wrapper" id="main-content">
+<div class="body-container body-container--blog-post">
+<div class="blog_post_wrapper">
+<div class="post_inner">
+<div class="post_bnr_wrp">
+<div class="post_bnr">
+<a href="https://focusedlabs.io/blog">
+<svg class="mb_back" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path><path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+<p>
+                Blog
+              </p>
+</a>
+<div class="post_bnr_icon">
+<a href="https://focusedlabs.io/blog">
+<svg fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</a>
+<div class="post_bnr_title">
+<h1><span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="text" id="hs_cos_wrapper_name" style="">Evolving Code Reviews Into Pair Programming</span></h1>
+</div>
+</div>
+<div class="hs_date_t2">
+              01.01.2020 |
+              
+              
+              Culture
+              
+               | <a href="https://focusedlabs.io/blog/author/james-mcmahon">
+  James McMahon
+</a>
+</div>
+</div>
+</div>
+<div class="post_featured_image">
+<img alt="Evolving Code Reviews Into Pair Programming" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/bb8a8fad4408e0cbddd3f4b113b33762a2b42357-1000x420.jpg"/>
+</div>
+<div class="blog_post_content">
+<div class="blog_post_body">
+<span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text" id="hs_cos_wrapper_post_body" style=""><p>Code reviews are becoming more and more standard in the software industry at large. Pair programming, on the other hand, is a rarer practice. These practices are not as disparate as they may initially seem. In fact, I'd argue that pair programming, or pairing for short, is a natural refinement of the practice of code review.</p>
+<!--more--><h2>Benefits of Code Review</h2>
+<p>Let's start by looking at some of the benefits of code reviews, in no particular order:</p>
+<ul>
+<li>Higher-quality code</li>
+<li>Potential to find alternative solutions</li>
+<li>Fewer defects</li>
+<li>Shared ownership of the code</li>
+<li>Context sharing</li>
+</ul>
+<p>There are probably a few I am missing, but that seems like a sound and uncontroversial list.</p>
+<p>There is a trick; however, these benefits don't come from just any old code review; they come from well-run code reviews. There are a few pitfalls.</p>
+<h2>Code Review Problems</h2>
+<p>I've seen code reviews go wrong in a few different ways:</p>
+<ol>
+<li>The amount of context to understand the feature is too high. IE, the author has more context on the problem then the rest of the team, and no one else on the team can give them meaningful feedback.</li>
+<li>The "oops" rewrite everything problem. The author did not fully understand the context of the feature under review before they started to write code. IE, another teammate has more context than the author and wasn't able to share context effectively beforehand.</li>
+</ol>
+<p>Other things can go wrong, feature branches that never end, the code review turning into a human linting session, but for the most part, these problems stem back to the communication issues listed above.</p>
+<p>The precarious part of any code review process is shared context. But wait, wasn't that one of the benefits of code reviews we listed above? Well, the trick is, even if you live in a perfect world and everyone on your team understands every single line of code in your codebase, you still just developed a bunch of new context in your code review. Anyone reviewing that code now needs to climb the mountain to understand what you just wrote. So even in an ideal world, there is some work to build context. That's not the end of the world, we all know reading code is the hard part, but it's well worth the effort for the benefits. Since we can't avoid this overhead, how do we fix the two scenarios above? The answer is feedback, or more specifically, the feedback cycle.</p>
+<h2>Tightening Up The Process</h2>
+<p>The trick is to move to a quicker cycle for reviews, taking an approach of "review early, review often." If we want to avoid context gaps and reap benefits at a faster cadence, keep reviews short, and get that code merged in post review.</p>
+<p>Flawless plan, right? No, you say? Well, I guess you are right, there are two problems here.</p>
+<ol>
+<li>Some features/stories/tasks don't lend themselves to small commits.</li>
+<li>Everyone else has work to do. We can't just stop everything to code review all the time.</li>
+</ol>
+<p>These problems are opposite sides of the same coin. They both are part of the reality of engineering work that leads to pull requests sitting idle for hours or maybe even days (or maybe even weeks). This leads to even greater context holes, as the original author has moved on to other features and now needs to pay their own context penalty when they context-switch back to the code review they requested.</p>
+<h2>Evolution</h2>
+<p>So what's the solution? Well, I gave it away at the beginning, but it really is pair programming. All those benefits I listed for code review above, you get them all. Not only that, but you get those benefits at a much higher cadence. It also solves the two problems with the review early, review often approach.</p>
+<p>No one is waiting on any code reviews anymore because your pair is beside you and invested in getting the commit done. If you adhere to a<span> </span><a href="https://buffer.com/resources/small-teams-why-startups-often-win-against-google-and-facebook-the-science-behind-why-smaller-teams-get-more-done">two pizza team</a><span> </span>you now have a non-trivial percent of your team working on any given commit. If a commit is exceptionally hairy or you are lacking some domain expertise, either start the pair with the engineers you need involved or call them over when the task is done and do the code review in person. I guarantee this does wonders for context sharing, and the need to do a three-person review drops as your team works on the codebase together.</p>
+<p>For larger features, you now have the focus on the entire pair. Better yet, if a feature is going to carry over to another day, you have an opportunity to establish a regular cadence of pair rotation. Keep one member of the pair on the feature and rotate another engineer on. At the end of the cycle, the context shared would be higher than any code review I've ever participated in.</p>
+<h2>Questions About Pairing</h2>
+<blockquote><img alt="icon" loading="lazy" src="https://focusedlabs.io/hubfs/undefined-Dec-05-2022-05-31-12-6406-AM.png"/>
+<p>Wait, you want two people to do the same job?</p>
+</blockquote>
+<p>Yes, I do. Code reviews are widespread because there is a widespread acceptance of the benefits. What I am saying is that pair programming is just a refined version of code reviews with all the benefits and without several major drawbacks.</p>
+<blockquote><img alt="icon" loading="lazy" src="https://focusedlabs.io/hubfs/undefined-Dec-05-2022-05-31-12-6406-AM.png"/>
+<p>But this code is trivial and not worth the time of two engineers</p>
+</blockquote>
+<p>I hear this a bunch when discussion of pair programming comes up. If the code is worth reviewing, it's worth pairing on. If it's not worth reviewing, well, I see a more substantial smell in having a non-trivial amount of "trivial" code in a codebase. That feels like a missing abstraction.</p>
+<blockquote><img alt="icon" loading="lazy" src="https://focusedlabs.io/hubfs/undefined-Dec-05-2022-05-31-12-6406-AM.png"/>
+<p>Do I really have to pair all the time?</p>
+</blockquote>
+<p>You don't. There are points were splitting off makes a lot of sense. For instance, if the pair needs to read some documentation, or needs to take some time and experiment with different solutions. In general, you should be paying attention and favoring writing production code with a pair, but there are good reasons to split. The important thing is to make sure you are splitting because it makes sense and not because you are avoiding pairing or (worse) your pair, which brings me to the next point.</p>
+<blockquote><img alt="icon" loading="lazy" src="https://focusedlabs.io/hubfs/undefined-Dec-05-2022-05-31-12-6406-AM.png"/>
+<p>Pairing sounds great for other people, but I just don't think that way</p>
+</blockquote>
+<p>So here is something I don't think gets said enough, pairing is hard, especially when you first start. Some come more naturally to it than others, but pairing is a skill. It is a skill that develops over time. You need to be patient with your pair and, more importantly, yourself when you are learning this new skill. Don't be afraid to take breaks. If you are struggling trying switching<span> </span><a href="https://stackify.com/pair-programming-styles/">pairing styles</a><span> </span>or slowing down and spending extra time externalizing your thoughts. I've been pair programming professionally pretty much every day for about 3 years now, and I still occasionally get movements where I stumble over my words or go silent for a bit while I work out how to best communicate a concept.</p>
+<blockquote><img alt="icon" loading="lazy" src="https://focusedlabs.io/hubfs/undefined-Dec-05-2022-05-31-12-6406-AM.png"/>
+<p>If it is that hard, why do it?</p>
+</blockquote>
+<p>Here is the thing, it works. I had a client tell me once, "the code I am writing now is the best code I feel like I've ever written in my career." That client was not a junior, he was a seasoned engineer with a long career, and he walked into pairing with a skeptics mind and got something out of it. Honestly, after reflecting over the last 3 years, I think I agree with him. The code I am writing now feels like the best code I've written. I go back to code I wrote with a pair weeks or months ago, that code just reads better. It's gotten to a point where I wish I could pull someone aside on weekends occasionally to pair on some of my hobby projects.</p>
+<h2>Wrapping up</h2>
+<p>So there it is, my case for evolving your code reviews into pair programming. I've only scratched the surface, as there other benefits that come along with an established pair programming practice that go above and beyond the benefits of code review. Hopefully, what I've written is enough to pique your curiosity and convince you to give it a try. After evolving your code reviews practice to pair programming, you'll find you spend less time on the mechanics of code review and more time writing quality code.</p></span>
+</div>
+</div>
+<div class="post_share">
+<div class="post_share_title">
+<p>Share</p>
+</div>
+<div class="post_share_icons">
+<div class="post_share_links">
+<a href="http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming" onclick="window.open('http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6652 0.491943H1.32043C0.863495 0.492218 0.493073 0.862824 0.493164 1.31995V14.6647C0.493439 15.1216 0.864044 15.492 1.32117 15.4919H8.50586V9.69116H6.55762V7.42065H8.50586V5.74973C8.50586 3.81201 9.68881 2.75732 11.4173 2.75732C12.2452 2.75732 12.9567 2.81903 13.1641 2.84659V4.87183H11.9721C11.0317 4.87183 10.8496 5.3187 10.8496 5.97458V7.42065H13.0981L12.8052 9.69116H10.8496V15.4919H14.6652C15.1224 15.492 15.4931 15.1215 15.4932 14.6643C15.4932 14.6642 15.4932 14.6641 15.4932 14.6639V1.31921C15.493 0.862274 15.1223 0.491852 14.6652 0.491943Z" fill="#2B2340" fill-opacity="0.8"></path>
+</svg>
+</a>
+<a href="javascript:;" onclick="window.open('https://twitter.com/intent/tweet?url=https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming&amp;text=Evolving Code Reviews Into Pair Programming','newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self" title="twitter">
+<svg height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path class='text-text text-opacity-80 "fill-current"' d="M15.5278 3.1399C15.4489 3.16295 15.37 3.1844 15.2911 3.20438C14.809 3.32613 14.7646 3.16548 15.1137 2.81104C15.2701 2.65221 15.4082 2.47946 15.5282 2.29288C15.797 1.87449 15.5638 1.69203 15.1063 1.88747C14.9432 1.95719 14.7773 2.0204 14.6091 2.07676C14.1377 2.23505 13.4688 1.99627 13.0488 1.72988C12.5186 1.39362 11.916 1.22559 11.2408 1.22559C10.295 1.22559 9.48891 1.55913 8.82196 2.2257C8.15522 2.89261 7.82167 3.69896 7.82167 4.64448C7.82167 4.77379 7.82906 4.90508 7.84366 5.03818C7.86761 5.25484 7.50272 5.4119 7.01032 5.34236C5.94517 5.19198 4.93317 4.86923 3.97412 4.37447C3.02298 3.88386 2.18352 3.26648 1.45589 2.52228C1.10807 2.1666 0.637649 2.19724 0.507779 2.67737C0.429969 2.96518 0.39127 3.26451 0.39127 3.57539C0.39127 4.16126 0.52885 4.70464 0.804069 5.20551C0.940943 5.45478 1.10124 5.68044 1.28532 5.88235C1.59494 6.22222 1.54756 6.41943 1.11657 6.29859C0.685765 6.17776 0.370052 5.99836 0.370052 6.01007C0.370052 6.02178 0.370052 6.03132 0.370052 6.03132C0.370052 6.85674 0.629232 7.58201 1.14792 8.20643C1.46742 8.59113 1.83861 8.8883 2.26133 9.0976C2.70709 9.3184 2.91474 9.44156 2.66547 9.47382C2.51509 9.49327 2.3638 9.50298 2.21162 9.50298C2.10862 9.50298 2.00056 9.4983 1.88782 9.48877C1.70951 9.47364 1.67746 9.84518 1.94779 10.2627C2.16265 10.5944 2.43766 10.8864 2.77268 11.1385C3.11344 11.3952 3.48068 11.5794 3.87382 11.6916C4.35219 11.828 4.44819 12.0764 4.02167 12.3321C2.96627 12.9654 1.79829 13.282 0.517932 13.282C0.373672 13.282 0.236063 13.2787 0.104604 13.2724C-0.123588 13.2615 0.0295014 13.4624 0.470022 13.6931C1.84656 14.4141 3.33728 14.7743 4.94238 14.7743C6.15594 14.7743 7.29563 14.5822 8.36131 14.1976C9.42661 13.8131 10.337 13.2978 11.092 12.6521C11.847 12.0065 12.4981 11.2639 13.0451 10.424C13.5919 9.58423 13.9993 8.70746 14.2677 7.79381C14.5356 6.87996 14.6698 5.96431 14.6698 5.04686C14.6698 4.9642 14.6691 4.88998 14.6679 4.82462C14.6653 4.70178 14.9902 4.36929 15.353 4.0291C15.5167 3.87548 15.6728 3.71427 15.822 3.54517C16.151 3.17178 16.0053 3.00068 15.5278 3.1399Z"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect height="16" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/evolving-code-reviews-into-pair-programming', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self"><svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path class='text-text text-opacity-80 "fill-current"' d="M15.9968 15.9995V15.9988H16.0008V10.1308C16.0008 7.26016 15.3828 5.04883 12.0268 5.04883C10.4135 5.04883 9.33082 5.93416 8.88882 6.77349H8.84216V5.31683H5.66016V15.9988H8.97349V10.7095C8.97349 9.31683 9.23749 7.97016 10.9622 7.97016C12.6615 7.97016 12.6868 9.55949 12.6868 10.7988V15.9995H15.9968Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M0.264648 5.31738H3.58198V15.9994H0.264648V5.31738Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M1.92133 0C0.860667 0 0 0.860667 0 1.92133C0 2.982 0.860667 3.86067 1.92133 3.86067C2.982 3.86067 3.84267 2.982 3.84267 1.92133C3.842 0.860667 2.98133 0 1.92133 0V0Z"></path></g><defs><clippath id="clip0"><rect fill="white" height="16" width="16"></rect></clippath></defs></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cm_rp_wrp">
+<div class="cm_rp_inner">
+<div class="cm_rp_header">
+<div class="cm_rp_title">
+<p>Read More</p>
+</div>
+<div class="cm_rp_subtitle">
+<h2>Related Posts</h2>
+</div>
+</div>
+<div class="cm_rp_list">
+<a href="https://focusedlabs.io/blog/pair-programming-in-the-time-of-covid">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Pair Programming in the Time of Covid" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/f5d86fe50e9e50f6a9f994bff7ce5f172c5b344b-1000x421.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.13.2022
+                
+                
+                | Culture
+                
+                 | Kate Courtney
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Pair Programming in the Time of Covid
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/beyond-a-jpeg-nft-as-a-primary-key">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Beyond a JPEG: NFT as a Primary Key" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/ea36ca757020b4fcd4273b92dcf33ac33a4f6ee7-1000x421.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.12.2022
+                
+                
+                | Tutorial
+                
+                | Backend
+                
+                | Blockchain
+                
+                | Web3
+                
+                 | Austin Vance
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Beyond a JPEG: NFT as a Primary Key
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/how-focused-labs-builds-inclusive-teams">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="How Focused Labs builds inclusive teams" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/080f1d0e66058f341966e33284e3b910f352700b-360x270.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">06.30.2021
+                
+                
+                | Culture
+                
+                 | Katy Scott
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  How Focused Labs builds inclusive teams
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/are-you-covered-by-your-code-coverage-metric">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Are You Covered By Your Code Coverage Metric?" src="https://focusedlabs.io/hubfs/engine-light-3.jpeg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">06.07.2023
+                
+                
+                | Test-Driven Development
+                
+                 | David Hayes
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Are You Covered By Your Code Coverage Metric?
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/top-6-things-i-learned-while-building-a-domain-specific-custom-ai-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot" src="https://focusedlabs.io/hubfs/AI-books.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.19.2023
+                
+                
+                | Testing
+                
+                | AI
+                
+                | chatbot
+                
+                | Llama Index
+                
+                | Llangchain
+                
+                | vector embeddings
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/expert-programming-is-not-knowing-everything">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Expert Programming Is Not Knowing Everything" src="https://focusedlabs.io/hubfs/BlogImageEng.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">06.29.2023
+                
+                
+                | Expert Programming
+                
+                 | Reginald NeoWilliams
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Expert Programming Is Not Knowing Everything
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/cors-hides-real-bugs">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="CORS Hides Real Bugs" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/9817722eaa0665c272e455928d0775e00a065bd9-4000x2666.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.14.2021
+                
+                
+                | Frontend
+                
+                 | Parker Drake
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  CORS Hides Real Bugs
+                </h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/footer.html"><footer class="footer">
+<div class="ft_img_left_wrp">
+<div class="ft_img_left_inner">
+<div class="ft_img_left">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_left_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_left_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_left_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="ft_img_top">
+<div class="ft_img_top_inner">
+<div class="ft_img_top_img">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_top_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_top_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/mobile_animated_imge.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="dnd-section">
+<div class="hs_footer">
+<div class="hs_ft_inner">
+<div class="hs_ft_col">
+<div class="hs_ft_logo">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_logo_hs_logo_widget" style=""><a href="/" id="hs-link-logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="FocusedLabs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="FocusedLabs" width="0"/></a></span>
+</div>
+</div>
+<div class="footer_info">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_information" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_information_" style=""><p>433 W Van Buren St<br \=""/>
+Suite 1100-B<br \=""/>
+Chicago, IL 60607<br \=""/>
+<a href="tel:+17083038088">(708) 303-8088</a>
+</p></span></div>
+</div>
+<div class="footer_info_link">
+<a href="mailto:work@focusedlabs.io">work@focusedlabs.io</a>
+</div>
+</div>
+<div class="hs_ft_col ft_2">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_1" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93462616833" data-sitemap-name="default" id="hs_menu_wrapper_menu_1" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">COMPANY</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io" role="menuitem">Home</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact Us</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/privacy-policy" role="menuitem">Privacy Policy</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="hs_ft_col ft_3">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_2" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93463743912" data-sitemap-name="default" id="hs_menu_wrapper_menu_2" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">EXPLORE</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/case-studies" role="menuitem">Case Studies</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="fooer_sp"></div>
+</div>
+</div>
+<div class="hs_bt_footer">
+<div class="ft_copyright">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_copyright" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_copyright_" style=""><p>© 2023 Focused Labs, All Rights Reserved.</p></span></div>
+</div>
+<div class="ft_social">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_footer_icons" style=""><ul class="ft_icons">
+<li>
+<a href="https://www.facebook.com/withfocus">
+<img alt="facebook" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/facebook.svg"/>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/BuildWithFocus">
+<img alt="twitter" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/twitter.svg"/>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/build-focused-labs/">
+<img alt="linkedin" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/linkedin.svg"/>
+</a>
+</li>
+<li>
+<a href="https://github.com/focused-labs">
+<img alt="github" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/github.svg"/>
+</a>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="ft_img_right_wrp">
+<div class="ft_img_right_inner">
+<div class="ft_img_right">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_right_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_right_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_right_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+</footer>
+<div class="back_to_top">
+<span class="back_top">
+<svg class="block group-hover:scale-125 transform transition-transform" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m17 11-5-5-5 5M17 18l-5-5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div></div>
+</div>
+<!-- HubSpot performance collection script -->
+<script defer="" src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429719598/1681240383335/FocusedLabs_November_2022/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/focusedlabs.io\/blog\/evolving-code-reviews-into-pair-programming"]);
+_hsq.push(["setPageId", "94122270033"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 94122270033,
+    "legacyPageId": "94122270033",
+    "contentFolderId": null,
+    "contentGroupId": 93617369930,
+    "abTestId": null,
+    "languageVariantId": 94122270033,
+    "languageCode": "en",
+    
+}]);
+</script>
+<script async="" defer="" id="hs-script-loader" src="/hs/scriptloader/5845897.js" type="text/javascript"></script>
+<!-- End of HubSpot Analytics Code -->
+<script type="text/javascript">
+var hsVars = {
+    render_id: "2a41f3a2-0305-4941-9245-b5ce250afea2",
+    ticks: 1700477571630,
+    page_id: 94122270033,
+    
+    content_group_id: 93617369930,
+    portal_id: 5845897,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "94122270033",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+<script defer="" src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</body></html>

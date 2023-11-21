@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Creating Serverless Functions using TDD</title>
+<link href="https://focusedlabs.io/hubfs/focusedlabs-favicon.png" rel="shortcut icon"/>
+<meta content="Regardless of where you are in the industry, there is a good chance that Serverless functions are a topic you've seen brought up on Reddit, Hackernews, a...
+" name="description"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951526/1686607647092/FocusedLabs_November_2022/css/templates/_blog.min.css" rel="stylesheet" type="text/css"/>
+<script>
+      var show = localStorage.getItem('show');
+      if(show === 'true'){
+        document.documentElement.classList.add('dark');
+      } 
+    </script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<meta content="Regardless of where you are in the industry, there is a good chance that Serverless functions are a topic you've seen brought up on Reddit, Hackernews, a...
+" property="og:description"/>
+<meta content="Creating Serverless Functions using TDD" property="og:title"/>
+<meta content="Regardless of where you are in the industry, there is a good chance that Serverless functions are a topic you've seen brought up on Reddit, Hackernews, a...
+" name="twitter:description"/>
+<meta content="Creating Serverless Functions using TDD" name="twitter:title"/>
+<style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429468540/1694708451506/FocusedLabs_November_2022/css/main.min.css" rel="stylesheet"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951529/1690380436362/FocusedLabs_November_2022/css/theme-overrides.min.css" rel="stylesheet"/>
+<link href="//fonts.googleapis.com/css2?family=DM+Mono&amp;display=swap" rel="stylesheet"/>
+<style>
+</style>
+<script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://focusedlabs.io/blog/creating-serverless-functions-using-tdd"
+  },
+  "author" : {
+    "name" : "James McMahon",
+    "url" : "https://focusedlabs.io/blog/author/james-mcmahon",
+    "@type" : "Person"
+  },
+  "headline" : "Creating Serverless Functions using TDD",
+  "datePublished" : "2020-01-02T09:15:00.000Z",
+  "dateModified" : "2022-12-06T12:07:09.164Z",
+  "publisher" : {
+    "name" : "Focused Labs",
+    "logo" : {
+      "url" : "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FL%20Logo%20Mode=Light.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FocusedLabs_November_2022/Images/64f98814538cc96b9191380035c70c67a0f370e0-1000x420.jpg" ]
+}
+</script>
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-3W4SF8W0DX');
+</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3W4SF8W0DX"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFKNBDPP');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+<!-- /Added by GoogleTagManager integration -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFKNBDPP');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+window.__lo_site_id = 330223;
+
+	(function() {
+		var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+		wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  })();
+	</script>
+<link href="https://focusedlabs.io/blog/creating-serverless-functions-using-tdd?hs_amp=true" rel="amphtml"/>
+<meta content="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/64f98814538cc96b9191380035c70c67a0f370e0-1000x420.jpg#keepProtocol" property="og:image"/>
+<meta content="1000" property="og:image:width"/>
+<meta content="420" property="og:image:height"/>
+<meta content="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/64f98814538cc96b9191380035c70c67a0f370e0-1000x420.jpg#keepProtocol" name="twitter:image"/>
+<meta content="https://focusedlabs.io/blog/creating-serverless-functions-using-tdd" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://focusedlabs.io/blog/creating-serverless-functions-using-tdd" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<link href="https://focusedlabs.io/blog/rss.xml" rel="alternate" type="application/rss+xml"/>
+<meta content="focusedlabs.io" name="twitter:domain"/>
+<meta content="@BuildWithFocus" name="twitter:site"/>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<meta content="en" http-equiv="content-language"/>
+<meta content="HubSpot" name="generator"/></head>
+<body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- /Added by GoogleTagManager integration -->
+<div class="body-wrapper hs-content-id-94149825305 hs-blog-post hs-blog-id-93617369930">
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/header.html"><header class="header">
+<a class="header__skip" href="#main-content">Skip to content</a>
+<div class="header_container">
+<div class="container">
+<div class="header_row">
+<div class="header_logo">
+<div class="light_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_light_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_light_logo_hs_logo_widget" style=""><a href="/" id="hs-link-light_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="dark_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_dark_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_dark_logo_hs_logo_widget" style=""><a href="/" id="hs-link-dark_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/light_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="mobile_trigger">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</div>
+</div>
+<div class="header_menu">
+<div class="custom_menu_primary">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93449046703" data-sitemap-name="default" id="hs_menu_wrapper_menu" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact</a></li>
+</ul>
+</div></span>
+</div>
+</div>
+<div class="mb_menu_wrp">
+<div class="mb_menu">
+</div>
+<div class="mode_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mb_menu_imge_wrp">
+<div class="mb_menu_imge">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_Menu_bg" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_Menu_bg_" style=""><img alt="Accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/menu_bg.png" style="width:0px;border-width:0px;border:0px;" title="Accent" width="0"/></span></div>
+</div>
+</div>
+<div class="header_right">
+<div class="mode_toggle mob_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header></div>
+<main class="body-container-wrapper" id="main-content">
+<div class="body-container body-container--blog-post">
+<div class="blog_post_wrapper">
+<div class="post_inner">
+<div class="post_bnr_wrp">
+<div class="post_bnr">
+<a href="https://focusedlabs.io/blog">
+<svg class="mb_back" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path><path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+<p>
+                Blog
+              </p>
+</a>
+<div class="post_bnr_icon">
+<a href="https://focusedlabs.io/blog">
+<svg fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</a>
+<div class="post_bnr_title">
+<h1><span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="text" id="hs_cos_wrapper_name" style="">Creating Serverless Functions using TDD</span></h1>
+</div>
+</div>
+<div class="hs_date_t2">
+              01.02.2020 |
+              
+              
+              Backend
+              
+              Testing
+              
+               | <a href="https://focusedlabs.io/blog/author/james-mcmahon">
+  James McMahon
+</a>
+</div>
+</div>
+</div>
+<div class="post_featured_image">
+<img alt="Creating Serverless Functions using TDD" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/64f98814538cc96b9191380035c70c67a0f370e0-1000x420.jpg"/>
+</div>
+<div class="blog_post_content">
+<div class="blog_post_body">
+<span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text" id="hs_cos_wrapper_post_body" style=""><p>Regardless of where you are in the industry, there is a good chance that Serverless functions are a topic you've seen brought up on Reddit, Hackernews, a local Meetup, or where ever you find two programmers talking. If you have never worked with them before, they can sound intimidating; yet another stack to learn or some deep Dev Ops magic. The beauty of Serverless functions is they make things easier by introducing a layer of abstraction between the code you want to run and the servers running the code. That's right, despite them being called Serverless, they most definitely do run on servers, just not servers you explicitly know or care about.</p>
+<!--more-->
+<p>Having one less thing to worry about always sounds great to me. Granted, it is not all sunshine and roses. Like any engineering tool, there are costs and trade-offs involved, which I am not going to cover in this post. Generally, I'd say this feels like an abstraction that is needed in the industry at large, and I wouldn't be surprised to see more and more engineers apply a serverless approach to an increasingly varied set of domains.</p>
+<p>If you find yourself in a position to start to use them, you may be at a loss as to where to begin. How do you structure your code? How do you ensure your code is high quality? The same questions you ask yourself when engaging with any new technology. The answer is, as it is to any interesting question, it depends.</p>
+<p>In this post, I am going to lay at a reasonable starting approach that can be adjusted to your specific needs as you become more familiar with the technology. Using a TDD approach and a familiar backend architecture, I am going to guide you through a simple scenario.</p>
+<h2>Firebase</h2>
+<p>There are many different platforms out there that support Serverless Functions, but lately, I've been using Firebase's Cloud Functions on client projects. The Firebase ecosystem is exciting, and the more I learn about it, the faster, I feel like I can deliver software to my clients, so it's all worth learning about, but for today, let's focus on Firebase's functions.</p>
+<p>Here is what a basic Hello World function looks like:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">import</span><span> * </span><span style="color: #569cd6;">as</span><span> functions </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"firebase-functions"</span><span>;
+</span>
+<span></span><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">const</span><span> helloWorld = functions.https.onRequest(</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">request, response</span><span style="color: #dcdcdc;">) =&gt;</span><span> {
+</span><span>  response.send(</span><span style="color: #d69d85;">"Hello from Firebase!"</span><span>);
+</span>});</code></pre>
+<p>Pretty straight forward, the <code>firebase-functions</code> API works by registering functions to handle a request, something that should not be too surprising for those who have used Express or Hapi in the past.</p>
+<p>One of the cool things about Firebase is the ease at which you can integrate with other technologies on the platform. Firebase supports Google's Cloud Storage. Here is how you would write a function to listen to a bucket and do something when a file is uploaded:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">const</span><span> helloStorage = functions.storage
+</span>  .object()
+<span>  .onFinalize(</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">objectMetadata: ObjectMetadata, context: EventContext</span><span style="color: #dcdcdc;">) =&gt;</span><span>
+</span><span>    </span><span style="color: #4ec9b0;">console</span><span>.log(</span><span style="color: #d69d85;">"Hello from Firebase storage!"</span><span>)
+</span>  );</code></pre>
+<p>I'm using Typescript to get a better view of what the Firebase API is going to send my function. Both <code>ObjectMetadata</code> and <code>EventContext</code> are rather large, so I am not going to post the full types here. The TLDR is that <code>ObjectMetadata</code> will give you details about the object that just finalized (or uploaded) and <code>EventContext</code>, gives you auth context, a timestamp, etc. This simple API can be used as a launching point to solve some interesting problems. Coupled with Firebase's rather amazing client-side API, we can kick off whatever behavior we need from a simple file upload.</p>
+<h2>Diving In</h2>
+<p>Let's work together on solving a problem using the tools Firebase is giving us. If you are interested in following along, I highly recommend following the <a href="https://firebase.google.com/docs/functions/get-started">getting started docs for Firebase Functions</a>. You ultimately want to spin up a blank project with Functions, Firestore, and Storage configured. Following along, you can add code and libraries as I mention them below.</p>
+<h2>Problem</h2>
+<p>Currently, Video Game review aggregators, like OpenCritic and MetaCritic, are in the midst of introspecting about the best titles over the last decade. Let's write some code to help them out.</p>
+<p>Let's say I have a CSV file that looks like this,</p>
+<pre><code style="white-space: pre;"><span>game,publisher,year,rating
+</span><span>Slay The Spire,Mega Crit Games,</span><span style="color: #b8d7a3;">2019</span><span>,</span><span style="color: #b8d7a3;">89</span><span>
+</span><span>Luigi</span><span style="color: #d69d85;">'s Mansion,Nintendo,2019,86
+</span><span style="color: #d69d85;">Super Mario Maker 2,Nintendo,2019,88
+</span><span style="color: #d69d85;">Red Dead Redemption 2,Rockstar Games,2018,96
+</span><span style="color: #d69d85;">God of War,Sony Interactive Entertainment,2018,95
+</span><span style="color: #d69d85;">Super Mario Odyssey,Nintendo,2017,97
+</span><span style="color: #d69d85;">Persona 5,Atlus,2017,94</span></code></pre>
+<p>and I want to create a screen of all high ranking games grouped by years,</p>
+<p>Let's not worry about the UI side of things. Let's assume that if we can get into the database, we can revisit it later and write a UI on top of it. Let's use Firebase's own Cloud Firestore as our database since it is going to plug nicely into the Firebase infrastructure. Firestore is a NoSQL database that has a few unique qualities that are out of scope for this blog post, but it's pretty great and worth reading up on. We are also going to use Typescript for more transparent code samples and because it is awesome.</p>
+<p>To store our Games Of The Year data, let's plan on creating a single document in Firestore. The UI will then only need to retrieve this document to be able to display a nice retrospective of the last 10 years of Video Games to the user.</p>
+<p>At a high level, we need to do the following:</p>
+<ul>
+<li>Read in a CSV file</li>
+<li>Transform it into a JSON document</li>
+<li>Save it to our database</li>
+<li>Test all of that to the best of our abilities</li>
+</ul>
+<h3>Testing Approach</h3>
+<p>For this example, we may be tempted to write a test that tests all the way through the functions, feeding in a CSV, and then checking the database for the expected result.</p>
+<p>While I think that sounds reasonable, I know from experience that Firebase Integration Tests are not super easy to write with the isolation needed to run them in an automated fashion. While Google has a function emulator, it has its own nuances and challenges. Another approach is to set up a separate Firebase environment just for tests, which also has some significant downsides, especially if you are working on a team.</p>
+<p>For the purposes of this blog, let's scope everything down and focus on Unit Tests. The Unit Tests we write are going to run ultra-fast, be small and simple, require no external dependencies, and be excellent at covering error conditions and corner cases. Let's save talking about Integration Tests for another post.</p>
+<h2>Thinking it through</h2>
+<p>When we start thinking about Unit Tests, we have to start thinking about how our application is architectured and how our responsibilities are layered. We need to divide these responsibilities into pieces of code that are essentially our units to test.</p>
+<p>Let's take an approach that should be familiar to most people who have prior experience with backend code. Let's divide our architecture into 3 tiers:</p>
+<ul>
+<li>The Controller Layer - <em class="font-inter font-light leading-normal text-lg my-7.5 md:px-0 dark:text-text-70-dm print:text-sm">Responsible for adapting incoming messages from our platform (Firebase) into our domain</em></li>
+<li>The Service Layer - <em class="font-inter font-light leading-normal text-lg my-7.5 md:px-0 dark:text-text-70-dm print:text-sm">Where our business logic lives.</em></li>
+<li>The Repository Layer - <em class="font-inter font-light leading-normal text-lg my-7.5 md:px-0 dark:text-text-70-dm print:text-sm">Takes messages from our domain and saves them to our database.</em></li>
+</ul>
+<p>In addition to this, our <code>index.ts</code> file is going to be responsible for registering our logic with the Firebase function API, creating each of these layers, and composing them correctly.</p>
+<p>This 3 tier approach isn't the only way we can approach Serverless Functions, but it does represent a reasonable starting point and a smooth transition from other backend frameworks.</p>
+<p>While I typically drive interfaces out as I develop my tests, for clarity, let's lay out the interface for each of our layers in advance:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">export</span><span> interface GamesOfTheYearController {
+</span><span>  create(objectMetadata: ObjectMetadata): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt;;
+</span>}
+<!-- -->
+<span></span><span style="color: #569cd6;">export</span><span> interface GamesOfTheYearService {
+</span><span>  add(games: Game[]): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt;;
+</span>}
+<!-- -->
+<span></span><span style="color: #569cd6;">export</span><span> interface GamesOfTheYearRepository {
+</span><span>  add(gamesOfTheYear: GamesOfTheYear): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt;;
+</span>}</code></pre>
+<p>Typescript is useful here as we can focus on the messages that each layer is responsible for. First of all, each layer is returning a <code>void</code>, but it is a <code>void</code> wrapped in a <code>Promise</code>. This means that though we aren't returning anything, there are two signals that our layers are passing up.</p>
+<ol class="styles-module--numberedListStyle--2VSX4 my-5">
+<li>The task is complete.</li>
+<li>The task was successful or unsuccessful.</li>
+</ol>
+<p>So even though we are dealing with void, these messages have a lot of information to convey. Additionally, keep in mind that each layer is calling the one underneath it, so they are also implicitly responsible for sending off that message as well.</p>
+<p>Now let's turn our attention to the message that each interface receives:</p>
+<h3>Controller</h3>
+<p>Our controller is receiving a message with <code>ObjectMetadata</code>, which is the type defined by Firebase that we talked about previously.</p>
+<h3>Service</h3>
+<p>Our service takes a <code>Game</code> array message. What is this <code>Game</code> type? We haven't defined it yet, but it may be reasonable to define it so it matches our CSV file.</p>
+<p>So:</p>
+<pre><code style="white-space: pre;"><span>game,publisher,year,rating
+</span><span>Slay The Spire,Mega Crit Games,</span><span style="color: #b8d7a3;">2019</span><span>,</span><span style="color: #b8d7a3;">89</span><span>
+</span><span>Luigi</span><span style="color: #d69d85;">'s Mansion,Nintendo,2019,86</span></code></pre>
+<p>Becomes:</p>
+<pre><code style="white-space: pre;"><span>interface Game {
+</span><span>  </span><span style="color: #9cdcfe;">game</span><span>: string;
+</span>  publisher: string;
+<!-- -->  rating: number;
+<!-- -->  year: number;
+<!-- -->}</code></pre>
+<h3>Repository</h3>
+<p>Moving on to our repository, which takes another new type, <code>GamesOfTheYear</code>. This layer is where we need to start thinking about what we want to store in our database. We want a set of years, which each year having multiple games attached to it:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">export</span><span> interface GameForYear {
+</span><span>  </span><span style="color: #9cdcfe;">game</span><span>: string;
+</span>  publisher: string;
+<!-- -->  rating: number;
+<!-- -->}
+<!-- -->
+<span></span><span style="color: #569cd6;">export</span><span> interface GamesOfTheYear {
+</span><span>  </span><span style="color: #9cdcfe;">years</span><span>: {
+</span>    [key: number]: GameForYear[];
+<!-- -->  };
+<!-- -->}</code></pre>
+<p>Above I am using a plain old Javascript object, which Firestore refers to as a map as our set. This set allows us to maintain an association between a year and the games that came out during it.</p>
+<p>So why not just store our <code>Game</code> type directly into the database? Keep in mind; we want to be able to return a single document to our UI that has all the information we need. So while we could store an array of <code>Game</code>'s into our Firestore document, our UI is now going to be responsible for parsing all those rows into an object that makes sense to display. Let's save ourselves (or someone else) some work and have our Serverless Function store this data in a format that is going to be seamless for our UI to work with.</p>
+<h2>Testing and implementing</h2>
+<h3>Controller</h3>
+<p>Let's start at the top and think of what our controller is responsible for,</p>
+<ol class="styles-module--numberedListStyle--2VSX4 my-5">
+<li>Taking in a CSV</li>
+<li>Telling our service layer to add those rows in that CSV</li>
+</ol>
+<p>Let's drive that functionality with a test:</p>
+<pre><code style="white-space: pre;"><span style="color: #57a64a; font-style: italic;">// For the purposes of these examples, I am using Mocha Chai for testing and SafeMock for mocking.</span><span>
+</span>
+<span>it(</span><span style="color: #d69d85;">"adds a GamesOfTheYear"</span><span>, </span><span style="color: #569cd6;">async</span><span> </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>  </span><span style="color: #57a64a; font-style: italic;">// GameOfTheYearService is my interface we defined above</span><span>
+</span><span>  </span><span style="color: #569cd6;">const</span><span> mockGamesOfTheYearService = SafeMock.build&lt;GamesOfTheYearService&gt;();
+</span>  when(mockGamesOfTheYearService.add).resolve();
+<span>  </span><span style="color: #57a64a; font-style: italic;">// CloudStorageGamesOfTheYearController is my implementation of that interface</span><span>
+</span><span>  </span><span style="color: #569cd6;">const</span><span> controller = </span><span style="color: #569cd6;">new</span><span> CloudStorageGamesOfTheYearController(
+</span>    mockGamesOfTheYearService
+<!-- -->  );
+<!-- -->
+<span>  </span><span style="color: #57a64a; font-style: italic;">// since we are returning a void there is nothing to capture here</span><span>
+</span><span>  </span><span style="color: #57a64a; font-style: italic;">// but we do want to ensure the method to be done before asserting, hence await</span><span>
+</span><span>  </span><span style="color: #569cd6;">await</span><span> controller.create(
+</span>    createMockStorageObject({
+<span>      </span><span style="color: #9cdcfe;">bucket</span><span>: </span><span style="color: #d69d85;">"bucket"</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">name</span><span>: </span><span style="color: #d69d85;">"filename"</span><span>
+</span>    })
+<!-- -->  );
+<!-- -->
+<span>  </span><span style="color: #569cd6;">const</span><span> expectedGames = [
+</span>    {
+<span>      </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Slay The Spire"</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Mega Crit Games"</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">year</span><span>: </span><span style="color: #b8d7a3;">2019</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">89</span><span>
+</span>    },
+<!-- -->    {
+<span>      </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"God Of War"</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Sony Interactive Entertainment"</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">year</span><span>: </span><span style="color: #b8d7a3;">2018</span><span>,
+</span><span>      </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">95</span><span>
+</span>    }
+<!-- -->  ];
+<!-- -->  verify(mockGamesOfTheYearService.add).calledWith(expectedGames);
+<!-- -->});
+<!-- -->
+<span></span><span style="color: #57a64a; font-style: italic;">// helper to create the message coming from the Firebase API</span><span>
+</span><span></span><span style="color: #569cd6;">const</span><span> createMockStorageObject = (
+</span>  overrides: Partial&lt;ObjectMetadata&gt; = {}
+<span>): </span><span style="color: #dcdcdc;">ObjectMetadata</span><span style="color: #dcdcdc;"> =&gt;</span><span>
+</span>  ({
+<span>    </span><span style="color: #9cdcfe;">bucket</span><span>: </span><span style="color: #d69d85;">"test-bucket"</span><span>,
+</span><span>    </span><span style="color: #9cdcfe;">contentType</span><span>: </span><span style="color: #d69d85;">"text/csv"</span><span>,
+</span><span>    </span><span style="color: #9cdcfe;">name</span><span>: </span><span style="color: #d69d85;">"test-file"</span><span>,
+</span><span>    </span><span style="color: #9cdcfe;">metadata</span><span>: {
+</span><span>      </span><span style="color: #9cdcfe;">templateName</span><span>: </span><span style="color: #d69d85;">"test-template"</span><span>
+</span>    },
+<!-- -->    ...overrides
+<span>  } </span><span style="color: #569cd6;">as</span><span> ObjectMetadata);</span></code></pre>
+<p>This result is not too dissimilar from how the tests for an HTTP based controller would look in a traditional backend.</p>
+<p>There is a wrinkle here; the Firebase API is only going to give us a filename. It is up to us to download the file to whatever instances this function is running on. We could say this unit of code is also responsible for downloading as well. However, due to a dependency on the Firebase APIs, we would then need to bring in an external dependency whenever we ran this test. How can we avoid this?</p>
+<p>What if we followed the approach we have taken so far and put that functionality behind an interface? Essentially, we segment the difficult to test behavior away from the current unit we are testing.</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">export</span><span> interface FileService {
+</span><span>  </span><span style="color: #57a64a; font-style: italic;">// download takes in where it needs to download from and returns a string containing the downloaded file path</span><span>
+</span><span>  download(location: string, </span><span style="color: #9cdcfe;">filePath</span><span>: string): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;string&gt;;
+</span>}</code></pre>
+<p>Now we can adjust our tests and add in one more mock to our setup, right before we create our controller:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">const</span><span> mockFileService = SafeMock.build&lt;FileService&gt;();
+</span><span>when(mockFileService.download(</span><span style="color: #d69d85;">"test-bucket"</span><span>, </span><span style="color: #d69d85;">"test-filename"</span><span>)).resolve(
+</span><span>  </span><span style="color: #d69d85;">"./tests/GamesOfTheYear/fixtures/two-games.csv"</span><span>
+</span>);
+<span></span><span style="color: #569cd6;">const</span><span> controller = </span><span style="color: #569cd6;">new</span><span> CloudStorageGamesOfTheYearController(
+</span>  mockFileService,
+<!-- -->  mockGamesOfTheYearService
+<!-- -->);</code></pre>
+<p>This mock looks a little different from the <code>mockGamesOfTheYearService</code> we did previously. In this case, we are taking in two parameters and return our filename if, and only if, these two parameters match. To make sure that happens, let's change the <code>ObjectMetadata</code> that we are invoking our controller with to one that matches our mock:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">await</span><span> controller.create(
+</span>  createMockStorageObject({
+<span>    </span><span style="color: #9cdcfe;">bucket</span><span>: </span><span style="color: #d69d85;">"test-bucket"</span><span>, </span><span style="color: #57a64a; font-style: italic;">// previously "bucket"</span><span>
+</span><span>    </span><span style="color: #9cdcfe;">name</span><span>: </span><span style="color: #d69d85;">"test-filename"</span><span> </span><span style="color: #57a64a; font-style: italic;">// previously "filename"</span><span>
+</span>  })
+<!-- -->);</code></pre>
+<p>We also need to add a local file fixture, <code>two-games.csv</code>:</p>
+<pre><code style="white-space: pre;"><span>game,publisher,year,rating
+</span><span>Slay The Spire,Mega Crit Games,</span><span style="color: #b8d7a3;">2019</span><span>,</span><span style="color: #b8d7a3;">89</span><span>
+</span><span>God Of War,Sony Interactive Entertainment,</span><span style="color: #b8d7a3;">2018</span><span>,</span><span style="color: #b8d7a3;">95</span></code></pre>
+<p>This file is loaded from our local filesystem and used to ensure that our function can load a file and read it.</p>
+<p>Our tests are now in an excellent place to drive our implementation. Let's run our tests first to make sure we haven't messed something up and that we have a red test.</p>
+<blockquote><img alt="icon" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/download.png"/>
+<p>FirebaseGamesOfTheYearController 1) adds a GamesOfTheYear</p>
+<p>0 passing (15ms) 1 failing</p>
+<ol style="font-family: Inter,sans-serif;">
+<li>
+<p style="font-family: Inter,sans-serif;">FirebaseGamesOfTheYearController adds a GamesOfTheYear:</p>
+<p style="font-family: Inter,sans-serif;">Error: add was not called with: (Array[{"game":"Slay The Spire","publisher":"Mega Crit Games","year":2019,&gt; "rating":89},{"game":"God Of War","publisher":"Sony Interactive Entertainment","year":2018,"rating":95}])</p>
+<ul>
+<li style="font-family: Inter,sans-serif;">expected - actual</li>
+</ul>
+<p style="font-family: Inter,sans-serif;">-[] +[</p>
+<ul>
+<li>[</li>
+<li>{</li>
+<li>"game": "Slay The Spire"</li>
+<li>"publisher": "Mega Crit Games"</li>
+<li>"rating": 89</li>
+<li>"year": 2019</li>
+<li>}</li>
+<li>{</li>
+<li>"game": "God Of War"</li>
+<li>"publisher": "Sony Interactive Entertainment"</li>
+<li>"rating": 95</li>
+<li>"year": 2018</li>
+<li>}</li>
+<li>] +]</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>Awesome! Our test is failing exactly like we want.</p>
+<p>Let's implement our controller:</p>
+<pre><code style="white-space: pre;"><span style="color: #57a64a; font-style: italic;">// 'cvstojson' is an NPM module to load our CSV</span><span>
+</span><span></span><span style="color: #569cd6;">import</span><span> * </span><span style="color: #569cd6;">as</span><span> csvtojson </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"csvtojson"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { FileService } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"./FileService"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { GamesOfTheYearService } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"./GamesOfTheYearService"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { ObjectMetadata } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"firebase-functions/lib/providers/storage"</span><span>;
+</span>
+<span></span><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">class</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">CloudStorageGamesOfTheYearController</span><span style="color: #b8d7a3;">
+</span><span style="color: #b8d7a3;">  </span><span style="color: #dcdcdc;">implements</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">GamesOfTheYearController</span><span style="color: #b8d7a3;"> </span><span>{
+</span><span>  </span><span style="color: #dcdcdc;">constructor</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">
+</span><span style="color: #dcdcdc;">    private readonly fileService: FileService,
+</span><span style="color: #dcdcdc;">    private readonly gamesOfTheYearService: GamesOfTheYearService
+</span><span style="color: #dcdcdc;">  </span><span style="color: #dcdcdc;">)</span><span> {}
+</span>
+<span>  </span><span style="color: #569cd6;">async</span><span> create(objectMetadata: ObjectMetadata): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt; {
+</span><span>    </span><span style="color: #569cd6;">const</span><span> filePath = </span><span style="color: #569cd6;">await</span><span> </span><span style="color: #4ec9b0;">this</span><span>.fileService.download(
+</span>      objectMetadata.bucket,
+<!-- -->      objectMetadata.name!
+<!-- -->    );
+<!-- -->
+<span>    </span><span style="color: #569cd6;">const</span><span> rows = </span><span style="color: #569cd6;">await</span><span> csvtojson({ </span><span style="color: #9cdcfe;">checkType</span><span>: </span><span style="color: #569cd6;">true</span><span> }).fromFile(filePath);
+</span><span>    </span><span style="color: #569cd6;">await</span><span> </span><span style="color: #4ec9b0;">this</span><span>.gamesOfTheYearService.add(rows);
+</span>  }
+<!-- -->}</code></pre>
+<p>If we re-run our tests they should now pass!</p>
+<p>You'll notice I needed to refer to <code>objectMetadata.name</code> with a <code>!</code>. This is due to the type being possibly <code>undefined</code>. To me, this suggests we have another case to handle with a test. Going higher level, I want to handle the remaining cases in my tests:</p>
+<ol>
+<li>If the <code>objectMetadata</code> doesn't contain a name, I should throw a clear error</li>
+<li>If the file given to my controller is CSV, I should throw another error</li>
+</ol>
+<p>These are both error cases. So far, we have only covered our "Happy Path," which is when the function gets everything it needs, and everything goes according to plan. What makes programming difficult is usually handling error cases, and as I mentioned before, Unit Tests are great at that. If we go ahead and test those two scenarios and implement them, we end up with the following:</p>
+<pre><code style="white-space: pre;"><span style="color: #57a64a; font-style: italic;">// tests</span><span>
+</span><span>describe(</span><span style="color: #d69d85;">"FirebaseGamesOfTheYearController"</span><span>, </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>  before(</span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>    </span><span style="color: #57a64a; font-style: italic;">// using the library 'chai-as-promised' to help with better assertions</span><span>
+</span>    chai.use(chaiAsPromised);
+<!-- -->  });
+<!-- -->
+<span>  it(</span><span style="color: #d69d85;">"adds a GamesOfTheYear"</span><span>, </span><span style="color: #569cd6;">async</span><span> </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>    </span><span style="color: #57a64a; font-style: italic;">// snip, this is the same as above</span><span>
+</span>  });
+<!-- -->
+<span>  it(</span><span style="color: #d69d85;">"throws an exception if the file is not a csv"</span><span>, </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>    </span><span style="color: #569cd6;">const</span><span> notCsvObject = createMockStorageObject({
+</span><span>      </span><span style="color: #9cdcfe;">contentType</span><span>: </span><span style="color: #d69d85;">"not-csv"</span><span>
+</span>    });
+<span>    </span><span style="color: #569cd6;">const</span><span> controller = </span><span style="color: #569cd6;">new</span><span> CloudStorageGamesOfTheYearController(
+</span>      SafeMock.build&lt;FileService&gt;(),
+<!-- -->      SafeMock.build&lt;GamesOfTheYearService&gt;()
+<!-- -->    );
+<!-- -->
+<span>    </span><span style="color: #569cd6;">return</span><span> expect(controller.create(notCsvObject)).to.be.rejectedWith(
+</span><span>      </span><span style="color: #d69d85;">"File type is not csv"</span><span>
+</span>    );
+<!-- -->  });
+<!-- -->
+<span>  it(</span><span style="color: #d69d85;">"throws an exception if there no filename"</span><span>, </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>    </span><span style="color: #569cd6;">const</span><span> noNameFileObject = createMockStorageObject({
+</span><span>      </span><span style="color: #9cdcfe;">name</span><span>: </span><span style="color: #569cd6;">undefined</span><span>
+</span>    });
+<span>    </span><span style="color: #569cd6;">const</span><span> controller = </span><span style="color: #569cd6;">new</span><span> CloudStorageGamesOfTheYearController(
+</span>      SafeMock.build&lt;FileService&gt;(),
+<!-- -->      SafeMock.build&lt;GamesOfTheYearService&gt;()
+<!-- -->    );
+<!-- -->
+<span>    </span><span style="color: #569cd6;">return</span><span> expect(controller.create(noNameFileObject)).to.be.rejectedWith(
+</span><span>      </span><span style="color: #d69d85;">"Can not resolve filename"</span><span>
+</span>    );
+<!-- -->  });
+<!-- -->});
+<!-- -->
+<span></span><span style="color: #57a64a; font-style: italic;">// full implementation</span><span>
+</span><span></span><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">class</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">CloudStorageGamesOfTheYearController</span><span style="color: #b8d7a3;">
+</span><span style="color: #b8d7a3;">  </span><span style="color: #dcdcdc;">implements</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">GamesOfTheYearController</span><span style="color: #b8d7a3;"> </span><span>{
+</span><span>  </span><span style="color: #dcdcdc;">constructor</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">
+</span><span style="color: #dcdcdc;">    private readonly fileService: FileService,
+</span><span style="color: #dcdcdc;">    private readonly gamesOfTheYearService: GamesOfTheYearService
+</span><span style="color: #dcdcdc;">  </span><span style="color: #dcdcdc;">)</span><span> {}
+</span>
+<span>  </span><span style="color: #569cd6;">async</span><span> create(objectMetadata: ObjectMetadata): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt; {
+</span><span>    </span><span style="color: #569cd6;">if</span><span> (!objectMetadata.name) {
+</span><span>      </span><span style="color: #569cd6;">throw</span><span> </span><span style="color: #569cd6;">new</span><span> </span><span style="color: #4ec9b0;">Error</span><span>(</span><span style="color: #d69d85;">"Can not resolve filename"</span><span>);
+</span>    }
+<!-- -->
+<span>    </span><span style="color: #569cd6;">if</span><span> (objectMetadata.contentType !== </span><span style="color: #d69d85;">"text/csv"</span><span>) {
+</span><span>      </span><span style="color: #569cd6;">throw</span><span> </span><span style="color: #569cd6;">new</span><span> </span><span style="color: #4ec9b0;">Error</span><span>(</span><span style="color: #d69d85;">"File type is not csv"</span><span>);
+</span>    }
+<!-- -->
+<span>    </span><span style="color: #569cd6;">const</span><span> filePath = </span><span style="color: #569cd6;">await</span><span> </span><span style="color: #4ec9b0;">this</span><span>.fileService.download(
+</span>      objectMetadata.bucket,
+<!-- -->      objectMetadata.name
+<!-- -->    );
+<!-- -->
+<span>    </span><span style="color: #569cd6;">const</span><span> rows = </span><span style="color: #569cd6;">await</span><span> csvtojson({ </span><span style="color: #9cdcfe;">checkType</span><span>: </span><span style="color: #569cd6;">true</span><span> }).fromFile(filePath);
+</span><span>    </span><span style="color: #569cd6;">await</span><span> </span><span style="color: #4ec9b0;">this</span><span>.gamesOfTheYearService.add(rows);
+</span>  }
+<!-- -->}</code></pre>
+<p>All our tests should now be green. At this point, we have a complete controller. There are two ways we can go now, either implement <code>FileService</code> or <code>GameOfTheYearService</code>. Let's do the latter first.</p>
+<h3>Service</h3>
+<p>We would test-drive our service exactly like we did our controller and end up with the following:</p>
+<p>Tests:</p>
+<pre><code style="white-space: pre;"><span>describe(</span><span style="color: #d69d85;">"GamesOfTheYearServiceImpl"</span><span>, </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>  it(</span><span style="color: #d69d85;">"add saves games of the year"</span><span>, </span><span style="color: #569cd6;">async</span><span> </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>    </span><span style="color: #569cd6;">const</span><span> mockRepository = SafeMock.build&lt;GamesOfTheYearRepository&gt;();
+</span>    when(mockRepository.add).resolve();
+<span>    </span><span style="color: #569cd6;">const</span><span> gamesOfTheYearService = </span><span style="color: #569cd6;">new</span><span> GamesOfTheYearServiceImpl(mockRepository);
+</span>
+<span>    </span><span style="color: #569cd6;">await</span><span> gamesOfTheYearService.add([
+</span>      {
+<span>        </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Luigi's Mansion"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Nintendo"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">86</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">year</span><span>: </span><span style="color: #b8d7a3;">2019</span><span>
+</span>      },
+<!-- -->      {
+<span>        </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Red Dead Redemption 2"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Rockstar Games"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">96</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">year</span><span>: </span><span style="color: #b8d7a3;">2018</span><span>
+</span>      }
+<!-- -->    ]);
+<!-- -->
+<span>    </span><span style="color: #569cd6;">const</span><span> expectedGamesOfTheYear = {
+</span><span>      </span><span style="color: #9cdcfe;">years</span><span>: {
+</span><span>        </span><span style="color: #b8d7a3;">2019</span><span>: [
+</span>          {
+<span>            </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Luigi's Mansion"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Nintendo"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">86</span><span>
+</span>          }
+<!-- -->        ],
+<span>        </span><span style="color: #b8d7a3;">2018</span><span>: [
+</span>          {
+<span>            </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Red Dead Redemption 2"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Rockstar Games"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">96</span><span>
+</span>          }
+<!-- -->        ]
+<!-- -->      }
+<!-- -->    };
+<!-- -->    verify(mockRepository.add).calledWith(expectedGamesOfTheYear);
+<!-- -->  });
+<!-- -->
+<span>  it(</span><span style="color: #d69d85;">"sorts games of the year by score"</span><span>, </span><span style="color: #569cd6;">async</span><span> </span><span style="color: #569cd6;">function</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">) </span><span>{
+</span><span>    </span><span style="color: #569cd6;">const</span><span> mockRepository = SafeMock.build&lt;GamesOfTheYearRepository&gt;();
+</span>    when(mockRepository.add).resolve();
+<span>    </span><span style="color: #569cd6;">const</span><span> gamesOfTheYearService = </span><span style="color: #569cd6;">new</span><span> GamesOfTheYearServiceImpl(mockRepository);
+</span>
+<span>    </span><span style="color: #569cd6;">await</span><span> gamesOfTheYearService.add([
+</span>      {
+<span>        </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Luigi's Mansion"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Nintendo"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">86</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">year</span><span>: </span><span style="color: #b8d7a3;">2019</span><span>
+</span>      },
+<!-- -->      {
+<span>        </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Resident Evil 2"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Capcom"</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">92</span><span>,
+</span><span>        </span><span style="color: #9cdcfe;">year</span><span>: </span><span style="color: #b8d7a3;">2019</span><span>
+</span>      }
+<!-- -->    ]);
+<!-- -->
+<span>    </span><span style="color: #569cd6;">const</span><span> expectedGamesOfTheYear = {
+</span><span>      </span><span style="color: #9cdcfe;">years</span><span>: {
+</span><span>        </span><span style="color: #b8d7a3;">2019</span><span>: [
+</span>          {
+<span>            </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Resident Evil 2"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Capcom"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">92</span><span>
+</span>          },
+<!-- -->          {
+<span>            </span><span style="color: #9cdcfe;">game</span><span>: </span><span style="color: #d69d85;">"Luigi's Mansion"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">publisher</span><span>: </span><span style="color: #d69d85;">"Nintendo"</span><span>,
+</span><span>            </span><span style="color: #9cdcfe;">rating</span><span>: </span><span style="color: #b8d7a3;">86</span><span>
+</span>          }
+<!-- -->        ]
+<!-- -->      }
+<!-- -->    };
+<!-- -->    verify(mockRepository.add).calledWith(expectedGamesOfTheYear);
+<!-- -->  });
+<!-- -->});</code></pre>
+<p>Implementation:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">import</span><span> _ = </span><span style="color: #4ec9b0;">require</span><span>(</span><span style="color: #d69d85;">"lodash"</span><span>);
+</span>
+<span></span><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">class</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">GamesOfTheYearServiceImpl</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">implements</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">GamesOfTheYearService</span><span style="color: #b8d7a3;"> </span><span>{
+</span><span>  </span><span style="color: #dcdcdc;">constructor</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">private readonly repository: GamesOfTheYearRepository</span><span style="color: #dcdcdc;">)</span><span> {}
+</span>
+<span>  private </span><span style="color: #569cd6;">static</span><span> </span><span style="color: #dcdcdc;">reduceYears</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">result: GamesOfTheYear[</span><span style="color: #d69d85;">"years"</span><span style="color: #dcdcdc;">], game: Game</span><span style="color: #dcdcdc;">)</span><span> {
+</span><span>    </span><span style="color: #569cd6;">const</span><span> key = game.year;
+</span><span>    </span><span style="color: #569cd6;">const</span><span> years = result[key] || (result[key] = [] </span><span style="color: #569cd6;">as</span><span> GameForYear[]);
+</span>    years.push({
+<span>      </span><span style="color: #9cdcfe;">game</span><span>: game.game,
+</span><span>      </span><span style="color: #9cdcfe;">publisher</span><span>: game.publisher,
+</span><span>      </span><span style="color: #9cdcfe;">rating</span><span>: game.rating
+</span>    });
+<span>    </span><span style="color: #569cd6;">return</span><span> result;
+</span>  }
+<!-- -->
+<span>  </span><span style="color: #569cd6;">async</span><span> add(games: Game[]): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt; {
+</span><span>    </span><span style="color: #569cd6;">await</span><span> </span><span style="color: #4ec9b0;">this</span><span>.repository.add({
+</span><span>      </span><span style="color: #9cdcfe;">years</span><span>: _(games)
+</span><span>        .orderBy(</span><span style="color: #d69d85;">"rating"</span><span>, </span><span style="color: #d69d85;">"desc"</span><span>)
+</span><span>        .reduce&lt;GamesOfTheYear[</span><span style="color: #d69d85;">"years"</span><span>]&gt;(
+</span>          GamesOfTheYearServiceImpl.reduceYears,
+<!-- -->          {}
+<!-- -->        )
+<!-- -->    });
+<!-- -->  }
+<!-- -->}</code></pre>
+<p>Our business logic right now is a simple data transformation. Unlike our controller, there are no other responsibilities to segment out in our business logic, so our tests are self-contained.</p>
+<h2>The bits that are harder to test</h2>
+<h3>FileService</h3>
+<p>Now let's go back up a level to our <code>FileService</code> that we need for our controller. This is where we get into parts of our Serverless Function that become difficult to test in isolation. Since we don't currently have a good way to test drive this implementation with a Unit Test, let's make a concession and say <code>FileService</code> won't be tested:</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">import</span><span> * </span><span style="color: #569cd6;">as</span><span> admin </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"firebase-admin"</span><span>;
+</span><span></span><span style="color: #57a64a; font-style: italic;">// tmp is the 'tmp' npm library</span><span>
+</span><span></span><span style="color: #569cd6;">import</span><span> * </span><span style="color: #569cd6;">as</span><span> tmp </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"tmp"</span><span>;
+</span>
+<span></span><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">class</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">CloudStorageFileService</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">implements</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">FileService</span><span style="color: #b8d7a3;"> </span><span>{
+</span><span>  public </span><span style="color: #569cd6;">async</span><span> download(location: string, </span><span style="color: #9cdcfe;">filePath</span><span>: string): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;string&gt; {
+</span><span>    </span><span style="color: #569cd6;">const</span><span> bucket = admin.storage().bucket(location);
+</span><span>    </span><span style="color: #569cd6;">const</span><span> tempLocalFile = tmp.tmpNameSync();
+</span><span>    </span><span style="color: #569cd6;">await</span><span> bucket.file(filePath).download({ </span><span style="color: #9cdcfe;">destination</span><span>: tempLocalFile });
+</span><span>    </span><span style="color: #569cd6;">return</span><span> tempLocalFile;
+</span>  }
+<!-- -->}</code></pre>
+<p>It is kind of a bummer that we can't test this file due to the entanglement with Firebase.</p>
+<p>We could mock out that <code>admin</code> import, but at that point, we are diving pretty heavily into the anti-pattern of <a href="https://github.com/testdouble/contributing-tests/wiki/Don%27t-mock-what-you-don%27t-own">Mocking What You Don't Own</a>. Put succinctly; we are going to make guesses of how this code we don't own, <code>admin</code>, is implemented to test it. If we make the wrong guess, our test is useless, and if Google ever changes that code to make our previous guess wrong, our test is not going to tell us we have something wrong.</p>
+<p>This is a situation where we want to integrate test this piece of code, but let's leave that for another blog post and another day.</p>
+<p>One thing that makes me feel pretty good about not testing here is the lack of any real logic. It has no branching paths or complex behavior. There are two ways this code can behave,</p>
+<ul>
+<li>It works.</li>
+<li>Or it blows up due to an environmental issue.</li>
+</ul>
+<p>Since we kept the interface verbs super simple, the resulting implementation is simple as well. If we have code that we can't test, this is the approach we want to take. We want to <strong>move complexity and branching logic out of untested code and into a testable layer.</strong></p>
+<p>Once we deploy this code, this function will either not work or work, and if it works, it will continue to work due to lack of logic. That one successful manual run we perform with cover all the logic paths.</p>
+<h3>Repository and index.ts</h3>
+<p>To implement our remaining functionality, we once again hit a situation where we can't Unit Test. Let's try and follow the example we set with our FileService and keep branching logic to a minimum.</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">class</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">FirestoreGamesOfTheYearRepository</span><span style="color: #b8d7a3;">
+</span><span style="color: #b8d7a3;">  </span><span style="color: #dcdcdc;">implements</span><span style="color: #b8d7a3;"> </span><span style="color: #dcdcdc;">GamesOfTheYearRepository</span><span style="color: #b8d7a3;"> </span><span>{
+</span><span>  </span><span style="color: #569cd6;">async</span><span> add(gamesOfTheYear: GamesOfTheYear): </span><span style="color: #4ec9b0;">Promise</span><span>&lt;</span><span style="color: #569cd6;">void</span><span>&gt; {
+</span><span>    </span><span style="color: #569cd6;">await</span><span> admin
+</span>      .firestore()
+<span>      .collection(</span><span style="color: #d69d85;">"gamesOfTheYear"</span><span>)
+</span>      .add(gamesOfTheYear);
+<!-- -->  }
+<!-- -->}</code></pre>
+<p>Mission accomplished, there is even less logic in our repository than in our FileService.</p>
+<p>Our index is equally as simple.</p>
+<pre><code style="white-space: pre;"><span style="color: #569cd6;">import</span><span> * </span><span style="color: #569cd6;">as</span><span> functions </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"firebase-functions"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { FirestoreGamesOfTheYearRepository } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"./GamesOfTheYear/GamesOfTheYearRepository"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { GamesOfTheYearServiceImpl } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"./GamesOfTheYear/GamesOfTheYearService"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { CloudStorageGamesOfTheYearController } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"./GamesOfTheYear/GamesOfTheYearController"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { CloudStorageFileService } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"./GamesOfTheYear/FileService"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> { ObjectMetadata } </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"firebase-functions/lib/providers/storage"</span><span>;
+</span><span></span><span style="color: #569cd6;">import</span><span> * </span><span style="color: #569cd6;">as</span><span> admin </span><span style="color: #569cd6;">from</span><span> </span><span style="color: #d69d85;">"firebase-admin"</span><span>;
+</span>
+<span></span><span style="color: #57a64a; font-style: italic;">// Initialize our Firebase config</span><span>
+</span>admin.initializeApp();
+<!-- -->
+<span></span><span style="color: #57a64a; font-style: italic;">// Construct our dependencies</span><span>
+</span><span></span><span style="color: #569cd6;">const</span><span> gamesOfTheYearRepository = </span><span style="color: #569cd6;">new</span><span> FirestoreGamesOfTheYearRepository();
+</span><span></span><span style="color: #569cd6;">const</span><span> gamesOfTheYearService = </span><span style="color: #569cd6;">new</span><span> GamesOfTheYearServiceImpl(
+</span>  gamesOfTheYearRepository
+<!-- -->);
+<span></span><span style="color: #569cd6;">const</span><span> fileService = </span><span style="color: #569cd6;">new</span><span> CloudStorageFileService();
+</span><span></span><span style="color: #569cd6;">const</span><span> gamesOfTheYearController = </span><span style="color: #569cd6;">new</span><span> CloudStorageGamesOfTheYearController(
+</span>  fileService,
+<!-- -->  gamesOfTheYearService
+<!-- -->);
+<!-- -->
+<span></span><span style="color: #57a64a; font-style: italic;">// Register our function with the Firebase APIs</span><span>
+</span><span></span><span style="color: #569cd6;">export</span><span> </span><span style="color: #569cd6;">const</span><span> importGamesOfTheYear = functions.storage
+</span>  .object()
+<span>  .onFinalize(</span><span style="color: #dcdcdc;">(</span><span style="color: #dcdcdc;">objectMetadata: ObjectMetadata</span><span style="color: #dcdcdc;">) =&gt;</span><span>
+</span>    gamesOfTheYearController.create(objectMetadata)
+<!-- -->  );</code></pre>
+<p>You can go and deploy our function to Firebase using <code>npm deploy</code>. After deploying, upload a CSV file to your project's default storage bucket, and you should then see a new entry in your database representing the transformed file.</p>
+<p>And there we have it; a simple but tested Serverless Function. We've kept all our logic isolated from the bits we can't test yet, and there is an excellent chance that this works the first time we deploy it.</p>
+<p>As you develop code in the future using this approach, I think you'll find that if something were to go wrong, it would most likely be a misusing of an external API in untested code. I'd love to have some quicker feedback on that as well, so stay tuned for a future blog post exploring Integration Testing strategies with Firebase.</p></span>
+</div>
+</div>
+<div class="post_share">
+<div class="post_share_title">
+<p>Share</p>
+</div>
+<div class="post_share_icons">
+<div class="post_share_links">
+<a href="http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/creating-serverless-functions-using-tdd" onclick="window.open('http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/creating-serverless-functions-using-tdd', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6652 0.491943H1.32043C0.863495 0.492218 0.493073 0.862824 0.493164 1.31995V14.6647C0.493439 15.1216 0.864044 15.492 1.32117 15.4919H8.50586V9.69116H6.55762V7.42065H8.50586V5.74973C8.50586 3.81201 9.68881 2.75732 11.4173 2.75732C12.2452 2.75732 12.9567 2.81903 13.1641 2.84659V4.87183H11.9721C11.0317 4.87183 10.8496 5.3187 10.8496 5.97458V7.42065H13.0981L12.8052 9.69116H10.8496V15.4919H14.6652C15.1224 15.492 15.4931 15.1215 15.4932 14.6643C15.4932 14.6642 15.4932 14.6641 15.4932 14.6639V1.31921C15.493 0.862274 15.1223 0.491852 14.6652 0.491943Z" fill="#2B2340" fill-opacity="0.8"></path>
+</svg>
+</a>
+<a href="javascript:;" onclick="window.open('https://twitter.com/intent/tweet?url=https://focusedlabs.io/blog/creating-serverless-functions-using-tdd&amp;text=Creating Serverless Functions using TDD','newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self" title="twitter">
+<svg height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path class='text-text text-opacity-80 "fill-current"' d="M15.5278 3.1399C15.4489 3.16295 15.37 3.1844 15.2911 3.20438C14.809 3.32613 14.7646 3.16548 15.1137 2.81104C15.2701 2.65221 15.4082 2.47946 15.5282 2.29288C15.797 1.87449 15.5638 1.69203 15.1063 1.88747C14.9432 1.95719 14.7773 2.0204 14.6091 2.07676C14.1377 2.23505 13.4688 1.99627 13.0488 1.72988C12.5186 1.39362 11.916 1.22559 11.2408 1.22559C10.295 1.22559 9.48891 1.55913 8.82196 2.2257C8.15522 2.89261 7.82167 3.69896 7.82167 4.64448C7.82167 4.77379 7.82906 4.90508 7.84366 5.03818C7.86761 5.25484 7.50272 5.4119 7.01032 5.34236C5.94517 5.19198 4.93317 4.86923 3.97412 4.37447C3.02298 3.88386 2.18352 3.26648 1.45589 2.52228C1.10807 2.1666 0.637649 2.19724 0.507779 2.67737C0.429969 2.96518 0.39127 3.26451 0.39127 3.57539C0.39127 4.16126 0.52885 4.70464 0.804069 5.20551C0.940943 5.45478 1.10124 5.68044 1.28532 5.88235C1.59494 6.22222 1.54756 6.41943 1.11657 6.29859C0.685765 6.17776 0.370052 5.99836 0.370052 6.01007C0.370052 6.02178 0.370052 6.03132 0.370052 6.03132C0.370052 6.85674 0.629232 7.58201 1.14792 8.20643C1.46742 8.59113 1.83861 8.8883 2.26133 9.0976C2.70709 9.3184 2.91474 9.44156 2.66547 9.47382C2.51509 9.49327 2.3638 9.50298 2.21162 9.50298C2.10862 9.50298 2.00056 9.4983 1.88782 9.48877C1.70951 9.47364 1.67746 9.84518 1.94779 10.2627C2.16265 10.5944 2.43766 10.8864 2.77268 11.1385C3.11344 11.3952 3.48068 11.5794 3.87382 11.6916C4.35219 11.828 4.44819 12.0764 4.02167 12.3321C2.96627 12.9654 1.79829 13.282 0.517932 13.282C0.373672 13.282 0.236063 13.2787 0.104604 13.2724C-0.123588 13.2615 0.0295014 13.4624 0.470022 13.6931C1.84656 14.4141 3.33728 14.7743 4.94238 14.7743C6.15594 14.7743 7.29563 14.5822 8.36131 14.1976C9.42661 13.8131 10.337 13.2978 11.092 12.6521C11.847 12.0065 12.4981 11.2639 13.0451 10.424C13.5919 9.58423 13.9993 8.70746 14.2677 7.79381C14.5356 6.87996 14.6698 5.96431 14.6698 5.04686C14.6698 4.9642 14.6691 4.88998 14.6679 4.82462C14.6653 4.70178 14.9902 4.36929 15.353 4.0291C15.5167 3.87548 15.6728 3.71427 15.822 3.54517C16.151 3.17178 16.0053 3.00068 15.5278 3.1399Z"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect height="16" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/creating-serverless-functions-using-tdd" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/creating-serverless-functions-using-tdd', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self"><svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path class='text-text text-opacity-80 "fill-current"' d="M15.9968 15.9995V15.9988H16.0008V10.1308C16.0008 7.26016 15.3828 5.04883 12.0268 5.04883C10.4135 5.04883 9.33082 5.93416 8.88882 6.77349H8.84216V5.31683H5.66016V15.9988H8.97349V10.7095C8.97349 9.31683 9.23749 7.97016 10.9622 7.97016C12.6615 7.97016 12.6868 9.55949 12.6868 10.7988V15.9995H15.9968Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M0.264648 5.31738H3.58198V15.9994H0.264648V5.31738Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M1.92133 0C0.860667 0 0 0.860667 0 1.92133C0 2.982 0.860667 3.86067 1.92133 3.86067C2.982 3.86067 3.84267 2.982 3.84267 1.92133C3.842 0.860667 2.98133 0 1.92133 0V0Z"></path></g><defs><clippath id="clip0"><rect fill="white" height="16" width="16"></rect></clippath></defs></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cm_rp_wrp">
+<div class="cm_rp_inner">
+<div class="cm_rp_header">
+<div class="cm_rp_title">
+<p>Read More</p>
+</div>
+<div class="cm_rp_subtitle">
+<h2>Related Posts</h2>
+</div>
+</div>
+<div class="cm_rp_list">
+<a href="https://focusedlabs.io/blog/add-keyboard-shortcuts-to-your-vue-app">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Add Keyboard Shortcuts to your Vue App ⌨️" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/22d188487df22503505af58327a532946a90e5df-1000x420.gif"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">09.01.2020
+                
+                
+                | Tutorial
+                
+                | Frontend
+                
+                 | James McMahon
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Add Keyboard Shortcuts to your Vue App ⌨️
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/debugging-spring-security">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Debugging Spring Security" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/e4b218fc9b78ae30144804ddc9bdf0976d54c0e4-1000x420.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.21.2021
+                
+                
+                | Backend
+                
+                | Testing
+                
+                 | Parker Drake
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Debugging Spring Security
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/testing-interactions-with-other-smart-contracts">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Testing Interactions with other Smart Contracts" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/e4f6f919898bb77ba8d63b50526a23f499821e2a-610x345.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.03.2022
+                
+                
+                | Testing
+                
+                | Blockchain
+                
+                | Web3
+                
+                 | Austin Vance
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Testing Interactions with other Smart Contracts
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/vue-router-testing-strategies">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Vue Router Testing Strategies" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/c7f41d103a5abeae2e403c209b9afd57925e4165-1000x420.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.02.2020
+                
+                
+                | Testing
+                
+                | Frontend
+                
+                 | James McMahon
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Vue Router Testing Strategies
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/are-you-covered-by-your-code-coverage-metric">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Are You Covered By Your Code Coverage Metric?" src="https://focusedlabs.io/hubfs/engine-light-3.jpeg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">06.07.2023
+                
+                
+                | Test-Driven Development
+                
+                 | David Hayes
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Are You Covered By Your Code Coverage Metric?
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/androidx-livedata-and-the-observable-pattern">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="AndroidX, LiveData and the Observable Pattern" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/6c8aa148fa86f2468e00ebc310a2e032f2f92943-2346x2048.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.27.2020
+                
+                
+                | Frontend
+                
+                | Mobile
+                
+                 | Luke Mueller
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  AndroidX, LiveData and the Observable Pattern
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/scratching-the-surface-of-composition-with-react-native-and-apollo">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Scratching the surface of composition with React Native and Apollo" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/03e92c7aded344712dfc69d17668f836eaca5668-1000x420.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.02.2020
+                
+                
+                | Frontend
+                
+                 | Luke Mueller
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Scratching the surface of composition with React Native and Apollo
+                </h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/footer.html"><footer class="footer">
+<div class="ft_img_left_wrp">
+<div class="ft_img_left_inner">
+<div class="ft_img_left">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_left_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_left_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_left_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="ft_img_top">
+<div class="ft_img_top_inner">
+<div class="ft_img_top_img">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_top_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_top_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/mobile_animated_imge.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="dnd-section">
+<div class="hs_footer">
+<div class="hs_ft_inner">
+<div class="hs_ft_col">
+<div class="hs_ft_logo">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_logo_hs_logo_widget" style=""><a href="/" id="hs-link-logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="FocusedLabs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="FocusedLabs" width="0"/></a></span>
+</div>
+</div>
+<div class="footer_info">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_information" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_information_" style=""><p>433 W Van Buren St<br \=""/>
+Suite 1100-B<br \=""/>
+Chicago, IL 60607<br \=""/>
+<a href="tel:+17083038088">(708) 303-8088</a>
+</p></span></div>
+</div>
+<div class="footer_info_link">
+<a href="mailto:work@focusedlabs.io">work@focusedlabs.io</a>
+</div>
+</div>
+<div class="hs_ft_col ft_2">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_1" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93462616833" data-sitemap-name="default" id="hs_menu_wrapper_menu_1" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">COMPANY</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io" role="menuitem">Home</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact Us</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/privacy-policy" role="menuitem">Privacy Policy</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="hs_ft_col ft_3">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_2" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93463743912" data-sitemap-name="default" id="hs_menu_wrapper_menu_2" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">EXPLORE</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/case-studies" role="menuitem">Case Studies</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="fooer_sp"></div>
+</div>
+</div>
+<div class="hs_bt_footer">
+<div class="ft_copyright">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_copyright" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_copyright_" style=""><p>© 2023 Focused Labs, All Rights Reserved.</p></span></div>
+</div>
+<div class="ft_social">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_footer_icons" style=""><ul class="ft_icons">
+<li>
+<a href="https://www.facebook.com/withfocus">
+<img alt="facebook" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/facebook.svg"/>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/BuildWithFocus">
+<img alt="twitter" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/twitter.svg"/>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/build-focused-labs/">
+<img alt="linkedin" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/linkedin.svg"/>
+</a>
+</li>
+<li>
+<a href="https://github.com/focused-labs">
+<img alt="github" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/github.svg"/>
+</a>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="ft_img_right_wrp">
+<div class="ft_img_right_inner">
+<div class="ft_img_right">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_right_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_right_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_right_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+</footer>
+<div class="back_to_top">
+<span class="back_top">
+<svg class="block group-hover:scale-125 transform transition-transform" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m17 11-5-5-5 5M17 18l-5-5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div></div>
+</div>
+<!-- HubSpot performance collection script -->
+<script defer="" src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429719598/1681240383335/FocusedLabs_November_2022/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/focusedlabs.io\/blog\/creating-serverless-functions-using-tdd"]);
+_hsq.push(["setPageId", "94149825305"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 94149825305,
+    "legacyPageId": "94149825305",
+    "contentFolderId": null,
+    "contentGroupId": 93617369930,
+    "abTestId": null,
+    "languageVariantId": 94149825305,
+    "languageCode": "en",
+    
+}]);
+</script>
+<script async="" defer="" id="hs-script-loader" src="/hs/scriptloader/5845897.js" type="text/javascript"></script>
+<!-- End of HubSpot Analytics Code -->
+<script type="text/javascript">
+var hsVars = {
+    render_id: "b56ff4af-9c9e-4cf8-9955-d2853126d2c6",
+    ticks: 1700477577186,
+    page_id: 94149825305,
+    
+    content_group_id: 93617369930,
+    portal_id: 5845897,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "94149825305",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+<script defer="" src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</body></html>

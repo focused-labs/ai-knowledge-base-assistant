@@ -1,0 +1,6 @@
+**.env
+**.idea/
+__pycache__/
+
+# Data directory may contain files over the GitHub limit of 100 MB
+data/

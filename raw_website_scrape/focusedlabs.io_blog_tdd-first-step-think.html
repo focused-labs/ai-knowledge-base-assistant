@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Focused Labs</title>
+<link href="https://focusedlabs.io/hubfs/focusedlabs-favicon.png" rel="shortcut icon"/>
+<meta content="Passionate people focused on the craft of delivering business outcomes while getting you to the cloud." name="description"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951526/1686607647092/FocusedLabs_November_2022/css/templates/_blog.min.css" rel="stylesheet" type="text/css"/>
+<script>
+      var show = localStorage.getItem('show');
+      if(show === 'true'){
+        document.documentElement.classList.add('dark');
+      } 
+    </script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<meta content="Passionate people focused on the craft of delivering business outcomes while getting you to the cloud." property="og:description"/>
+<meta content="Focused Labs" property="og:title"/>
+<meta content="Passionate people focused on the craft of delivering business outcomes while getting you to the cloud." name="twitter:description"/>
+<meta content="Focused Labs" name="twitter:title"/>
+<style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429468540/1694708451506/FocusedLabs_November_2022/css/main.min.css" rel="stylesheet"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951529/1690380436362/FocusedLabs_November_2022/css/theme-overrides.min.css" rel="stylesheet"/>
+<link href="//fonts.googleapis.com/css2?family=DM+Mono&amp;display=swap" rel="stylesheet"/>
+<style>
+</style>
+<script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://focusedlabs.io/blog/tdd-first-step-think"
+  },
+  "author" : {
+    "name" : "Dave Schinkel",
+    "url" : "https://focusedlabs.io/blog/author/dave-schinkel",
+    "@type" : "Person"
+  },
+  "headline" : "Focused Labs",
+  "datePublished" : "2022-11-02T12:21:00.000Z",
+  "dateModified" : "2022-12-02T13:25:47.378Z",
+  "publisher" : {
+    "name" : "Focused Labs",
+    "logo" : {
+      "url" : "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FL%20Logo%20Mode=Light.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FocusedLabs_November_2022/Images/eb0aeb32defbaf68e7d735a5e6c18cbd6919fb1f-880x495.jpg" ]
+}
+</script>
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-3W4SF8W0DX');
+</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3W4SF8W0DX"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFKNBDPP');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+<!-- /Added by GoogleTagManager integration -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFKNBDPP');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+window.__lo_site_id = 330223;
+
+	(function() {
+		var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+		wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  })();
+	</script>
+<link href="https://focusedlabs.io/blog/tdd-first-step-think?hs_amp=true" rel="amphtml"/>
+<meta content="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/eb0aeb32defbaf68e7d735a5e6c18cbd6919fb1f-880x495.jpg#keepProtocol" property="og:image"/>
+<meta content="880" property="og:image:width"/>
+<meta content="495" property="og:image:height"/>
+<meta content="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/eb0aeb32defbaf68e7d735a5e6c18cbd6919fb1f-880x495.jpg#keepProtocol" name="twitter:image"/>
+<meta content="https://focusedlabs.io/blog/tdd-first-step-think" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://focusedlabs.io/blog/tdd-first-step-think" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<link href="https://focusedlabs.io/blog/rss.xml" rel="alternate" type="application/rss+xml"/>
+<meta content="focusedlabs.io" name="twitter:domain"/>
+<meta content="@BuildWithFocus" name="twitter:site"/>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<meta content="en" http-equiv="content-language"/>
+<meta content="HubSpot" name="generator"/></head>
+<body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- /Added by GoogleTagManager integration -->
+<div class="body-wrapper hs-content-id-93891522202 hs-blog-post hs-blog-id-93617369930">
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/header.html"><header class="header">
+<a class="header__skip" href="#main-content">Skip to content</a>
+<div class="header_container">
+<div class="container">
+<div class="header_row">
+<div class="header_logo">
+<div class="light_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_light_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_light_logo_hs_logo_widget" style=""><a href="/" id="hs-link-light_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="dark_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_dark_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_dark_logo_hs_logo_widget" style=""><a href="/" id="hs-link-dark_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/light_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="mobile_trigger">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</div>
+</div>
+<div class="header_menu">
+<div class="custom_menu_primary">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93449046703" data-sitemap-name="default" id="hs_menu_wrapper_menu" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact</a></li>
+</ul>
+</div></span>
+</div>
+</div>
+<div class="mb_menu_wrp">
+<div class="mb_menu">
+</div>
+<div class="mode_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mb_menu_imge_wrp">
+<div class="mb_menu_imge">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_Menu_bg" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_Menu_bg_" style=""><img alt="Accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/menu_bg.png" style="width:0px;border-width:0px;border:0px;" title="Accent" width="0"/></span></div>
+</div>
+</div>
+<div class="header_right">
+<div class="mode_toggle mob_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header></div>
+<main class="body-container-wrapper" id="main-content">
+<div class="body-container body-container--blog-post">
+<div class="blog_post_wrapper">
+<div class="post_inner">
+<div class="post_bnr_wrp">
+<div class="post_bnr">
+<a href="https://focusedlabs.io/blog">
+<svg class="mb_back" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path><path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+<p>
+                Blog
+              </p>
+</a>
+<div class="post_bnr_icon">
+<a href="https://focusedlabs.io/blog">
+<svg fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</a>
+<div class="post_bnr_title">
+<h1><span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="text" id="hs_cos_wrapper_name" style="">TDD: First Step is THINK</span></h1>
+</div>
+</div>
+<div class="hs_date_t2">
+              11.02.2022 |
+              
+              
+              Testing
+              
+               | <a href="https://focusedlabs.io/blog/author/dave-schinkel">
+  Dave Schinkel
+</a>
+</div>
+</div>
+</div>
+<div class="post_featured_image">
+<img alt="TDD: First Step is THINK" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/eb0aeb32defbaf68e7d735a5e6c18cbd6919fb1f-880x495.jpg"/>
+</div>
+<div class="blog_post_content">
+<div class="blog_post_body">
+<span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text" id="hs_cos_wrapper_post_body" style=""><p>When you read about or hear about Test Driven Development, the first thing folks are always told is that in a TDD cycle, the first step is <strong>Red</strong>. You want a test that after it can compile, fails for the <strong>right reason</strong>.</p>
+<!--more--><p>What you are never told is HOW to get to Red. The #1 question I get from newbies trying to learn TDD, and even seasoned practitioners can struggle with this, is <strong>what test should I write?</strong></p>
+<p>Therein lies the first step in TDD. It's not red, it's <strong>Think</strong>! This is <em>how</em> to get there. It requires us to slow down and to stop rushing.</p>
+<h3>So...how do we <em>think</em>?</h3>
+<h1>TDD is about the Journey</h1>
+<p>Before we talk about how, remember that Test Driven Development is really a journey guided by test driven <em>design</em>. It's evolving your design in order to provide some small piece of value to your end user.</p>
+<p>Every TDD cycle moves us closer to completing the journey. Moving deliberately and safely as we travel through thoughtfully the codebase at a sustainable pace.</p>
+<h1>Meet Your Guide: A Combination of Dialog, Describes &amp; Tests</h1>
+<p><strong>We have stuff to deliver, we don't want to have to spend all day to read the code.</strong></p>
+<p>As a developer first and foremost you are your own customer. Collective Code Ownership requires that we can all read the code and lay of the land quickly and easily.</p>
+<p>You the developers are the ones reading all the tests and the production code over and over again day in and day out. We spend more time reading the code than writing it.</p>
+<p>Therefore writing well-named tests and production code is the one of the key attributes of a codebase that helps to enable true Agility and allows you to pivot quickly as requirements change. And we take this for granted far too often.</p>
+<p>In order to write tests that document what you're about to TDD, you must have conversations with your team and the business and each other early and often. You must learn the customer's business domain which is part of THINK, the first step in TDD.</p>
+<p>Then, writing a combination of test describes and underlying tests, you eventually finish that journey and push that small piece of value to production.</p>
+<h1>Don't Jump the Gun</h1>
+<p>When we work in a TDD workflow, we often feel like jumping the gun, starting inside the test trying to implement details of the test. We prematurely start thinking about how the public contract should change in the code under test.</p>
+<p>What we should do instead is to stop, back up, and THINK first a bit about what we're trying to do next. We do this initial thinking through our <strong>test name</strong>.</p>
+<p>By doing so, we can:</p>
+<ul>
+<li>
+<p>uncover misconceptions about requirements and the <strong>why</strong> behind the value we intend to test drive</p>
+</li>
+<li>discover a smaller, safer step we might take in order to get faster feedback</li>
+<li>uncover more domain terminology up front</li>
+<li>prevent yourself from getting into rabbit holes throughout the journey</li>
+<li>help guild the wishful thinking portion (implementation) of our test</li>
+</ul>
+<h1>Creating Test Names Guides Your Overall Journey</h1>
+<p>Writing tests with pure behavior can and should be done at any layer in your application. Even down to the lowest level unit test.</p>
+<p>Once we have a test name, then it can guide our test's implementation using wishful thinking. Our wishful thinking always reverts back to our test name. We can then come up with a more straight forward path to implementing the behavior we desire.</p>
+<p>Good test names are written via well written prose. They are ignorant of the how. They contain domain terms, not implementation details.</p>
+<p>But how can we come up with these?</p>
+<h1>Coming up with a Test Name</h1>
+<p>Here are a few steps you can use to come up with that next test name:</p>
+<h3>√ Do you have a <em>small</em> scenario you're trying to test drive?</h3>
+<p>If not, come up with one by having conversations with the business, your pair, testers, designers, PMs, or whoever. This is the first step. If you do not have this, then literally <strong>what</strong> are you doing next and <strong>why</strong>? This should be a very bad itch for you that you should take care of now.</p>
+<h3>√ Are you stuck for words in your test name?</h3>
+<p>Write out some domain terms that might make sense. Don't know them? Good, this is a hint that it's time to discover a little more. Take a few minutes and THINK. Talk to your pair, pull in a business stakeholder. We're not asking for an all day session, just a few minutes.</p>
+<h3>√ Look at the last test you just wrote</h3>
+<p>Think about what the smallest step next will be to inch you closer to completing that scenario.</p>
+<h3>√ Perhaps your previous test was too big of a step?</h3>
+<p>The previous test was too big to begin with, and that is a code smell. You are left with no ideas because that previous test did / covered so much behavior already and you probably realize now that you should have taken smaller steps by writing smaller tests next time.</p>
+<h3>√ Try creating a <a href="http://wiki.c2.com/?CrcCard">CRC card</a></h3>
+<p>Creating a CRC card with your pair (or just you) is diving into implementation (wishful thinking) a bit first, but if you're really stuck, it might help you think about domain terms. Once you have a CRC card created, then use those terms in it to help create your test name, before implementing the test. You do not need to be in a class oriented language to utilize these.</p>
+<h3>😭 Ah! I give up, I am simply lost!</h3>
+<p>If you are totally lost, tired, etc. then go back to your roots. Look at the scenario. Look at the describe under which you are writing tests for. The describe should describe that scenario. Again, look at the previous test you just wrote. That might trigger thoughts again as to where you might want to go next.</p>
+<h3>🥳🍻 Perhaps there are no more tests to write</h3>
+<p>You literally cannot think of another test, and you realize that the scenario you are test driving for is working! It is done! Done enough! Don't over think it. Push this to production, lets get feedback.</p>
+<h1>What Good Test &amp; Describe Names Look Like</h1>
+<p>It's not enough to talk about test names, lets see some examples of real-world test names that describe behavior and domain, not implementation details.</p>
+<p>original: <code>describe("ViewCompanyPage"...</code><br/>better: <strong><code>describe("View Company"...</code></strong></p>
+<p>original: <code>describe("&lt;ConfirmationModal /&gt;"...</code><br/>better: <strong><code>describe("Add Application Confirmation"...</code></strong></p>
+<p>original: <code>sets isStoringToAWS to true when saveToAWS call is in progress</code><br/>better: <strong><code>sets storing status to in progress when saving a project</code></strong></p>
+<p>original: <code>sets aws status to in progress when saving to aws</code><br/>better: <strong><code>sets status to in progress when saving company's list of locations</code></strong></p>
+<p>original: <code>shows error modal when saving application fails</code><br/>better: <strong><code>presents an error call to action when saving an application fails</code></strong></p>
+<p>original: <code>should render fallback banner if that field is undefined</code><br/>better: <code>shows a fallback banner when none exists</code></p>
+<p>Original: <code>should display an Add a Requirement button</code><br/>better: <code>displays an add a requirement option</code></p>
+<p>original: <code>describe("when currentStep is the last step"...
+it("should display an Add a Requirement button"...</code><br/>better: <code>describe("When current step is the last step"...
+it("displays an add a requirement option"...</code></p>
+<p>original: <code>should display Launch button as disabled when disableNext is true</code><br/>better: <strong><code>shows a disabled launch option</code></strong></p>
+<p>original: <code>displays introductory text on the page</code><br/>Better: <strong><code>displays introductory text</code></strong></p>
+<p>original: <code>renders no cards when there are no projects</code><br/>better: <code>shows no projects when there are none</code></p>
+<p>original: <code>should display 404 when there no application is found</code><br/>better: <strong><code>displays an error page with copy</code></strong></p>
+<p>original: <code>should display an input field for description</code><br/>better: <code>displays a field for specifying a description</code></p>
+<p>original: <code>numberOfApplications renders kinds of applications on the page</code><br/>better: <code>indicates how many of each kind of application there are</code></p>
+<p>original: <code>calls the graphql endpoint and maps the program data from AWS</code><br/>better: <strong><code>retrieves a list of programs</code></strong></p>
+<p>Given/When/Then<br/>original: <code>when submitting a form</code><br/>better: <strong><code>when submitting an application</code></strong></p>
+<p>original: <code>should call setForm data with user input when form is submitted</code><br/>better: <code>sets user data when submitted</code></p>
+<h3>Notice these test names above do not contain:</h3>
+<p>🚫 delivery mechanism (form, page, modal, button, http, api, etc.)<br/>🚫 function names<br/>🚫 DOM tags<br/>🚫 library or tech terms</p>
+<p>They instead describe pure behavior independent of how.</p>
+<p><strong>Here is a list of various implementation details we removed:</strong> "form", "AWS", "isSavingToAWS", "saveToAWS", "modal", "button", "page", "null", "input" (when referring to type of DOM tag), "numberOfApplications", "ViewCompanyPage", "cards" (from a UI framework), "disableNext", "404", "setForm"</p>
+<p><strong>Domain terms used:</strong> "program", "company", "application", "application confirmation"</p>
+<h3>By writing test names like this first it:</h3>
+<p>1️⃣ Helps guide you in thinking about domain language as you implement the test with wishful thinking</p>
+<p>2️⃣ Decouples your test name from implementation details</p>
+<p>👉 If implementation (the how) changes, or delivery mechanism changes, the test name should not care and still represent valid behavior under test. You should not have to go and rename your test every time your implementation details change. If you do, your tests are coupled and that's a smell.</p>
+<p>3️⃣ Acts as human readable documentation that tells part of the story of your codebase, the slice of value that was delivered in this part of the application</p>
+<p>👉 Being able to read a describe and its underlying test names should be like talking to a person, where your eyes do not have to trip up or over technical terms to decipher the meaning of the test. You should be able to read a describe and test names within seconds and know what that area of the app is already doing.</p></span>
+</div>
+</div>
+<div class="post_share">
+<div class="post_share_title">
+<p>Share</p>
+</div>
+<div class="post_share_icons">
+<div class="post_share_links">
+<a href="http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/tdd-first-step-think" onclick="window.open('http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/tdd-first-step-think', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6652 0.491943H1.32043C0.863495 0.492218 0.493073 0.862824 0.493164 1.31995V14.6647C0.493439 15.1216 0.864044 15.492 1.32117 15.4919H8.50586V9.69116H6.55762V7.42065H8.50586V5.74973C8.50586 3.81201 9.68881 2.75732 11.4173 2.75732C12.2452 2.75732 12.9567 2.81903 13.1641 2.84659V4.87183H11.9721C11.0317 4.87183 10.8496 5.3187 10.8496 5.97458V7.42065H13.0981L12.8052 9.69116H10.8496V15.4919H14.6652C15.1224 15.492 15.4931 15.1215 15.4932 14.6643C15.4932 14.6642 15.4932 14.6641 15.4932 14.6639V1.31921C15.493 0.862274 15.1223 0.491852 14.6652 0.491943Z" fill="#2B2340" fill-opacity="0.8"></path>
+</svg>
+</a>
+<a href="javascript:;" onclick="window.open('https://twitter.com/intent/tweet?url=https://focusedlabs.io/blog/tdd-first-step-think&amp;text=TDD: First Step is THINK','newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self" title="twitter">
+<svg height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path class='text-text text-opacity-80 "fill-current"' d="M15.5278 3.1399C15.4489 3.16295 15.37 3.1844 15.2911 3.20438C14.809 3.32613 14.7646 3.16548 15.1137 2.81104C15.2701 2.65221 15.4082 2.47946 15.5282 2.29288C15.797 1.87449 15.5638 1.69203 15.1063 1.88747C14.9432 1.95719 14.7773 2.0204 14.6091 2.07676C14.1377 2.23505 13.4688 1.99627 13.0488 1.72988C12.5186 1.39362 11.916 1.22559 11.2408 1.22559C10.295 1.22559 9.48891 1.55913 8.82196 2.2257C8.15522 2.89261 7.82167 3.69896 7.82167 4.64448C7.82167 4.77379 7.82906 4.90508 7.84366 5.03818C7.86761 5.25484 7.50272 5.4119 7.01032 5.34236C5.94517 5.19198 4.93317 4.86923 3.97412 4.37447C3.02298 3.88386 2.18352 3.26648 1.45589 2.52228C1.10807 2.1666 0.637649 2.19724 0.507779 2.67737C0.429969 2.96518 0.39127 3.26451 0.39127 3.57539C0.39127 4.16126 0.52885 4.70464 0.804069 5.20551C0.940943 5.45478 1.10124 5.68044 1.28532 5.88235C1.59494 6.22222 1.54756 6.41943 1.11657 6.29859C0.685765 6.17776 0.370052 5.99836 0.370052 6.01007C0.370052 6.02178 0.370052 6.03132 0.370052 6.03132C0.370052 6.85674 0.629232 7.58201 1.14792 8.20643C1.46742 8.59113 1.83861 8.8883 2.26133 9.0976C2.70709 9.3184 2.91474 9.44156 2.66547 9.47382C2.51509 9.49327 2.3638 9.50298 2.21162 9.50298C2.10862 9.50298 2.00056 9.4983 1.88782 9.48877C1.70951 9.47364 1.67746 9.84518 1.94779 10.2627C2.16265 10.5944 2.43766 10.8864 2.77268 11.1385C3.11344 11.3952 3.48068 11.5794 3.87382 11.6916C4.35219 11.828 4.44819 12.0764 4.02167 12.3321C2.96627 12.9654 1.79829 13.282 0.517932 13.282C0.373672 13.282 0.236063 13.2787 0.104604 13.2724C-0.123588 13.2615 0.0295014 13.4624 0.470022 13.6931C1.84656 14.4141 3.33728 14.7743 4.94238 14.7743C6.15594 14.7743 7.29563 14.5822 8.36131 14.1976C9.42661 13.8131 10.337 13.2978 11.092 12.6521C11.847 12.0065 12.4981 11.2639 13.0451 10.424C13.5919 9.58423 13.9993 8.70746 14.2677 7.79381C14.5356 6.87996 14.6698 5.96431 14.6698 5.04686C14.6698 4.9642 14.6691 4.88998 14.6679 4.82462C14.6653 4.70178 14.9902 4.36929 15.353 4.0291C15.5167 3.87548 15.6728 3.71427 15.822 3.54517C16.151 3.17178 16.0053 3.00068 15.5278 3.1399Z"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect height="16" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/tdd-first-step-think" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/tdd-first-step-think', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self"><svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path class='text-text text-opacity-80 "fill-current"' d="M15.9968 15.9995V15.9988H16.0008V10.1308C16.0008 7.26016 15.3828 5.04883 12.0268 5.04883C10.4135 5.04883 9.33082 5.93416 8.88882 6.77349H8.84216V5.31683H5.66016V15.9988H8.97349V10.7095C8.97349 9.31683 9.23749 7.97016 10.9622 7.97016C12.6615 7.97016 12.6868 9.55949 12.6868 10.7988V15.9995H15.9968Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M0.264648 5.31738H3.58198V15.9994H0.264648V5.31738Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M1.92133 0C0.860667 0 0 0.860667 0 1.92133C0 2.982 0.860667 3.86067 1.92133 3.86067C2.982 3.86067 3.84267 2.982 3.84267 1.92133C3.842 0.860667 2.98133 0 1.92133 0V0Z"></path></g><defs><clippath id="clip0"><rect fill="white" height="16" width="16"></rect></clippath></defs></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cm_rp_wrp">
+<div class="cm_rp_inner">
+<div class="cm_rp_header">
+<div class="cm_rp_title">
+<p>Read More</p>
+</div>
+<div class="cm_rp_subtitle">
+<h2>Related Posts</h2>
+</div>
+</div>
+<div class="cm_rp_list">
+<a href="https://focusedlabs.io/blog/deploying-concourse-with-concourse-up">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Deploying Concourse with concourse-up" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/13645f56d7652a00a3f22ba999c63e183450fcd2-1440x300.gif"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.01.2020
+                
+                
+                | Devops
+                
+                | Backend
+                
+                | Testing
+                
+                 | Austin Vance
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Deploying Concourse with concourse-up
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/editing-kubernetes-secrets-inline">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Editing Kubernetes Secrets Inline" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/0b950b93520d52ddd1ccbb463a4862fd0f99f96a-1000x420.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">07.12.2020
+                
+                
+                | Devops
+                
+                | Tutorial
+                
+                 | Austin Vance
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Editing Kubernetes Secrets Inline
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/software-is-best-demonstrated-not-explained">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Software is Best Demonstrated, not Explained" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/42cbacf04f63bed47e453d90773c576ba2c0ce0e-900x588%20%281%29.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">03.10.2023
+                
+                
+                | Culture
+                
+                | Teams
+                
+                 | Luke Mueller
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Software is Best Demonstrated, not Explained
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/never-forget-to-remember-with-husky-githooks">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Never Forget To Remember with Husky + Githooks" src="https://focusedlabs.io/hubfs/Imported%20sitepage%20images/69.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">03.07.2023
+                 | Michael Steichen
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Never Forget To Remember with Husky + Githooks
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/pivotal-web-services-ssl-and-a-custom-domain">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Pivotal Web Services, SSL, and a Custom Domain" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/6cc37a10f49fc6d866397076435adbd918d58d6d-3149x2103.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.01.2020
+                
+                
+                | Devops
+                
+                 | Austin Vance
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Pivotal Web Services, SSL, and a Custom Domain
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/i-built-a-rube-goldburg-machine-to-monitor-my-smoker">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="I Built a Rube Goldburg Machine to Monitor My Smoker using k8s, Prometheus, and Grafana 🍖🍖🍖🍖" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/ffefbc17a1b0802fb4d6823462c7cf796d85cd4f-1000x420.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">01.05.2020
+                
+                
+                | Devops
+                
+                 | Austin Vance
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  I Built a Rube Goldburg Machine to Monitor My Smoker using k8s, Prometheus, and Grafana 🍖🍖🍖🍖
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/sentry-with-spring-boot-the-better-way">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Sentry with Spring Boot (The Better Way)" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/9ba3b6ee24561f7bfdf47638162787e28928c758-1000x420.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.24.2020
+                
+                
+                | Devops
+                
+                | Tutorial
+                
+                | Backend
+                
+                 | James McMahon
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Sentry with Spring Boot (The Better Way)
+                </h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/footer.html"><footer class="footer">
+<div class="ft_img_left_wrp">
+<div class="ft_img_left_inner">
+<div class="ft_img_left">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_left_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_left_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_left_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="ft_img_top">
+<div class="ft_img_top_inner">
+<div class="ft_img_top_img">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_top_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_top_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/mobile_animated_imge.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="dnd-section">
+<div class="hs_footer">
+<div class="hs_ft_inner">
+<div class="hs_ft_col">
+<div class="hs_ft_logo">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_logo_hs_logo_widget" style=""><a href="/" id="hs-link-logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="FocusedLabs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="FocusedLabs" width="0"/></a></span>
+</div>
+</div>
+<div class="footer_info">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_information" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_information_" style=""><p>433 W Van Buren St<br \=""/>
+Suite 1100-B<br \=""/>
+Chicago, IL 60607<br \=""/>
+<a href="tel:+17083038088">(708) 303-8088</a>
+</p></span></div>
+</div>
+<div class="footer_info_link">
+<a href="mailto:work@focusedlabs.io">work@focusedlabs.io</a>
+</div>
+</div>
+<div class="hs_ft_col ft_2">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_1" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93462616833" data-sitemap-name="default" id="hs_menu_wrapper_menu_1" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">COMPANY</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io" role="menuitem">Home</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact Us</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/privacy-policy" role="menuitem">Privacy Policy</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="hs_ft_col ft_3">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_2" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93463743912" data-sitemap-name="default" id="hs_menu_wrapper_menu_2" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">EXPLORE</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/case-studies" role="menuitem">Case Studies</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="fooer_sp"></div>
+</div>
+</div>
+<div class="hs_bt_footer">
+<div class="ft_copyright">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_copyright" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_copyright_" style=""><p>© 2023 Focused Labs, All Rights Reserved.</p></span></div>
+</div>
+<div class="ft_social">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_footer_icons" style=""><ul class="ft_icons">
+<li>
+<a href="https://www.facebook.com/withfocus">
+<img alt="facebook" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/facebook.svg"/>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/BuildWithFocus">
+<img alt="twitter" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/twitter.svg"/>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/build-focused-labs/">
+<img alt="linkedin" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/linkedin.svg"/>
+</a>
+</li>
+<li>
+<a href="https://github.com/focused-labs">
+<img alt="github" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/github.svg"/>
+</a>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="ft_img_right_wrp">
+<div class="ft_img_right_inner">
+<div class="ft_img_right">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_right_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_right_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_right_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+</footer>
+<div class="back_to_top">
+<span class="back_top">
+<svg class="block group-hover:scale-125 transform transition-transform" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m17 11-5-5-5 5M17 18l-5-5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div></div>
+</div>
+<!-- HubSpot performance collection script -->
+<script defer="" src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429719598/1681240383335/FocusedLabs_November_2022/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/focusedlabs.io\/blog\/tdd-first-step-think"]);
+_hsq.push(["setPageId", "93891522202"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 93891522202,
+    "legacyPageId": "93891522202",
+    "contentFolderId": null,
+    "contentGroupId": 93617369930,
+    "abTestId": null,
+    "languageVariantId": 93891522202,
+    "languageCode": "en",
+    
+}]);
+</script>
+<script async="" defer="" id="hs-script-loader" src="/hs/scriptloader/5845897.js" type="text/javascript"></script>
+<!-- End of HubSpot Analytics Code -->
+<script type="text/javascript">
+var hsVars = {
+    render_id: "649e51dc-a484-4805-b44d-093bd60d128b",
+    ticks: 1700477569196,
+    page_id: 93891522202,
+    
+    content_group_id: 93617369930,
+    portal_id: 5845897,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "93891522202",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+<script defer="" src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</body></html>

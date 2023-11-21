@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<title>Small Steps Towards Effective Prompt Engineering</title>
+<link href="https://focusedlabs.io/hubfs/focusedlabs-favicon.png" rel="shortcut icon"/>
+<meta content="Learn how to make incremental improvements to generative AI with prompt engineering best practices" name="description"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951526/1686607647092/FocusedLabs_November_2022/css/templates/_blog.min.css" rel="stylesheet" type="text/css"/>
+<script>
+      var show = localStorage.getItem('show');
+      if(show === 'true'){
+        document.documentElement.classList.add('dark');
+      } 
+    </script>
+<script src="/hs/hsstatic/jquery-libs/static-1.4/jquery/jquery-1.11.2.js"></script>
+<script>hsjQuery = window['jQuery'];</script>
+<meta content="Learn how to make incremental improvements to generative AI with prompt engineering best practices" property="og:description"/>
+<meta content="Small Steps Towards Effective Prompt Engineering" property="og:title"/>
+<meta content="Learn how to make incremental improvements to generative AI with prompt engineering best practices" name="twitter:description"/>
+<meta content="Small Steps Towards Effective Prompt Engineering" name="twitter:title"/>
+<style>
+a.cta_button{-moz-box-sizing:content-box !important;-webkit-box-sizing:content-box !important;box-sizing:content-box !important;vertical-align:middle}.hs-breadcrumb-menu{list-style-type:none;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px}.hs-breadcrumb-menu-item{float:left;padding:10px 0px 10px 10px}.hs-breadcrumb-menu-divider:before{content:'›';padding-left:10px}.hs-featured-image-link{border:0}.hs-featured-image{float:right;margin:0 0 20px 20px;max-width:50%}@media (max-width: 568px){.hs-featured-image{float:none;margin:0;width:100%;max-width:100%}}.hs-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px}
+</style>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429468540/1694708451506/FocusedLabs_November_2022/css/main.min.css" rel="stylesheet"/>
+<link href="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93421951529/1690380436362/FocusedLabs_November_2022/css/theme-overrides.min.css" rel="stylesheet"/>
+<link href="//fonts.googleapis.com/css2?family=DM+Mono&amp;display=swap" rel="stylesheet"/>
+<style>
+</style>
+<script type="application/ld+json">
+{
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering"
+  },
+  "author" : {
+    "name" : "Peter Swartwout",
+    "url" : "https://focusedlabs.io/blog/author/peter-swartwout",
+    "@type" : "Person"
+  },
+  "headline" : "Small Steps Towards Effective Prompt Engineering",
+  "datePublished" : "2023-08-22T16:32:30.000Z",
+  "dateModified" : "2023-08-31T19:07:12.625Z",
+  "publisher" : {
+    "name" : "Focused Labs",
+    "logo" : {
+      "url" : "https://5845897.fs1.hubspotusercontent-na1.net/hubfs/5845897/FL%20Logo%20Mode=Light.png",
+      "@type" : "ImageObject"
+    },
+    "@type" : "Organization"
+  },
+  "@context" : "https://schema.org",
+  "@type" : "BlogPosting",
+  "image" : [ "https://focusedlabs.io/hubfs/Prompt%20Engineering.png" ]
+}
+</script>
+<!--  Added by GoogleAnalytics4 integration -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+if (!window._hsGoogleConsentRunOnce) {
+  window._hsGoogleConsentRunOnce = true;
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'analytics_storage': 'denied'
+  });
+
+  var _hsp = window._hsp = window._hsp || [];
+
+  _hsp.push(['addPrivacyConsentListener', function(consent){
+    var hasAnalyticsConsent = consent && (consent.allowed || (consent.categories && consent.categories.analytics));
+    var hasAdsConsent = consent && (consent.allowed || (consent.categories && consent.categories.advertisement));
+
+    gtag('consent', 'update', {
+      'ad_storage': hasAdsConsent ? 'granted' : 'denied',
+      'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+    });
+  }]);
+}
+
+gtag('js', new Date());
+gtag('set', 'developer_id.dZTQ1Zm', true);
+gtag('config', 'G-3W4SF8W0DX');
+</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-3W4SF8W0DX"></script>
+<!-- /Added by GoogleAnalytics4 integration -->
+<!--  Added by GoogleTagManager integration -->
+<script>
+var _hsp = window._hsp = window._hsp || [];
+
+var hsLoadGtm = function loadGtm() {
+    if(window._hsGtmLoadOnce) {
+      return;
+    }
+
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NFKNBDPP');
+
+    window._hsGtmLoadOnce = true;
+};
+
+var useGoogleConsentMode = false;
+
+if (!useGoogleConsentMode){
+    _hsp.push(['addPrivacyConsentListener', function(consent){
+      if(consent.allowed || (consent.categories && consent.categories.analytics)){
+        hsLoadGtm();
+      }
+  }]);
+} else{
+    if(!window._hsGoogleConsentRunOnce){
+      window._hsGoogleConsentRunOnce=true;
+
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('consent','default',{
+        'ad_storage':'denied',
+        'analytics_storage':'denied'
+      });
+
+      gtag('set','developer_id.dZTQ1Zm',true);
+
+      _hsp.push(['addPrivacyConsentListener',function(consent){
+      var hasAnalyticsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.analytics));
+      var hasAdsConsent=consent&&(consent.allowed||(consent.categories&&consent.categories.advertisement));
+
+      gtag('consent','update',{
+        'ad_storage':hasAdsConsent?'granted':'denied',
+        'analytics_storage':hasAnalyticsConsent?'granted':'denied'
+      });
+    }]);
+  }
+
+  hsLoadGtm();
+}
+</script>
+<!-- /Added by GoogleTagManager integration -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NFKNBDPP');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript">
+window.__lo_site_id = 330223;
+
+	(function() {
+		var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+		wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+	  })();
+	</script>
+<link href="https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering?hs_amp=true" rel="amphtml"/>
+<meta content="https://focusedlabs.io/hubfs/Prompt%20Engineering.png#keepProtocol" property="og:image"/>
+<meta content="4096" property="og:image:width"/>
+<meta content="2672" property="og:image:height"/>
+<meta content="Sneakered feet walking up a flight of industrial stairs" property="og:image:alt"/>
+<meta content="https://focusedlabs.io/hubfs/Prompt%20Engineering.png#keepProtocol" name="twitter:image"/>
+<meta content="Sneakered feet walking up a flight of industrial stairs" name="twitter:image:alt"/>
+<meta content="https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<link href="https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<link href="https://focusedlabs.io/blog/rss.xml" rel="alternate" type="application/rss+xml"/>
+<meta content="focusedlabs.io" name="twitter:domain"/>
+<meta content="@BuildWithFocus" name="twitter:site"/>
+<script src="//platform.linkedin.com/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<meta content="en" http-equiv="content-language"/>
+<meta content="HubSpot" name="generator"/></head>
+<body>
+<!--  Added by GoogleTagManager integration -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- /Added by GoogleTagManager integration -->
+<div class="body-wrapper hs-content-id-130616548493 hs-blog-post hs-blog-id-93617369930">
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/header.html"><header class="header">
+<a class="header__skip" href="#main-content">Skip to content</a>
+<div class="header_container">
+<div class="container">
+<div class="header_row">
+<div class="header_logo">
+<div class="light_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_light_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_light_logo_hs_logo_widget" style=""><a href="/" id="hs-link-light_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="dark_image">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_dark_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_dark_logo_hs_logo_widget" style=""><a href="/" id="hs-link-dark_logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="Focused Labs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/light_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="Focused Labs" width="0"/></a></span>
+</div>
+</div>
+<div class="mobile_trigger">
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+<span aria-hidden="true"></span>
+</div>
+</div>
+<div class="header_menu">
+<div class="custom_menu_primary">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93449046703" data-sitemap-name="default" id="hs_menu_wrapper_menu" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+<li class="hs-menu-item hs-menu-depth-1" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact</a></li>
+</ul>
+</div></span>
+</div>
+</div>
+<div class="mb_menu_wrp">
+<div class="mb_menu">
+</div>
+<div class="mode_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="mb_menu_imge_wrp">
+<div class="mb_menu_imge">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_Menu_bg" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_Menu_bg_" style=""><img alt="Accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/menu_bg.png" style="width:0px;border-width:0px;border:0px;" title="Accent" width="0"/></span></div>
+</div>
+</div>
+<div class="header_right">
+<div class="mode_toggle mob_toggle">
+<div class="mod_togl_trigger">
+<svg class="mr-2 light_icon" fill="none" height="12" width="12" xmlns="http://www.w3.org/2000/svg"><path d="M6 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 .5v1M6 10.5v1M2.11 2.11l.71.71M9.18 9.18l.71.71M.5 6h1M10.5 6h1M2.11 9.89l.71-.71M9.18 2.82l.71-.71" stroke="#2B2340" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<svg class="mr-2 dark_icon" fill="none" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 5.395A4.5 4.5 0 1 1 4.605.5 3.5 3.5 0 0 0 9.5 5.395Z" stroke="#F4E8FF" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.7"></path></svg>
+<div class="mode_toggle_inr">
+<label id="toggle-header-menu-label">
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header></div>
+<main class="body-container-wrapper" id="main-content">
+<div class="body-container body-container--blog-post">
+<div class="blog_post_wrapper">
+<div class="post_inner">
+<div class="post_bnr_wrp">
+<div class="post_bnr">
+<a href="https://focusedlabs.io/blog">
+<svg class="mb_back" fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg"><path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path><path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+<p>
+                Blog
+              </p>
+</a>
+<div class="post_bnr_icon">
+<a href="https://focusedlabs.io/blog">
+<svg fill="none" height="40" viewbox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.6668 20H8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<path d="M20.0002 31.6668L8.3335 20.0002L20.0002 8.3335" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</a>
+<div class="post_bnr_title">
+<h1><span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="text" id="hs_cos_wrapper_name" style="">Small Steps Towards Effective Prompt Engineering</span></h1>
+</div>
+</div>
+<div class="hs_date_t2">
+              08.22.2023 |
+              
+              
+              AI
+              
+              LLM
+              
+              Prompt Engineering
+              
+               | <a href="https://focusedlabs.io/blog/author/peter-swartwout">
+  Peter Swartwout
+</a>
+</div>
+</div>
+</div>
+<div class="post_featured_image">
+<img alt="Small Steps Towards Effective Prompt Engineering" src="https://focusedlabs.io/hubfs/Prompt%20Engineering.png"/>
+</div>
+<div class="blog_post_content">
+<div class="blog_post_body">
+<span class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text" id="hs_cos_wrapper_post_body" style=""><div data-article-id="1384389" id="article-body">
+<p>This article will introduce the concept of prompt engineering, and more specifically, <strong>programmatic</strong> prompt engineering, and how it relates to building applications using Large Language Models (LLMs).</p>
+<p>The topic is vast and this article will only scratch the surface. Our team is just beginning to explore prompt engineering, and my hope is to show that small changes to the LLM prompt can have a big impact on the accuracy and value of the results.</p>
+<h3>What we are building</h3>
+<p>For the purpose of expanding our knowledge of AI while building something useful, the Focused Labs special projects team focused on creating a “knowledge hub” for use by visitors to the Focused Labs website. Early iterations of the knowledge hub will be similar to a chatbot, but with a richer natural language interface than is typically seen. We like to think of it as an “intelligent search bar”.</p>
+<h3>Prompt Engineering</h3>
+<p>So what do we mean by prompt engineering? In its simplest form, it means anything the end user can do to steer the LLM to the desired results. Here’s a simple example.</p>
+<div>
+<pre>| What are the Focused Labs core values?<br/><br/>The Focused Labs core values are: Love your Craft, Listen First, and Empathy &amp; Collaboration <br/><code><br/></code></pre>
+<div>
+<div><svg height="20px" viewbox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"> </path></svg></div>
+</div>
+</div>
+<p>Not bad, but as much as we personally value “Empathy &amp; Collaboration”, it is not a core value. Next, let’s try</p>
+<div>
+<pre>| What are the three Focused Labs core values?<br/><br/>The three Focused Labs core values are:<br/><br/>1. Love your Craft<br/>2. Listen First<br/>3. Learn Why <code><br/></code></pre>
+<div>
+<div><svg height="20px" viewbox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"> </path></svg></div>
+</div>
+<p>Spot on. Obviously, this is a contrived example, since you need to know there are 3 core values before you ask the question. But it demonstrates how sensitive LLMs can be to the precise text of their prompts.</p>
+<p>(Aside: adding <strong>three</strong> caused the model to format the response as a numbered list. Formatting is another common use case for prompt engineering.)</p>
+<p>For the knowledge hub, we don’t want the user to need to know anything about Focused Labs before using the tool. Instead, we want <strong>programmatic</strong> prompt engineering, or what I like to call “prompt expansion”.</p>
+<h3>What Makes a Good Prompt?</h3>
+<ol>
+<li><strong>Specificity.</strong> Tell the LLM as precisely as possible what you want it to do. Since for our use case, we can’t rely on the user to do this, we need to be clever with our programmatic-based engineering. So far, we have experimented with persona matching, aka “instructor-based” prompting, which we have done programmatically by asking the user to self-identify from a list of possible roles. (e.g. software engineer vs executive vs potential client). The user’s choice is then converted into a prompt enhancement as described in the next section.</li>
+<li><strong>Structure.</strong> Describe what you want the response to look like. This is known as “example-based prompting”. This can be simple formatting (e.g. list vs paragraph) but can also be quite complex, suggesting or mandating structure and even snippets of verbatim text you want the LLM to respond with. </li>
+<li><strong>Context.</strong> The LLM will produce better results if it remembers what you offered previously about yourself and the domain you are querying. You’ve probably seen this on e-commerce sites or customer service bots that engage you in a short conversation. All of your responses can be fed back to the LLM on subsequent queries. Later iterations of our knowledge hub will pass prior context to the LLM as part of its prompt. Stay tuned.</li>
+<li><span style="font-weight: bold;">Many Others.</span> There are some <a data-token-index="1" href="https://towardsdatascience.com/what-i-learned-pushing-prompt-engineering-to-the-limit-c40f0740641f" rel="noopener noreferrer" tabindex="0"><span>good examples here</span></a> targeted to problem-solving and reasoning questions, such as “list the steps needed to remodel a kitchen”, which do not apply directly to our use case but are interesting to think about.</li>
+</ol>
+<h3>Querying with a Persona</h3>
+<p>We discovered early on that adding a phrase like “You are an expert software engineer” to queries can improve the results. This is known as instructor-based prompting. It steers the LLM towards a desired perspective when responding to your question.</p>
+<p>You can do this yourself when interacting with ChatGPT as shown in <a href="https://learn.deeplearning.ai/chatgpt-prompt-eng/lesson/1/introduction">this excellent introduction</a>.</p>
+<p>In our case, in the UI we asked the user to select 1 of 5 personas and programmatically added a phrase to each query.</p>
+<div data-hs-responsive-table="true" style="overflow-x: auto; max-width: 100%; width: 100%; margin-left: auto; margin-right: auto;">
+<table style="width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid #99acc2; height: 166px;">
+<tbody>
+<tr style="height: 33px;">
+<td style="width: 28.5669%; padding: 4px; height: 33px;"><strong>Persona</strong></td>
+<td style="width: 71.4331%; padding: 4px; height: 33px;"><strong>Phrase</strong></td>
+</tr>
+<tr style="height: 33px;">
+<td style="width: 28.5669%; padding: 4px; height: 33px;">Any Role</td>
+<td style="width: 71.4331%; padding: 4px; height: 33px;">None</td>
+</tr>
+<tr style="height: 33px;">
+<td style="width: 28.5669%; padding: 4px; height: 33px;">Software Engineer</td>
+<td style="width: 71.4331%; padding: 4px; height: 33px;">You are an expert software engineer</td>
+</tr>
+<tr style="height: 33px;">
+<td style="width: 28.5669%; padding: 4px; height: 33px;">UX / UI Designer</td>
+<td style="width: 71.4331%; padding: 4px; height: 33px;">You are an expert UX / UI designer</td>
+</tr>
+<tr style="height: 33px;">
+<td style="width: 28.5669%; padding: 4px; height: 33px;">Executive</td>
+<td style="width: 71.4331%; padding: 4px; height: 33px;">You are an executive at a successful company</td>
+</tr>
+<tr>
+<td style="width: 28.5669%; padding: 4px;">Potential Client</td>
+<td style="width: 71.4331%; padding: 4px;">You are evaluating Focused Labs as a potential partner</td>
+</tr>
+</tbody>
+</table>
+<p>For example, when no persona is selected, here is the response: </p>
+<div>
+<pre>| What services does Focused Labs offer? <br/><br/>Focused Labs offers a range of services including agile workflow development, DevOps culture implementation, user-centered design, lean product development, software engineering, extreme programming, automation, performance monitoring, guidance on transitioning away from a top-down workflow, building trust with teams, building highly productive software teams in a traditional IT environment, … etc …<code><br/></code></pre>
+<div>
+<div><svg height="20px" viewbox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"> </path></svg></div>
+<p>Pretty good content, but it’s one terribly dense run-on sentence. Now let’s ask again, but as a software engineer:<span style="background-color: transparent; color: #090318; font-family: Inter, sans-serif; font-size: 15.984px;"> </span></p>
+</div>
+<div>
+<pre><code>Persona: Software Engineer<br/><br/>| What services does Focused Labs offer?<br/><br/>Expanded Prompt:<br/><br/>| You are an expert software engineer. What services does Focused Labs offer?<br/><br/></code>Focused Labs offers the following services: <br/>1. Technology consulting services with a focus on problem-solving and delivering solutions in any stack or platform. 2. Specialization in agile workflow, DevOps, and delivering software at scale. <br/>3. Assistance in modeling a culture that can continuously deliver software and achieve digital transformation. <br/>4. Services related to building highly productive software teams in traditional IT environments. <br/>5. Building marketplace platforms to enable new business models. <br/>6. Building strong remote cultures with transparent leadership. <br/>7. Helping organizations overcome long-standing problems. <br/>8. Designing and documenting repeatable publication flows. 9. Providing critical tools to deliver high-quality software over time.</pre>
+</div>
+<p>Better content, targeted to a developer, and so much more readable. Apparently, software engineers like numbered lists. </p>
+<p>Here is another example of persona-based prompting:</p>
+<div>
+<pre><code>Persona: Software Engineer<br/><br/>| What skills are needed to get a job at Focused Labs?<br/><br/>Expanded Prompt:<br/><br/>| You are an expert software engineer. What skills are needed to get a job at Focused Labs? <br/><br/></code>To get a job at Focused Labs as an expert software engineer, the following skills are needed: <br/>1. Experience with agile workflow and DevOps. <br/>2. Experience in scaling technology. <br/>3. Passion for writing high-quality code and pursuing mastery as a software engineer. <br/>4. Excellent communication and collaboration skills. <br/>5. Ability to work well with others. <br/>6. Experience in building highly productive software teams in a traditional IT environment. <br/>7. Experience in building a marketplace platform to enable a new business model. <br/>8. Ability to build a strong remote culture with transparency leadership needs. <br/>9. Ability to help organizations overcome long-standing problems. <br/>10. Experience in designing and documenting a repeatable publication flow. <br/>11. Strong communication and collaboration skills. <br/>12. Ability to work independently and as part of a team. <br/>13. Passion for learning and staying up-to-date with the latest technologies.</pre>
+</div>
+<p>So you can see that some of the response (#7) is a bit head-scratchy, but overall it’s pretty good.</p>
+<div>
+<pre>Persona: UX / UI Designer<br/><br/>| What skills are needed to get a job at Focused Labs? <br/><br/>Expanded Prompt:<br/><br/>| You are an expert UX / UI designer. What skills are needed to get a job at Focused Labs? <br/><br/>To get a job at Focused Labs as an expert UX/UI designer, the following skills are needed: <br/><br/>1. Knowledge of user experience design principles and best practices<br/>2. Ability to create user-friendly interfaces and intuitive user flows<br/>3. Proficiency in design software such as Adobe Creative Suite, Sketch, Figma, and InVision<br/>4. Understanding of web technologies such as HTML, CSS, and JavaScript<br/>5. Knowledge of accessibility standards and how to create accessible designs<br/>6. Ability to collaborate with developers, product managers, and other stakeholders<br/>7. Excellent communication and problem-solving skills<br/>8. Ability to work independently and manage multiple projects simultaneously<br/>9. Understanding of user research methods and how to use data to inform design decisions</pre>
+<p>Bingo. This example shows how that added phrase completely changes the response.</p>
+<p>The constraint of “UX / UI Designer” and “Software Engineer” being hard-coded into the prompt is both a help to the results and a hindrance to flexibility.</p>
+<hr/>
+<h3>Querying with Structure</h3>
+<p>In our most ambitious experiment with prompt engineering, we built some structure around the use of the LLM as a “helpful assistant”. This directs the language completion function in the LLM towards a specific goal. Below is an example prompt, coded in Python, which can be injected with variables assigned by the program and the user. </p>
+<pre>return PromptTemplate( <br/>     template="""<br/><br/>You are a helpful virtual assistant to represent Focused Labs. Focused Labs is a boutique software consulting firm that specializes in enterprise application development and digital transformation. <br/><br/>Visitors will ask you questions about the inner workings of the company. Questions could cover areas such as process, procedure, policy, and culture. Use only context Focused Labs Domain Data to provide answers. <br/><br/>Think this through step by step. <br/><br/>If you don't know the answer, just say "Hmm, Im not sure, please contact customer support at {company_email} for further assistance." Don't try to make up an answer. <br/><br/>Please provide as detailed an answer as possible. <br/><br/>When considering your answer, answer from the perspective of a {personality}. <br/><br/>Evaluate this question and see if it relates to Focused Labs. If so, answer this question with regards to Focused Labs: {query} <br/><br/>If it does not relate to Focused Labs, then say "Hmm, I'm not sure."<br/><br/>""", <br/>input_variables=["query", "company_email", "personality"], <br/>)</pre>
+</div>
+<p>Here “you” refers to the LLM, or language completion engine. This was successful in improving accuracy and reducing hallucinations, and it will continue to be tweaked through a process of trial and error.</p>
+<p>There are several nuances in the sample prompt above.</p>
+<ol>
+<li>Giving the LLM a persona aa “helpful virtual assistant” helps shape tone, discussed earlier.</li>
+<li>“Think this through step by step” discourages hallucination by encouraging the model to consider several different sources before arriving at the final answer.</li>
+<li>“If you don’t know the answer” also discourages hallucination.</li>
+<li>“Please provide as detailed an answer as possible” discourages summarization, which can distort the original source information. It can be dangerous to include this statement in a chatbot prompt because the answers may be too long.</li>
+<li>“Answer from the perspective of” steers the language model to use language familiar to the particular personality, e.g. software engineer vs executive, as described earlier.</li>
+<li>Finally, “if it relates to Focused Labs” is an attempt to drive the answer to the information sources instead of the broader knowledge in the LLM. For example whimsical queries such as “what is your favorite color?” will result in an “I’m not sure” instead of speculating about what color is the favorite of Focused Labs.</li>
+</ol>
+<h3>Conclusions</h3>
+<p>Even an introductory article like this one demonstrates how important it is to craft the LLM prompt as specifically as possible, and with as much context as possible. I encourage the reader to dive deeper with the articles cited below.</p>
+<h3>What’s Next</h3>
+<p><span>If you have an AI development project and would like some expert help from our Focused Labs consultants, complete our </span><span><a href="https://bit.ly/43sb8d7" rel="noopener">Contact Us form</a><a href="https://bit.ly/43sb8d7" rel="noopener"> </a></span><span>and we will have a human chat.</span></p>
+<h3>References</h3>
+<ul>
+<li><a href="https://learn.deeplearning.ai/chatgpt-prompt-eng/lesson/1/introduction">ChatGPT Prompt Engineering for Developers</a> - a very understandable video (about 1 hour) that introduces many user-centric concepts</li>
+<li><a href="https://towardsdatascience.com/what-i-learned-pushing-prompt-engineering-to-the-limit-c40f0740641f">What I Learned Pushing Prompt Engineering to the Limit</a> - deep dive, oriented towards computer vision, but still generally useful for learning</li>
+<li><a href="https://www.linkedin.com/pulse/programmatic-prompt-engineering-concepts-joseph-schmidt/">Programmatic Prompt Engineering Concepts</a> - this article enumerates several programmatic concepts that we could explore in the future.</li>
+</ul>
+<p><br/><a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/"></a></p>
+</div>
+</div>
+</div>
+</div></span>
+</div>
+</div>
+<div class="post_share">
+<div class="post_share_title">
+<p>Share</p>
+</div>
+<div class="post_share_icons">
+<div class="post_share_links">
+<a href="http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering" onclick="window.open('http://www.facebook.com/share.php?u=https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6652 0.491943H1.32043C0.863495 0.492218 0.493073 0.862824 0.493164 1.31995V14.6647C0.493439 15.1216 0.864044 15.492 1.32117 15.4919H8.50586V9.69116H6.55762V7.42065H8.50586V5.74973C8.50586 3.81201 9.68881 2.75732 11.4173 2.75732C12.2452 2.75732 12.9567 2.81903 13.1641 2.84659V4.87183H11.9721C11.0317 4.87183 10.8496 5.3187 10.8496 5.97458V7.42065H13.0981L12.8052 9.69116H10.8496V15.4919H14.6652C15.1224 15.492 15.4931 15.1215 15.4932 14.6643C15.4932 14.6642 15.4932 14.6641 15.4932 14.6639V1.31921C15.493 0.862274 15.1223 0.491852 14.6652 0.491943Z" fill="#2B2340" fill-opacity="0.8"></path>
+</svg>
+</a>
+<a href="javascript:;" onclick="window.open('https://twitter.com/intent/tweet?url=https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering&amp;text=Small Steps Towards Effective Prompt Engineering','newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self" title="twitter">
+<svg height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path class='text-text text-opacity-80 "fill-current"' d="M15.5278 3.1399C15.4489 3.16295 15.37 3.1844 15.2911 3.20438C14.809 3.32613 14.7646 3.16548 15.1137 2.81104C15.2701 2.65221 15.4082 2.47946 15.5282 2.29288C15.797 1.87449 15.5638 1.69203 15.1063 1.88747C14.9432 1.95719 14.7773 2.0204 14.6091 2.07676C14.1377 2.23505 13.4688 1.99627 13.0488 1.72988C12.5186 1.39362 11.916 1.22559 11.2408 1.22559C10.295 1.22559 9.48891 1.55913 8.82196 2.2257C8.15522 2.89261 7.82167 3.69896 7.82167 4.64448C7.82167 4.77379 7.82906 4.90508 7.84366 5.03818C7.86761 5.25484 7.50272 5.4119 7.01032 5.34236C5.94517 5.19198 4.93317 4.86923 3.97412 4.37447C3.02298 3.88386 2.18352 3.26648 1.45589 2.52228C1.10807 2.1666 0.637649 2.19724 0.507779 2.67737C0.429969 2.96518 0.39127 3.26451 0.39127 3.57539C0.39127 4.16126 0.52885 4.70464 0.804069 5.20551C0.940943 5.45478 1.10124 5.68044 1.28532 5.88235C1.59494 6.22222 1.54756 6.41943 1.11657 6.29859C0.685765 6.17776 0.370052 5.99836 0.370052 6.01007C0.370052 6.02178 0.370052 6.03132 0.370052 6.03132C0.370052 6.85674 0.629232 7.58201 1.14792 8.20643C1.46742 8.59113 1.83861 8.8883 2.26133 9.0976C2.70709 9.3184 2.91474 9.44156 2.66547 9.47382C2.51509 9.49327 2.3638 9.50298 2.21162 9.50298C2.10862 9.50298 2.00056 9.4983 1.88782 9.48877C1.70951 9.47364 1.67746 9.84518 1.94779 10.2627C2.16265 10.5944 2.43766 10.8864 2.77268 11.1385C3.11344 11.3952 3.48068 11.5794 3.87382 11.6916C4.35219 11.828 4.44819 12.0764 4.02167 12.3321C2.96627 12.9654 1.79829 13.282 0.517932 13.282C0.373672 13.282 0.236063 13.2787 0.104604 13.2724C-0.123588 13.2615 0.0295014 13.4624 0.470022 13.6931C1.84656 14.4141 3.33728 14.7743 4.94238 14.7743C6.15594 14.7743 7.29563 14.5822 8.36131 14.1976C9.42661 13.8131 10.337 13.2978 11.092 12.6521C11.847 12.0065 12.4981 11.2639 13.0451 10.424C13.5919 9.58423 13.9993 8.70746 14.2677 7.79381C14.5356 6.87996 14.6698 5.96431 14.6698 5.04686C14.6698 4.9642 14.6691 4.88998 14.6679 4.82462C14.6653 4.70178 14.9902 4.36929 15.353 4.0291C15.5167 3.87548 15.6728 3.71427 15.822 3.54517C16.151 3.17178 16.0053 3.00068 15.5278 3.1399Z"></path>
+</g>
+<defs>
+<clippath id="clip0">
+<rect height="16" width="16"></rect>
+</clippath>
+</defs>
+</svg>
+</a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=https://focusedlabs.io/blog/small-steps-towards-effective-prompt-engineering', 'newwindow', 'width=530,height=600,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,copyhistory=no,resizable=yes'); return false;" target="_self"><svg fill="none" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path class='text-text text-opacity-80 "fill-current"' d="M15.9968 15.9995V15.9988H16.0008V10.1308C16.0008 7.26016 15.3828 5.04883 12.0268 5.04883C10.4135 5.04883 9.33082 5.93416 8.88882 6.77349H8.84216V5.31683H5.66016V15.9988H8.97349V10.7095C8.97349 9.31683 9.23749 7.97016 10.9622 7.97016C12.6615 7.97016 12.6868 9.55949 12.6868 10.7988V15.9995H15.9968Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M0.264648 5.31738H3.58198V15.9994H0.264648V5.31738Z"></path><path class='text-text text-opacity-80 "fill-current"' d="M1.92133 0C0.860667 0 0 0.860667 0 1.92133C0 2.982 0.860667 3.86067 1.92133 3.86067C2.982 3.86067 3.84267 2.982 3.84267 1.92133C3.842 0.860667 2.98133 0 1.92133 0V0Z"></path></g><defs><clippath id="clip0"><rect fill="white" height="16" width="16"></rect></clippath></defs></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cm_rp_wrp">
+<div class="cm_rp_inner">
+<div class="cm_rp_header">
+<div class="cm_rp_title">
+<p>Read More</p>
+</div>
+<div class="cm_rp_subtitle">
+<h2>Related Posts</h2>
+</div>
+</div>
+<div class="cm_rp_list">
+<a href="https://focusedlabs.io/blog/what-to-do-when-llms-hallucinate">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="What To Do When LLMs Hallucinate" src="https://focusedlabs.io/hubfs/AbstractColors.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.21.2023
+                
+                
+                | ChatGPT
+                
+                | AI
+                
+                | LLM
+                
+                 | Sarah Kainec
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  What To Do When LLMs Hallucinate
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/focused-on-culture">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Focused On: Culture" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/86b08b318cb4c6457a6e7935c41d2a9727e64d3f-1000x420.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">11.19.2020
+                
+                
+                | Culture
+                
+                 | Ryan Taylor
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Focused On: Culture
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/top-6-things-i-learned-while-building-a-domain-specific-custom-ai-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot" src="https://focusedlabs.io/hubfs/AI-books.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.19.2023
+                
+                
+                | Testing
+                
+                | AI
+                
+                | chatbot
+                
+                | Llama Index
+                
+                | Llangchain
+                
+                | vector embeddings
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Top 6 Things I Learned While Building a Domain-Specific Custom AI ChatBot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/6-tips-to-improving-your-chatgpt-coding-experience">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="6 Tips to Improving Your ChatGPT Coding Experience" src="https://focusedlabs.io/hubfs/Marketing%20Illustration.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">05.30.2023
+                
+                
+                | ChatGPT
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  6 Tips to Improving Your ChatGPT Coding Experience
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/architecture-domain-specific-custom-chatbot">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Basic Architecture of a Domain Specific Custom AI Chatbot" src="https://focusedlabs.io/hubfs/Architecture.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">08.16.2023
+                
+                
+                | AI
+                
+                | LLM
+                
+                | Architecture
+                
+                | Langchain
+                
+                 | Kaylynn Watson
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Basic Architecture of a Domain Specific Custom AI Chatbot
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/lightning-talks-the-best-activity-youre-not-doing-yet">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Lightning Talks: the best activity you’re not doing yet" src="https://focusedlabs.io/hubfs/Untitled%20design-1.png"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">10.03.2023
+                
+                
+                | Culture
+                
+                 | Peter Swartwout
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Lightning Talks: the best activity you’re not doing yet
+                </h3>
+</div>
+</div>
+</a>
+<a href="https://focusedlabs.io/blog/cross-parameter-validation-with-spring">
+<div class="cm_rec__t2_image">
+<div class="cm_rec_t2__img">
+<div class="cm_rec_t2__img_inner">
+<img alt="Cross-Parameter Validation with Spring" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/b38c4c89ead7f1862f34d8ad4008f8c8d6fe1d39-1000x420.jpg"/>
+</div>
+</div>
+</div>
+<div class="cm_rec_content_t2">
+<div class="hs_date_t2">11.03.2020
+                
+                
+                | Backend
+                
+                 | Ryan Taylor
+              </div>
+<div class="hs_rec_sml_title">
+<h3>
+                  Cross-Parameter Validation with Spring
+                </h3>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div data-global-resource-path="FocusedLabs_November_2022/templates/partials/footer.html"><footer class="footer">
+<div class="ft_img_left_wrp">
+<div class="ft_img_left_inner">
+<div class="ft_img_left">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_left_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_left_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_left_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="ft_img_top">
+<div class="ft_img_top_inner">
+<div class="ft_img_top_img">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_top_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_top_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/mobile_animated_imge.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+<div class="dnd-section">
+<div class="hs_footer">
+<div class="hs_ft_inner">
+<div class="hs_ft_col">
+<div class="hs_ft_logo">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-logo" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_logo" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" data-hs-cos-general-type="widget" data-hs-cos-type="logo" id="hs_cos_wrapper_logo_hs_logo_widget" style=""><a href="/" id="hs-link-logo_hs_logo_widget" style="border-width:0px;border:0px;"><img alt="FocusedLabs" class="hs-image-widget" height="377" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_logo.svg" style="height: auto;width:0px;border-width:0px;border:0px;" title="FocusedLabs" width="0"/></a></span>
+</div>
+</div>
+<div class="footer_info">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_information" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_information_" style=""><p>433 W Van Buren St<br \=""/>
+Suite 1100-B<br \=""/>
+Chicago, IL 60607<br \=""/>
+<a href="tel:+17083038088">(708) 303-8088</a>
+</p></span></div>
+</div>
+<div class="footer_info_link">
+<a href="mailto:work@focusedlabs.io">work@focusedlabs.io</a>
+</div>
+</div>
+<div class="hs_ft_col ft_2">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_1" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93462616833" data-sitemap-name="default" id="hs_menu_wrapper_menu_1" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">COMPANY</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io" role="menuitem">Home</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/about" role="menuitem">About</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/services" role="menuitem">Services</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/contact" role="menuitem">Contact Us</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/privacy-policy" role="menuitem">Privacy Policy</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="hs_ft_col ft_3">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" data-hs-cos-general-type="widget" data-hs-cos-type="menu" id="hs_cos_wrapper_menu_2" style=""><div aria-label="Navigation Menu" class="hs-menu-wrapper active-branch no-flyouts hs-menu-flow-horizontal" data-menu-id="93463743912" data-sitemap-name="default" id="hs_menu_wrapper_menu_2" role="navigation">
+<ul role="menu">
+<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none"><a aria-expanded="false" aria-haspopup="true" href="javascript:;" role="menuitem">EXPLORE</a>
+<ul class="hs-menu-children-wrapper" role="menu">
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/case-studies" role="menuitem">Case Studies</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/blog" role="menuitem">Blog</a></li>
+<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="https://focusedlabs.io/careers" role="menuitem">Careers</a></li>
+</ul></li>
+</ul>
+</div></span>
+</div>
+<div class="fooer_sp"></div>
+</div>
+</div>
+<div class="hs_bt_footer">
+<div class="ft_copyright">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_copyright" style=""><span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text" id="hs_cos_wrapper_copyright_" style=""><p>© 2023 Focused Labs, All Rights Reserved.</p></span></div>
+</div>
+<div class="ft_social">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_footer_icons" style=""><ul class="ft_icons">
+<li>
+<a href="https://www.facebook.com/withfocus">
+<img alt="facebook" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/facebook.svg"/>
+</a>
+</li>
+<li>
+<a href="https://twitter.com/BuildWithFocus">
+<img alt="twitter" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/twitter.svg"/>
+</a>
+</li>
+<li>
+<a href="https://www.linkedin.com/company/build-focused-labs/">
+<img alt="linkedin" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/linkedin.svg"/>
+</a>
+</li>
+<li>
+<a href="https://github.com/focused-labs">
+<img alt="github" loading="lazy" src="https://focusedlabs.io/hubfs/FocusedLabs_November_2022/Images/github.svg"/>
+</a>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="ft_img_right_wrp">
+<div class="ft_img_right_inner">
+<div class="ft_img_right">
+<div class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_module widget-type-linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="module" id="hs_cos_wrapper_right_image" style="">
+<span class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image" id="hs_cos_wrapper_right_image_" style=""><img alt="accent" class="hs-image-widget" src="https://focusedlabs.io/hubfs/raw_assets/public/FocusedLabs_November_2022/images/footer_right_bg.png" style="width:0px;border-width:0px;border:0px;" title="accent" width="0"/></span></div>
+</div>
+</div>
+</div>
+</footer>
+<div class="back_to_top">
+<span class="back_top">
+<svg class="block group-hover:scale-125 transform transition-transform" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m17 11-5-5-5 5M17 18l-5-5-5 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+</div></div>
+</div>
+<!-- HubSpot performance collection script -->
+<script defer="" src="https://static.hsappstatic.net/content-cwv-embed/static-1.388/embed.js"></script>
+<script src="https://focusedlabs.io/hs-fs/hub/5845897/hub_generated/template_assets/93429719598/1681240383335/FocusedLabs_November_2022/js/main.min.js"></script>
+<script>
+var hsVars = hsVars || {}; hsVars['language'] = 'en';
+</script>
+<script src="/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js"></script>
+<!-- Start of HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "https:\/\/focusedlabs.io\/blog\/small-steps-towards-effective-prompt-engineering"]);
+_hsq.push(["setPageId", "130616548493"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 130616548493,
+    "legacyPageId": "130616548493",
+    "contentFolderId": null,
+    "contentGroupId": 93617369930,
+    "abTestId": null,
+    "languageVariantId": 130616548493,
+    "languageCode": "en",
+    
+}]);
+</script>
+<script async="" defer="" id="hs-script-loader" src="/hs/scriptloader/5845897.js" type="text/javascript"></script>
+<!-- End of HubSpot Analytics Code -->
+<script type="text/javascript">
+var hsVars = {
+    render_id: "4d022eed-2ba4-408f-b761-56152ba3be73",
+    ticks: 1700477595014,
+    page_id: 130616548493,
+    
+    content_group_id: 93617369930,
+    portal_id: 5845897,
+    app_hs_base_url: "https://app.hubspot.com",
+    cp_hs_base_url: "https://cp.hubspot.com",
+    language: "en",
+    analytics_page_type: "blog-post",
+    analytics_page_id: "130616548493",
+    category_id: 3,
+    folder_id: 0,
+    is_hubspot_user: false
+}
+</script>
+<script defer="" src="/hs/hsstatic/HubspotToolsMenu/static-1.191/js/index.js"></script>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-NFKNBDPP" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</body></html>
